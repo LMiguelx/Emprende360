@@ -6,8 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/degradado">
+    tools:context=".MainActivity">
 
 
     <TextView
@@ -28,7 +27,7 @@
         android:id="@+id/container"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corner_rectangle"
+        android:background="@color/white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +60,7 @@
             android:layout_height="34dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="0dp"
-            android:background="@drawable/rounded_corner_rectangle"
+            android:background="@color/white"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:paddingStart="6dp"
@@ -82,7 +81,7 @@
             android:layout_height="34dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="0dp"
-            android:background="@drawable/rounded_corner_rectangle"
+            android:background="@color/white"
             android:ems="10"
             android:inputType="textPassword"
             android:paddingStart="6dp"
@@ -96,7 +95,7 @@
             android:layout_marginStart="190dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
-            android:text="@string/strOlvidar"
+            android:text="Olvidar"
             android:textColor="#0C26BB"
             android:textSize="10sp"
             android:textStyle="bold|italic" />
@@ -123,8 +122,7 @@
             android:text="Ingresa por correo"
             android:textColor="#000000"
             android:textSize="12sp"
-            android:textStyle="bold"
-            app:icon="@drawable/icons36" />
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,7 +150,7 @@
                 android:layout_width="85dp"
                 android:layout_height="23dp"
                 android:layout_marginTop="2dp"
-                android:text="@string/strCrear_Cuenta"
+                android:text="trCrear_Cuenta"
                 android:textColor="#0C26BB"
                 android:textSize="13sp"
                 android:textStyle="bold|italic" />
@@ -164,16 +162,6 @@
             android:layout_marginTop="50dp" />
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hola roman" />
-    <Spinner
-        android:padding="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
