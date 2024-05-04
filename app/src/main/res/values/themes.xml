@@ -1,8 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Emprende360" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Con.Nav" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+    <style name="Sin.Nav" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!--<item name="colorPrimary">@color/verde</item>-->
     </style>
 
     <style name="Theme.Emprende360" parent="Base.Theme.Emprende360" />
