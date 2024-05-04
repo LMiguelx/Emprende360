@@ -17,19 +17,18 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 1001 // Request code for Google Sign In
-
+    private val RC_SIGN_IN = 1001   // codigo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
-        // Initialize Firebase Auth
+        // Inicializar firebase
         firebaseAuth = Firebase.auth
 
-        // Initialize views
+        // Instanciar elementos xD
         val txtEmail: EditText = findViewById(R.id.edtEmail)
         val txtPass: EditText = findViewById(R.id.edtPassword)
         val btnIngresar: Button = findViewById(R.id.btnIngresar)
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val btnCrearCuenta: TextView = findViewById(R.id.btnCrearCuenta)
         val btnRecordar: TextView = findViewById(R.id.btnOlvidar)
 
-        // Set click listeners
+        // Boton Iniciar Sesion
         btnIngresar.setOnClickListener {
             signIn(txtEmail.text.toString(), txtPass.text.toString())
         }
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnRecordar.setOnClickListener {
-            startActivity(Intent(this, RecordarPassActivity::class.java))
+            startActivity(Intent(this, RecuperarContraseñaActivity::class.java))
         }
 
         // Configure Google Sign In
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     val verifica = user?.isEmailVerified
                     if (verifica == true) {
                         Toast.makeText(baseContext, "Autentificación exitosa", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity2::class.java))
+                        startActivity(Intent(this, PrincipalActivity::class.java))
                     } else {
                         Toast.makeText(baseContext, "No ha verificado su correo", Toast.LENGTH_SHORT).show()
                     }
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-
+    // Logear gogle
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -107,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     Toast.makeText(this, "Autentificación exitosa con Google", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity2::class.java))
+                    startActivity(Intent(this, PrincipalActivity::class.java))
                 } else {
                     Toast.makeText(this, "Error de autenticación con Google", Toast.LENGTH_SHORT).show()
                 }

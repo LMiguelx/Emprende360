@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordarPassActivity"
+    tools:context=".RecuperarContraseñaActivity"
     android:background="@drawable/degradado">
     <TextView
         android:layout_width="match_parent"

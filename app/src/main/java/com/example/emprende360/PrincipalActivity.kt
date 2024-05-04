@@ -6,19 +6,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity2 : AppCompatActivity() {
+class PrincipalActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_principal)
         firebaseAuth = Firebase.auth
     }
 
@@ -47,7 +44,7 @@ class MainActivity2 : AppCompatActivity() {
     private fun signOut(){
         firebaseAuth.signOut()
         Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()
-        val i = Intent(this,MainActivity::class.java)
+        val i = Intent(this,LoginActivity::class.java)
         startActivity(i)
     }
 }

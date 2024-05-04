@@ -1,13 +1,11 @@
 package com.example.emprende360
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -16,7 +14,7 @@ class CrearCuentaActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_crear_cuenta)
+        setContentView(R.layout.activity_crearcuenta)
         val txtnombre_nuevo : TextView = findViewById(R.id.edtNombre)
         val txtemail_nuevo :TextView =findViewById(R.id.edtEmailNuevo)
         val txtpassword1 : TextView = findViewById(R.id.edtPasswordNuevo1)
@@ -51,10 +49,11 @@ class CrearCuentaActivity : AppCompatActivity() {
 
             }
     }
+    @SuppressLint("SuspiciousIndentation")
     private fun sendEmailVerification()
     {
     val user = firebaseAuth.currentUser!!
-        user.sendEmailVerification().addOnCompleteListener(this){task->
+        user.sendEmailVerification().addOnCompleteListener(this){task->  //verificacion mediante correo ( necesitamos solucion)
             if (task.isSuccessful)
             {
 
