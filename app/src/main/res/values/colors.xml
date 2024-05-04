@@ -8,5 +8,7 @@
     <color name="verde">#19FF00</color>
     <color name="morado">#5C00FF</color>
     <color name="gray">#E3DEDE</color>
+    <color name="grayoscuro">#353333</color>
+    <color name="fondoslplash">#f5e0a3</color>
 
 </resources>
