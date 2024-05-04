@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "623164443163",
+    "project_id": "emprende360-97a19",
+    "storage_bucket": "emprende360-97a19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623164443163:android:2b2a558461862fd08e46be",
+        "android_client_info": {
+          "package_name": "com.example.emprende360"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623164443163-3eun8drrp5u0u9li9ovsgo9khi0fg6s4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.emprende360",
+            "certificate_hash": "efef4ad05aa9a3b0123c442222e3150bba1835fb"
+          }
+        },
+        {
+          "client_id": "623164443163-9acrflhvgnb62ig7sapespaqc7osgejv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeIkKMYvQq_LVTwak7rNn987N8XcNr0hY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623164443163-9acrflhvgnb62ig7sapespaqc7osgejv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
