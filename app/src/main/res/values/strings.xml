@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Emprende 360</string>
+    <string name="strCrear_Cuenta"><u>Crear Cuenta</u></string>
+    <string name="strOlvidar"><u>¿Olvidaste tu Contraseña?</u></string>
+    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
 </resources>
