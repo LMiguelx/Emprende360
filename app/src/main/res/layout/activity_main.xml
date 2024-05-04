@@ -1,27 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/degradado">
+
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="68dp"
+        android:text="Bienvenido"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="226dp"
-        android:layout_height="110dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="222dp" />
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_rectangle"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:text="Ingresa tus datos"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:text="Correo electronico:"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="265dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/rounded_corner_rectangle"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:paddingStart="6dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="10dp"
+            android:text="Contraseña:"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="265dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/rounded_corner_rectangle"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:paddingStart="6dp"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnOlvidar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="190dp"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:text="@string/strOlvidar"
+            android:textColor="#0C26BB"
+            android:textSize="10sp"
+            android:textStyle="bold|italic" />
+
+        <Button
+            android:id="@+id/btnIngresar"
+            android:layout_width="172dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#61EEF7"
+            android:text="Iniciar Sesión"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGoogleSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#61EEF7"
+            android:text="Ingresa por correo"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:icon="@drawable/icons36" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:clickable="true"
+                android:text="¿Eres Usuario Nuevo?"
+                android:textColor="#000000"
+                android:textSize="13sp" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/btnCrearCuenta"
+                android:layout_width="85dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/strCrear_Cuenta"
+                android:textColor="#0C26BB"
+                android:textSize="13sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
