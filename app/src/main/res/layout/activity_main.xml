@@ -24,4 +24,9 @@
         tools:layout_editor_absoluteX="138dp"
         tools:layout_editor_absoluteY="222dp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hola roman" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
