@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Con.Nav" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/color2</item>
-        <item name="colorPrimaryVariant">@color/color2</item>
+        <item name="colorPrimaryVariant">@color/color1</item>
         <item name="android:statusBarColor">@color/blue</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
