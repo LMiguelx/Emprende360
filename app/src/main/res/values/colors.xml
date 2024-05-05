@@ -10,5 +10,9 @@
     <color name="gray">#E3DEDE</color>
     <color name="grayoscuro">#353333</color>
     <color name="fondoslplash">#f5e0a3</color>
+    <color name="lavender">#8692f7</color>
+    <color name="grayclaro">#d2d2d2 </color>
+    <color name="blue">#0040FF</color>
+    <color name="amarillo">#FFEB3B</color>
 
 </resources>
