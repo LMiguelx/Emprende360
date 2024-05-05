@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:id="@+id/nav_item_one"
+            android:icon="@drawable/abc_vector_test"
+            android:title="Home"/>
+        <item android:id="@+id/nav_item_two"
+            android:icon="@drawable/abc_vector_test"
+            android:title="Perfil"/>
+        <item android:id="@+id/nav_item_three"
+            android:icon="@drawable/abc_vector_test"
+            android:title="Puntos"/>
+        <item android:id="@+id/nav_item_four"
+            android:icon="@drawable/abc_vector_test"
+            android:title="Eventos Proximos"/>
+        <item android:id="@+id/nav_item_five"
+            android:icon="@drawable/abc_vector_test"
+            android:title="Cuestionario"/>
+    </group>
+    <item android:title="Configuración">
+        <menu>
+            <item android:id="@+id/nav_item_seven"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Cuenta"/>
+            <item android:id="@+id/nav_item_eght"
+                android:icon="@drawable/abc_vector_test"
+                android:title="Seguridad"/>
+        </menu>
+    </item>
+</menu>

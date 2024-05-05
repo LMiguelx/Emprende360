@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Con.Nav"
+        android:theme="@style/Base.Theme.NavigationDrawerCodelia"
         tools:targetApi="31">
 
         <!-- Splash Activity -->
@@ -35,8 +35,8 @@
             android:theme="@style/Sin.Nav"/>
         <activity
             android:name=".PrincipalActivity"
-            android:exported="false"
-            android:theme="@style/Con.Nav"/>
+            android:exported="true"
+            android:theme="@style/Base.Theme.NavigationDrawerCodelia"/>
         <activity
             android:name=".LoginActivity"
             android:exported="true"

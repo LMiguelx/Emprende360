@@ -3,4 +3,7 @@
     <string name="strCrear_Cuenta"><u>Crear Cuenta</u></string>
     <string name="strOlvidar"><u>¿Olvidaste tu Contraseña?</u></string>
     <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
 </resources>

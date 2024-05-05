@@ -1,23 +1,46 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Estilo base de la aplicación con barra de navegación -->
     <style name="Con.Nav" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">@color/color2</item>
-        <item name="colorPrimaryVariant">@color/color1</item>
-        <item name="android:statusBarColor">@color/blue</item>
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
-    <style name="Sin.Nav" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!--<item name="colorPrimary">@color/verde</item>-->
+        <item name="colorPrimary">@color/color2</item> <!-- Define el color primario de la aplicación -->
+        <item name="colorPrimaryVariant">@color/color1</item> <!-- Define la variante del color primario -->
+        <item name="android:statusBarColor">@color/blue</item> <!-- Define el color de la barra de estado -->
     </style>
 
+    <!-- Estilo base de la aplicación sin barra de navegación -->
+    <style name="Sin.Nav" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+
+
+    <!-- Estilo para la aplicación Emprende360 -->
     <style name="Theme.Emprende360" parent="Base.Theme.Emprende360" />
-        <style name="SliderActivityAnimation" parent="@android:style/Animation.Activity">
-            <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-            <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
-        </style>
+
+    <!-- Estilo para las animaciones de actividad de deslizamiento -->
+    <style name="SliderActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+    </style>
+
+    <!-- Estilo personalizado para el indicador activo en el BottomNavigationView -->
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/grayclaro</item>
     </style>
+
+    <!-- Estilo base para un NavigationDrawer -->
+    <style name="Base.Theme.NavigationDrawerCodelia" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Estilo para un NavigationDrawer -->
+    <style name="Theme.NavigationDrawerCodelia" parent="Base.Theme.NavigationDrawerCodelia" />
+
 </resources>
