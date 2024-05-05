@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
-        app:itemIconSize="30dp"
+        app:itemIconSize="29dp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
