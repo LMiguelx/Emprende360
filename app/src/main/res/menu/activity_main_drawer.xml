@@ -2,28 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item android:id="@+id/nav_item_one"
-            android:icon="@drawable/abc_vector_test"
+            android:icon="@drawable/baseline_home_24"
             android:title="Home"/>
         <item android:id="@+id/nav_item_two"
-            android:icon="@drawable/abc_vector_test"
+            android:icon="@drawable/baseline_perm_identity_24"
             android:title="Perfil"/>
         <item android:id="@+id/nav_item_three"
-            android:icon="@drawable/abc_vector_test"
+            android:icon="@drawable/baseline_123_24"
             android:title="Puntos"/>
         <item android:id="@+id/nav_item_four"
-            android:icon="@drawable/abc_vector_test"
+            android:icon="@drawable/baseline_ballot_24"
             android:title="Eventos Proximos"/>
         <item android:id="@+id/nav_item_five"
-            android:icon="@drawable/abc_vector_test"
+            android:icon="@drawable/baseline_assignment_24"
             android:title="Cuestionario"/>
     </group>
     <item android:title="Configuración">
         <menu>
             <item android:id="@+id/nav_item_seven"
-                android:icon="@drawable/abc_vector_test"
+                android:icon="@drawable/baseline_perm_identity_24"
                 android:title="Cuenta"/>
             <item android:id="@+id/nav_item_eght"
-                android:icon="@drawable/abc_vector_test"
+                android:icon="@drawable/baseline_seguridad_24"
                 android:title="Seguridad"/>
         </menu>
     </item>
