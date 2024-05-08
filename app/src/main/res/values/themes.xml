@@ -11,8 +11,6 @@
     <style name="Sin.Nav" parent="Theme.Material3.DayNight.NoActionBar">
     </style>
 
-
-
     <!-- Estilo para la aplicación Emprende360 -->
     <style name="Theme.Emprende360" parent="Base.Theme.Emprende360" />
 

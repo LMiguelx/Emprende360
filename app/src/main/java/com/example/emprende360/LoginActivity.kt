@@ -3,6 +3,7 @@ package com.example.emprende360
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -107,6 +108,12 @@ class LoginActivity : AppCompatActivity() {
                     val user = firebaseAuth.currentUser
                     Toast.makeText(this, "Autentificación exitosa con Google", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, PrincipalActivity::class.java))
+                    Log.d("TAG", "Datos de la tarea: ${task.getResult()}")
+                    Log.d("User", "ID del usuario: ${task.getResult().user?.uid}") // me da datos del id
+                    Log.d("nombre", "ID del usuario: ${task.getResult().user?.displayName}") // me da datos  de nombre del correo
+                    Log.d("numero", "ID del usuario: ${task.getResult().user?.phoneNumber}") // me da datos de numero ( aunque es nulo )
+                    Log.d("email", "ID del usuario: ${task.getResult().user?.email}") // me da datos del nombre del correo
+                    Log.d("email2", "ID del usuario: ${task.getResult().user?.photoUrl}") // me da datos de la photoUrl
                 } else {
                     Toast.makeText(this, "Error de autenticación con Google", Toast.LENGTH_SHORT).show()
                 }
