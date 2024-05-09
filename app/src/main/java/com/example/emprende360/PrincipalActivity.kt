@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,9 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
         firebaseAuth = Firebase.auth
-        //Aqui el aumento de codigos de drawes
+        val userName = intent.getStringExtra("userName")
+        val textViewHola = findViewById<TextView>(R.id.hola)
+        textViewHola.text = "Hola, $userName"
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         drawer = findViewById(R.id.drawer_layout)

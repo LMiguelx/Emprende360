@@ -25,6 +25,8 @@
         <item name="android:color">@color/grayclaro</item>
     </style>
 
+    <!-- Definición de atributo para la altura del ActionBar -->
+
     <!-- Estilo base para un NavigationDrawer -->
     <style name="Base.Theme.NavigationDrawerCodelia" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/purple_500</item>

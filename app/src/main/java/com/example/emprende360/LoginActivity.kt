@@ -102,21 +102,38 @@ class LoginActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
-                    Toast.makeText(this, "Autentificación exitosa con Google", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, PrincipalActivity::class.java))
-                    Log.d("TAG", "Datos de la tarea: ${task.getResult()}")
-                    Log.d("User", "ID del usuario: ${task.getResult().user?.uid}") // me da datos del id
-                    Log.d("nombre", "ID del usuario: ${task.getResult().user?.displayName}") // me da datos  de nombre del correo
-                    Log.d("numero", "ID del usuario: ${task.getResult().user?.phoneNumber}") // me da datos de numero ( aunque es nulo )
-                    Log.d("email", "ID del usuario: ${task.getResult().user?.email}") // me da datos del nombre del correo
-                    Log.d("email2", "ID del usuario: ${task.getResult().user?.photoUrl}") // me da datos de la photoUrl
+                    val name = task.result?.user?.displayName
+
+                    // Enviar el nombre del usuario a la PrincipalActivity
+                    val intent = Intent(this, PrincipalActivity::class.java)
+                    intent.putExtra("userName", name)
+                    startActivity(intent)
+
+                    Toast.makeText(this, "Autenticación exitosa con Google", Toast.LENGTH_SHORT).show()
+                    val textViewHola = findViewById<TextView>(R.id.hola)
+                    if (textViewHola != null) {
+                        textViewHola.text = "hola $name"
+                    } else {
+                        Log.e("LoginActivity", "El TextView 'hola' no se pudo encontrar.")
+                    }
+
+                    Log.d("TAG", "Datos de la tarea: ${task.result}")
+                    Log.d("nombre", "Nombre del usuario: $name")
+                    Log.d("email", "Email del usuario: ${task.result?.user?.email}")
+                    Log.d("email2", "PhotoUrl del usuario: ${task.result?.user?.photoUrl}")
                 } else {
+                    Log.e("FirebaseAuth", "Error de autenticación con Google: ${task.exception?.message}")
                     Toast.makeText(this, "Error de autenticación con Google", Toast.LENGTH_SHORT).show()
                 }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirebaseAuth", "Error de autenticación con Google: ${exception.message}")
+                Toast.makeText(this, "Error de autenticación con Google: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }
