@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -28,15 +29,18 @@
         <activity
             android:name=".RecuperarContraseñaActivity"
             android:exported="false"
-            android:theme="@style/Sin.Nav"/>
+            android:theme="@style/Sin.Nav" />
         <activity
             android:name=".CrearCuentaActivity"
             android:exported="false"
-            android:theme="@style/Sin.Nav"/>
+            android:theme="@style/Sin.Nav" />
+
+        <!-- Coloca la actividad PrincipalActivity aquí antes del Drawer_header -->
         <activity
             android:name=".PrincipalActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.NavigationDrawerCodelia"/>
+            android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true"
