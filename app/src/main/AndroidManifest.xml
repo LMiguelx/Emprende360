@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,19 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.NavigationDrawerCodelia"
         tools:targetApi="31">
-
-        <!-- Splash Activity -->
+        <activity
+            android:name=".CuestionarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EventosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PuntosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="false" /> <!-- Splash Activity -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Sin.Nav">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Otras actividades -->
+        </activity> <!-- Otras actividades -->
         <activity
             android:name=".RecuperarContraseñaActivity"
             android:exported="false"
@@ -33,20 +43,18 @@
         <activity
             android:name=".CrearCuentaActivity"
             android:exported="false"
-            android:theme="@style/Sin.Nav" />
-
-        <!-- Coloca la actividad PrincipalActivity aquí antes del Drawer_header -->
+            android:theme="@style/Sin.Nav" /> <!-- Coloca la actividad PrincipalActivity aquí antes del Drawer_header -->
         <activity
             android:name=".PrincipalActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Sin.Nav">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

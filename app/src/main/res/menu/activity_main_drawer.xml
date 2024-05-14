@@ -19,10 +19,10 @@
     </group>
     <item android:title="Configuración">
         <menu>
-            <item android:id="@+id/nav_item_seven"
+            <item android:id="@+id/nav_item_six"
                 android:icon="@drawable/baseline_perm_identity_24"
                 android:title="Cuenta"/>
-            <item android:id="@+id/nav_item_eght"
+            <item android:id="@+id/nav_item_seven"
                 android:icon="@drawable/baseline_seguridad_24"
                 android:title="Seguridad"/>
         </menu>
