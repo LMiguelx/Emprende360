@@ -4,79 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:elevation="2dp"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".PrincipalActivity">
-    <TextView
-        android:id="@+id/hola"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hola "
-        android:textSize="15sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/grayoscuro"
-        app:layout_constraintBottom_toTopOf="parent"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:paddingStart="16dp"
-        android:paddingTop="160dp"/>
-
-    <TextView
-        android:id="@+id/textViewActividades"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Actividades Resaltantes"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/hola"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"/>
-
-    <TextView
-        android:id="@+id/textViewEventosProximos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Eventos Proximos"
-        app:layout_constraintTop_toBottomOf="@id/textViewActividades"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:paddingStart="16dp" />
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/rounded_corner_rectangle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewEventosProximos"
-        android:layout_margin="16dp"/>
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:background="@drawable/rounded_corner_rectangle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1"
-        android:layout_margin="16dp"/>
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grayclaro"
-        app:layout_constraintTop_toBottomOf="@id/view2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
+        android:elevation="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".PrincipalActivity">
@@ -86,18 +21,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            tools:context=".MainActivity"
-            tools:openDrawer="start"
-            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:context=".MainActivity"
+            tools:openDrawer="start">
 
             <!-- Layout del ConstraintLayout -->
             <include
                 layout="@layout/barra_navegacion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:elevation="2dp" />
 
             <!-- NavigationView y otros elementos del DrawerLayout -->
             <com.google.android.material.navigation.NavigationView
@@ -105,15 +44,131 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
+                android:elevation="2dp"
                 app:headerLayout="@layout/drawer_header"
-                app:menu="@menu/activity_main_drawer"/>
+                app:menu="@menu/activity_main_drawer" />
 
         </androidx.drawerlayout.widget.DrawerLayout>
+
+        <TextView
+            android:id="@+id/hola"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hola "
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/grayoscuro"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:paddingTop="160dp"/>
+
+        <TextView
+            android:id="@+id/textViewActividades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actividades Resaltantes"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/hola"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewEventosProximos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Eventos Proximos"
+            app:layout_constraintTop_toBottomOf="@id/textViewActividades"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp" />
+
+        <TextView
+            android:id="@+id/nombredeiam1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Importancia de la ciberseguridad"
+            app:layout_constraintTop_toBottomOf="@id/textViewEventosProximos"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="16dp"/>
+        <ImageView
+            android:id="@+id/imagenprinci3"
+            android:layout_width="247dp"
+            android:layout_height="112dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ciberseguridad"
+            app:layout_constraintTop_toBottomOf="@id/nombredeiam1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="16dp"/>
+
+        <TextView
+            android:id="@+id/btndireccional"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginTop="5dp"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:paddingStart="220dp"
+            android:text="Ver mas"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imagenprinci3" />
+
+
+
+        <TextView
+            android:id="@+id/nombredeiam2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Importancia de la ciberseguridad"
+            app:layout_constraintTop_toBottomOf="@id/btndireccional"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="16dp"/>
+        <ImageView
+            android:id="@+id/imagenprinci4"
+            android:layout_width="247dp"
+            android:layout_height="112dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ciberseguridad"
+            app:layout_constraintTop_toBottomOf="@id/nombredeiam2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="16dp"/>
+
+        <TextView
+            android:id="@+id/btndireccional1"
+            android:layout_width="409dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:paddingStart="220dp"
+            android:text="Ver mas"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imagenprinci4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/frame_container"
+        android:elevation="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="94dp"
@@ -126,6 +181,7 @@
         android:background="@color/white"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:itemIconSize="29dp"
+        android:elevation="2dp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -133,3 +189,5 @@
         app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
