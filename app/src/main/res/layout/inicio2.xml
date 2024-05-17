@@ -2,10 +2,8 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,32 +42,37 @@
     <View
         android:id="@+id/white_view"
         android:layout_width="match_parent"
-        android:layout_height="255dp"
+        android:layout_height="250dp"
         android:layout_gravity="bottom"
         android:background="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/container"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498"
         android:elevation="15dp"
-        android:layout_marginTop="330dp"
-        android:layout_marginStart="20dp"
-        android:layout_width="320dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginStart="30dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="2dp">
 
-            <EditText
+            <TextView
                 android:id="@+id/edtEmail"
                 android:layout_width="275dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="40dp"
-                android:drawableEnd="@drawable/baseline_account_circle_24"
                 android:background="@drawable/circle"
                 android:ems="10"
                 android:elevation="8dp"
@@ -80,7 +83,13 @@
                 android:textColor="#000000"
                 android:textSize="14sp" />
 
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textAlignment="center"
+                android:drawableStart="@drawable/baseline_account_circle_24" />
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/edtPassword"
@@ -174,7 +183,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="50dp" />
 
     </LinearLayout>
 

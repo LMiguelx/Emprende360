@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="@color/color1"
-                android:endColor="@color/color2"
-                android:angle="270"/> <!-- Angulo de 270 grados para que el degradado vaya de arriba hacia abajo -->
+                android:startColor="#2E82C3"
+                android:centerColor="#39B9EC"
+                android:endColor="#23BEFA"
+                android:angle="360"/>
+            <corners
+                android:bottomRightRadius="50dp"
+                android:bottomLeftRadius="50dp"/>
         </shape>
     </item>
-</selector>
+</layer-list>
