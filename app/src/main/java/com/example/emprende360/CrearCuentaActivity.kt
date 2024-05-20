@@ -1,8 +1,10 @@
 package com.example.emprende360
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,14 @@ class CrearCuentaActivity : AppCompatActivity() {
         val txtpassword1 : TextView = findViewById(R.id.edtPasswordNuevo1)
         val txtpassword2 : TextView = findViewById(R.id.edtPasswordNuevo2)
         val btnCrear : Button = findViewById(R.id.btnCrearCuentaNueva)
+        val returnback : ImageButton = findViewById(R.id.retunback2)
+
+        returnback.setOnClickListener(){
+            val intent = Intent(this , SelectionActivity::class.java)
+            startActivity(intent)
+        }
+
+
         btnCrear.setOnClickListener()
         {
             var pass1 = txtpassword1.text.toString()

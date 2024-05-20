@@ -6,40 +6,43 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondoslplash"
+    android:background="@drawable/nube"
     tools:context=".SplashActivity">
 
-    <ImageView
-        android:id="@+id/LogoImagen"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/foquito" />
-
     <TextView
-        android:id="@+id/txtEmprende360"
+        android:id="@+id/txtSuperior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="534dp"
-        android:layout_marginBottom="178dp"
-        android:fontFamily="sans-serif-light"
+        android:text="Emprende360"
+        android:textColor="@color/black"
+        android:textSize="40sp"
         android:textStyle="bold"
-        android:text="EMPRENDE360"
-        android:textColor="@color/grayoscuro"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="116dp"/>
+
+    <ImageView
+        android:layout_width="383dp"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/pasaporte"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSuperior" />
+
+    <TextView
+        android:id="@+id/txtInferior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entiende, Comprende Y Sorprende"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="176dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

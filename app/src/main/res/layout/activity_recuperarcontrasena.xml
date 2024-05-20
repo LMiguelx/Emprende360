@@ -1,71 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecuperarContraseñaActivity"
-    android:background="@drawable/degradado">
+    android:background="@color/white"
+    tools:context=".RecuperarContraseñaActivity">
+
+    <View
+        android:id="@+id/blue_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="380dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/degradado" />
+
+    <View
+        android:id="@+id/white_view"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="Crear Nueva Contraseña"
+        android:layout_marginTop="100dp"
+        android:text="Recuperar Contraseña"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/container"
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/circle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/rectangle"
+        android:elevation="30dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.311">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginTop="50dp"
-            android:text="Correo electronico:"
+            android:text="Correo electrónico:"
             android:textColor="#000000" />
 
         <EditText
             android:id="@+id/txtEmailCambio"
-            android:layout_width="265dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/circle"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_email_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
             android:ems="10"
+            android:hint="Correo Electrónico"
             android:inputType="textEmailAddress"
             android:paddingStart="6dp"
             android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
             android:textSize="14sp" />
 
         <Button
             android:id="@+id/btnCambiar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="130dp"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Cambio Contraseña" />
+            android:background="@drawable/circle"
+            android:backgroundTint="#39B9EC"
+            android:elevation="6dp"
+            android:text="Cambiar Contraseña"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

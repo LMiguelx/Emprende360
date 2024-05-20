@@ -22,7 +22,8 @@ class SplashActivity : AppCompatActivity() {
             override fun run() {
                 try {
                     sleep(3000)
-                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                    // Cambia LoginActivity a SelectionActivity
+                    val intent = Intent(applicationContext, SelectionActivity::class.java)
                     startActivity(intent)
                     finish()
                 } catch (e: InterruptedException) {

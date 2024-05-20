@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,8 +35,13 @@ class LoginActivity : AppCompatActivity() {
         val txtPass: EditText = findViewById(R.id.edtPassword)
         val btnIngresar: Button = findViewById(R.id.btnIngresar)
         val btnGoogleSignIn: Button = findViewById(R.id.btnGoogleSignIn)
-        val btnCrearCuenta: TextView = findViewById(R.id.btnCrearCuenta)
         val btnRecordar: TextView = findViewById(R.id.btnOlvidar)
+        val btnReturnBack = findViewById<ImageButton>(R.id.retunback1)
+
+        btnReturnBack.setOnClickListener {
+            val intent = Intent(this, SelectionActivity::class.java)
+            startActivity(intent)
+        }
 
         // Boton Iniciar Sesion
         btnIngresar.setOnClickListener {
@@ -47,9 +53,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Google Sign-In may not prompt for password on trusted devices.", Toast.LENGTH_LONG).show()
         }
 
-        btnCrearCuenta.setOnClickListener {
-            startActivity(Intent(this, CrearCuentaActivity::class.java))
-        }
 
         btnRecordar.setOnClickListener {
             startActivity(Intent(this, RecuperarContraseñaActivity::class.java))

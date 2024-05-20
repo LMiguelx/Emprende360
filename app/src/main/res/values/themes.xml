@@ -2,17 +2,33 @@
 
     <!-- Estilo base de la aplicación con barra de navegación -->
     <style name="Con.Nav" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">@color/color2</item> <!-- Define el color primario de la aplicación -->
-        <item name="colorPrimaryVariant">@color/color1</item> <!-- Define la variante del color primario -->
-        <item name="android:statusBarColor">@color/blue</item> <!-- Define el color de la barra de estado -->
+        <item name="colorPrimary">@color/color2</item>
+        <item name="colorPrimaryVariant">@color/color1</item>
+        <item name="android:statusBarColor">@color/blue</item>
     </style>
 
     <!-- Estilo base de la aplicación sin barra de navegación -->
-    <style name="Sin.Nav" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Sin.Nav" parent="Theme.AppCompat.DayNight.NoActionBar">
     </style>
 
-    <!-- Estilo para la aplicación Emprende360 -->
-    <style name="Theme.Emprende360" parent="Base.Theme.Emprende360" />
+    <!-- Definir el nuevo tema para la pantalla de login -->
+    <style name="Theme.Login" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Puedes definir otros atributos generales del tema aquí -->
+    </style>
+
+    <style name="Theme.Emprende360" parent="Base.Theme.Emprende360">
+    </style>
+
+    <!-- Estilo específico para los botones -->
+    <style name="ButtonStyle.Emprende360" parent="Widget.Material3.Button">
+    </style>
+
+    <!-- Puedes definir otros estilos específicos para diferentes tipos de botones si es necesario -->
+    <style name="ButtonStyle.Emprende360.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:strokeColor">@color/white</item>
+    </style>
 
     <!-- Estilo para las animaciones de actividad de deslizamiento -->
     <style name="SliderActivityAnimation" parent="@android:style/Animation.Activity">
@@ -24,8 +40,6 @@
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/grayclaro</item>
     </style>
-
-    <!-- Definición de atributo para la altura del ActionBar -->
 
     <!-- Estilo base para un NavigationDrawer -->
     <style name="Base.Theme.NavigationDrawerCodelia" parent="Theme.AppCompat.Light">
