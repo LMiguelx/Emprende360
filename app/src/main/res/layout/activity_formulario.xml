@@ -1,80 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GenerearQrActivity">
+    tools:context=".FormularioActivity">
 
-    <!-- Código del estudiante -->
-    <TextView
-        android:id="@+id/tvCodigoEstudiante"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="DNI"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:elevation="2dp">
+    </RelativeLayout>
 
-    <EditText
-        android:id="@+id/etCodigoEstudiante"
+    <View
+        android:id="@+id/blue_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvCodigoEstudiante"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginBottom="380dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/degradado" />
 
-    <!-- Correo Email -->
-    <TextView
-        android:id="@+id/tvEmail"
+    <View
+        android:id="@+id/white_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Carrera"
-        app:layout_constraintTop_toBottomOf="@+id/etCodigoEstudiante"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="370dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white" />
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvCarrera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Codigo de Acceso"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/etCarrera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvCarrera"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <!--Al apretar generar QR me mandara con los datos al layout datos_pasaporte -->
-    <!-- Botón Generar QR -->
-    <Button
-        android:id="@+id/btnGenerar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Generar QR"
-        app:layout_constraintTop_toBottomOf="@+id/etCarrera"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/rectangle"
+        android:elevation="30dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+        <EditText
+            android:id="@+id/etNombreCompleto"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_account_circle_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
+            android:hint="Nombre Y Apellidos"
+            android:inputType="text"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
+            android:textSize="14sp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/etSemestre"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_account_circle_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
+            android:hint="Semestre"
+            android:inputType="text"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
+            android:textSize="14sp"/>
+        <EditText
+            android:id="@+id/etSeccion"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_account_circle_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
+            android:hint="Seccion"
+            android:inputType="text"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/etCodigoEstudiante"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_account_circle_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
+            android:hint="Codigo Estudiante"
+            android:inputType="text"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/etCarrera"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_account_circle_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
+            android:hint="Carrera"
+            android:inputType="text"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/etCodigoAcceso"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/baseline_account_circle_24"
+            android:background="@drawable/icono_sobre_textos"
+            android:elevation="10dp"
+            android:hint="Acceso RFID"
+            android:inputType="text"
+            android:paddingStart="6dp"
+            android:paddingEnd="10dp"
+            android:textColor="#000000"
+            android:textColorHint="@color/grayclaro"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/btnGenerar"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="#39B9EC"
+            android:elevation="6dp"
+            android:text="Dar el primer paso a tu futuro"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+</FrameLayout>
+

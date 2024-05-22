@@ -1,6 +1,5 @@
 package com.example.emprende360
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 1001   // codigo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         // Inicializar firebase
         firebaseAuth = Firebase.auth
 
-        // Instanciar elementos xD
+        // Instanciar elementos
         val txtEmail: EditText = findViewById(R.id.edtEmail)
         val txtPass: EditText = findViewById(R.id.edtPassword)
         val btnIngresar: Button = findViewById(R.id.btnIngresar)
@@ -52,7 +52,6 @@ class LoginActivity : AppCompatActivity() {
             signInWithGoogle()
             Toast.makeText(this, "Google Sign-In may not prompt for password on trusted devices.", Toast.LENGTH_LONG).show()
         }
-
 
         btnRecordar.setOnClickListener {
             startActivity(Intent(this, RecuperarContraseñaActivity::class.java))
@@ -83,7 +82,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-    // Logear gogle
+
+    // Logear con Google
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -111,13 +111,11 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     val name = task.result?.user?.displayName
-                    val name2 = task.result?.user?.displayName
 
-                    // Enviar el nombre del usuario a la PrincipalActivity
-                    val intent = Intent(this, PrincipalActivity::class.java)
+                    // Enviar el nombre del usuario a la FormularioActivity
+                    val intent = Intent(this, FormularioActivity::class.java)
                     intent.putExtra("userName", name)
                     startActivity(intent)
-
 
                     Toast.makeText(this, "Autenticación exitosa con Google", Toast.LENGTH_SHORT).show()
                     val textViewHola = findViewById<TextView>(R.id.hola)
