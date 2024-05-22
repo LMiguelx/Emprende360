@@ -111,11 +111,13 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     val name = task.result?.user?.displayName
+                    val name2 = task.result?.user?.displayName
 
                     // Enviar el nombre del usuario a la PrincipalActivity
                     val intent = Intent(this, PrincipalActivity::class.java)
                     intent.putExtra("userName", name)
                     startActivity(intent)
+
 
                     Toast.makeText(this, "Autenticación exitosa con Google", Toast.LENGTH_SHORT).show()
                     val textViewHola = findViewById<TextView>(R.id.hola)

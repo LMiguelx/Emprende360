@@ -28,14 +28,13 @@ class DatosPasaporteActivity : AppCompatActivity() {
 
 
         //Aqui se muestra el nombre en pantalla
-        val userName = intent.getStringExtra("userName")
-        val textViewHola = findViewById<TextView>(R.id.txtnombreCuenta)
-        textViewHola.text = "Hola, $userName"
+
 
         // Configurar listener para el botón SellosRegistrados
         sellosregis.setOnClickListener {
             startActivity(Intent(this, SellosRegistradosActivity::class.java))
         }
+
 
         // Inicializar FirebaseAuth
         firebaseAuth = Firebase.auth

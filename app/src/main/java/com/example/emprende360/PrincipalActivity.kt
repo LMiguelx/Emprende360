@@ -69,6 +69,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val userName = intent.getStringExtra("userName")
         val textViewHola = findViewById<TextView>(R.id.hola)
         textViewHola.text = "Hola, $userName"
+
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         drawer = findViewById(R.id.drawer_layout)
