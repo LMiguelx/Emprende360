@@ -90,6 +90,37 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             // Lógica para iniciar la actividad CursosActivity
             startActivity(Intent(this, EventosActivity::class.java))
         }
+
+
+        //funcion del boton de navegacion inferior-------------------------------------------
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_home -> {
+                    startActivity(Intent(this, PrincipalActivity::class.java))
+                    true
+                }
+                R.id.bottom_id -> {
+                    startActivity(Intent(this, DatosPasaporteActivity::class.java))
+                    true
+                }
+                R.id.bottom_puntos -> {
+                    startActivity(Intent(this, PuntosActivity::class.java))
+                    true
+                }
+                R.id.bottom_eventos -> {
+                    startActivity(Intent(this, EventosActivity::class.java))
+                    true
+                }
+                R.id.bottom_cuestionario -> {
+                    startActivity(Intent(this, CuestionarioActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+        //fin de boton de navegacion inferior     -------------------------------------------
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

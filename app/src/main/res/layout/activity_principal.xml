@@ -4,227 +4,218 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:elevation="2dp"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".PrincipalActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        android:elevation="2dp"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".PrincipalActivity">
+        android:layout_gravity="start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".MainActivity"
+        tools:openDrawer="start">
 
-
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawer_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:elevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:context=".MainActivity"
-            tools:openDrawer="start">
+            android:layout_height="match_parent">
 
-            <!-- Layout del ConstraintLayout -->
             <include
+                android:id="@+id/barra_navegacion"
                 layout="@layout/barra_navegacion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="2dp" />
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- NavigationView y otros elementos del DrawerLayout -->
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
+            <TextView
+                android:id="@+id/hola"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:elevation="2dp"
-                app:headerLayout="@layout/drawer_header"
-                app:menu="@menu/activity_main_drawer" />
-
-        </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-        <TextView
-            android:id="@+id/hola"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hola "
-            android:textSize="15sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/grayoscuro"
-            app:layout_constraintBottom_toTopOf="parent"
-            android:layout_marginTop="30dp"
-            android:textStyle="bold"
-            android:paddingStart="16dp"
-            android:paddingTop="160dp"/>
-
-        <TextView
-            android:id="@+id/textViewActividades"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Elige tu cuenta"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/hola"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"/>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCategorias"
-            android:layout_width="379dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_corner_rectangle"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewActividades">
-
-            <Button
-                android:id="@+id/ingresoPasaporte"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_corner_rectangle"
-                android:backgroundTint="@color/purple_700"
-                android:gravity="center"
-                android:elevation="2dp"
-                android:text="Tecsuria"
-                android:textColor="@color/color1"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="0dp"
+                android:paddingStart="16dp"
+                android:paddingTop="70dp"
+                android:text="hola"
+                android:textColor="@color/grayoscuro"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Space
-                android:layout_width="16dp"
-                android:layout_height="24dp" />
-
-            <Button
-                android:id="@+id/ingresoqrgenerator"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textViewActividades"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_corner_rectangle"
-                android:backgroundTint="@color/purple_700"
-                android:gravity="center"
-
-                android:elevation="2dp"
-                android:text="QR GENERADOR"
-                android:textColor="@color/color1"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:text="Elige tu cuenta"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hola" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutCategorias"
+                android:layout_width="379dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner_rectangle"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewActividades">
 
-        <TextView
-            android:id="@+id/textViewEventosProximos"
+                <Button
+                    android:id="@+id/ingresoPasaporte"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corner_rectangle"
+                    android:backgroundTint="@color/purple_700"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:text="Tecsuria"
+                    android:textColor="@color/color1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="24dp" />
+
+                <Button
+                    android:id="@+id/ingresoqrgenerator"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corner_rectangle"
+                    android:backgroundTint="@color/purple_700"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:text="QR GENERADOR"
+                    android:textColor="@color/color1"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewEventosProximos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="16dp"
+                android:text="Actividades Resaltantes"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCategorias" />
+
+            <TextView
+                android:id="@+id/nombredeiam1"
+                android:layout_width="176dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="20dp"
+                android:paddingStart="16dp"
+                android:text="Categoria 1"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.276"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEventosProximos" />
+
+            <ImageView
+                android:id="@+id/imagenprinci3"
+                android:layout_width="247dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:paddingStart="16dp"
+                android:src="@drawable/ciberseguridad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nombredeiam1" />
+
+            <TextView
+                android:id="@+id/btndireccional"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginTop="5dp"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:paddingStart="220dp"
+                android:text="Ver mas"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagenprinci3" />
+
+
+            <TextView
+                android:id="@+id/nombredeiam2"
+                android:layout_width="183dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:text="Categoria 2"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.276"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btndireccional" />
+
+            <ImageView
+                android:id="@+id/imagenprinci4"
+                android:layout_width="247dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:paddingStart="16dp"
+                android:src="@drawable/ciberseguridad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nombredeiam2" />
+
+            <TextView
+                android:id="@+id/btndireccional1"
+                android:layout_width="409dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:paddingStart="220dp"
+                android:text="Ver mas"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagenprinci4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingStart="16dp"
-            android:text="Actividades Resaltantes"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayoutCategorias"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/drawer_header"
+            app:menu="@menu/activity_main_drawer" />
 
-        <TextView
-            android:id="@+id/nombredeiam1"
-            android:layout_width="176dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="20dp"
-            android:text="Categoria 1"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.276"
-            app:layout_constraintTop_toBottomOf="@id/textViewEventosProximos"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <ImageView
-            android:id="@+id/imagenprinci3"
-            android:layout_width="247dp"
-            android:layout_height="112dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ciberseguridad"
-            app:layout_constraintTop_toBottomOf="@id/nombredeiam1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingStart="16dp"/>
-
-        <TextView
-            android:id="@+id/btndireccional"
-            android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:layout_marginTop="5dp"
-            android:elevation="2dp"
-            android:gravity="center"
-            android:paddingStart="220dp"
-            android:text="Ver mas"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imagenprinci3" />
-
-        <TextView
-            android:id="@+id/nombredeiam2"
-            android:layout_width="183dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="16dp"
-            android:text="Categoria 2"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.276"
-            app:layout_constraintTop_toBottomOf="@id/btndireccional"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingStart="16dp"/>
-        <ImageView
-            android:id="@+id/imagenprinci4"
-            android:layout_width="247dp"
-            android:layout_height="112dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ciberseguridad"
-            app:layout_constraintTop_toBottomOf="@id/nombredeiam2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingStart="16dp"/>
-
-        <TextView
-            android:id="@+id/btndireccional1"
-            android:layout_width="409dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="5dp"
-            android:elevation="2dp"
-            android:gravity="center"
-            android:paddingStart="220dp"
-            android:text="Ver mas"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imagenprinci4" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <FrameLayout
         android:id="@+id/frame_container"
-        android:elevation="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="94dp"
@@ -235,9 +226,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:elevation="2dp"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:itemIconSize="29dp"
-        android:elevation="2dp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
