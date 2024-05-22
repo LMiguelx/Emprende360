@@ -57,4 +57,7 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-auth:21.1.1")
 
+    //QR
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
 }

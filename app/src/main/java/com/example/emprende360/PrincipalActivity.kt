@@ -5,9 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -32,6 +34,25 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
         firebaseAuth = Firebase.auth
+
+        // Asumiendo que estás usando Kotlin
+        val ingresoPasaporte: Button = findViewById(R.id.ingresoPasaporte)
+        val ingresoqrgenerator: Button = findViewById(R.id.ingresoqrgenerator)
+
+        ingresoPasaporte.setOnClickListener {
+            // Acción para ingresoPasaporte
+            // Por ejemplo, puedes abrir una nueva actividad o realizar alguna otra acción
+            val intent = Intent(this, PortadaPasaPorteActivity::class.java)
+            startActivity(intent)
+        }
+
+        ingresoqrgenerator.setOnClickListener {
+            // Acción para ingresoqrgenerator
+            // Por ejemplo, puedes abrir una nueva actividad o realizar alguna otra acción
+            val intent = Intent(this, GenerearQrActivity::class.java)
+            startActivity(intent)
+        }
+        //Gin de Generar QR
 
 
 
