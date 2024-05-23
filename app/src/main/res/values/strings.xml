@@ -6,4 +6,35 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
 
+    <string-array name="Carreras">
+        <item>Selecciona Tu Carrera</item>
+        <item>Electronica y Automatizacion Industrial</item>
+        <item>Operaciones Mineras</item>
+        <item>Operacion de Plantas de Procesamiento de Minerales</item>
+        <item>Administrador de Redes y Comunicaciones</item>
+        <item>Gestion y Mantenimiento de Maquinaria Pesada</item>
+        <item>Gestion y Mantenimiento de Maquina Industrial</item>
+        <item>Electricidad Industrial</item>
+        <item>Diseño y Desarollo de Software</item>
+        <item>Gestion de Seguridad Y  Salud en el Trabajo</item>
+        <item>Mecanica Automotriz</item>
+        <item>Mantenimiento de Equipo Pesado</item>
+    </string-array>
+    <string-array name="Seccion">
+        <item>Selecciona tu Seccion</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+    <string-array name="Semestre">
+        <item>Selecciona tu Semestre</item>
+        <item>Primer Semestre</item>
+        <item>Segundo Semestre</item>
+        <item>Tercer Semestre</item>
+        <item>Cuarto Semestre</item>
+        <item>Quinto Semestre</item>
+        <item>Sexto Semestre</item>
+    </string-array>
+
 </resources>
