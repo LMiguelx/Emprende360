@@ -49,7 +49,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         ingresoqrgenerator.setOnClickListener {
             // Acción para ingresoqrgenerator
             // Por ejemplo, puedes abrir una nueva actividad o realizar alguna otra acción
-            val intent = Intent(this, GenerearQrActivity::class.java)
+            val intent = Intent(this, GenerarQrActivity::class.java)
             startActivity(intent)
         }
         //Gin de Generar QR

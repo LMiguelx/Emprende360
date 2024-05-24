@@ -1,63 +1,66 @@
 package com.example.emprende360
 
-
 import android.annotation.SuppressLint
 import android.content.Context
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Handler
 import android.util.Base64
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
-import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.google.zxing.qrcode.QRCodeWriter
 import java.io.ByteArrayOutputStream
 
-class FormularioActivity : AppCompatActivity() {
 
-    private lateinit var etNombreCompleto: EditText
-    private lateinit var spSemestre: Spinner
-    private lateinit var spSeccion: Spinner
-    private lateinit var etCodigoEstudiante: EditText
-    private lateinit var spCarrera: Spinner
-    private lateinit var etCodigoAcceso: EditText
-    private lateinit var btnGenerar: Button
+class GenerarQrActivity : AppCompatActivity() {
+
+    private lateinit var et_nombre_completo: EditText
+    private lateinit var sp_semestre: Spinner
+    private lateinit var sp_seccion: Spinner
+    private lateinit var et_codigo_estudiante: EditText
+    private lateinit var sp_carrera: Spinner
+    private lateinit var et_codigo_acceso: EditText
+    private lateinit var btn_generar_qr: Button
     private lateinit var ivCodigoQR: ImageView
+    private lateinit var hola: TextView // Agregamos el TextView para mostrar el nombre
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_formulario)
+        setContentView(R.layout.activity_generar_qr)
 
-        etNombreCompleto = findViewById(R.id.etNombreCompleto)
-        spSemestre = findViewById(R.id.spSemestre)
-        spSeccion = findViewById(R.id.spSeccion)
-        etCodigoEstudiante = findViewById(R.id.etCodigoEstudiante)
-        spCarrera = findViewById(R.id.spCarrera)
-        etCodigoAcceso = findViewById(R.id.etCodigoAcceso)
-        btnGenerar = findViewById(R.id.btnGenerar)
+        et_nombre_completo = findViewById(R.id.et_nombre_completo)
+        sp_semestre = findViewById(R.id.sp_semestre)
+        sp_seccion = findViewById(R.id.sp_seccion)
+        et_codigo_estudiante = findViewById(R.id.et_codigo_estudiante)
+        sp_carrera = findViewById(R.id.sp_carrera)
+        et_codigo_acceso = findViewById(R.id.et_codigo_acceso)
+        btn_generar_qr = findViewById(R.id.btn_generar_qr)
         ivCodigoQR = findViewById(R.id.ivCodigoQR)
 
-        configurarSpinner(spSemestre, R.array.Semestre)
-        configurarSpinner(spSeccion, R.array.Seccion)
-        configurarSpinner(spCarrera, R.array.Carreras)
+        configurarSpinner(sp_semestre, R.array.Semestre)
+        configurarSpinner(sp_seccion, R.array.Seccion)
+        configurarSpinner(sp_carrera, R.array.Carreras)
 
-        configurarFlecha(spSemestre, R.id.spIcono1)
-        configurarFlecha(spSeccion, R.id.spIcono2)
-        configurarFlecha(spCarrera, R.id.spIcono3)
+        configurarFlecha(sp_semestre, R.id.spIcono1)
+        configurarFlecha(sp_seccion, R.id.spIcono2)
+        configurarFlecha(sp_carrera, R.id.spIcono3)
 
-        btnGenerar.setOnClickListener {
+        btn_generar_qr.setOnClickListener {
             if (validarCampos()) {
                 try {
                     val barcodeEncoder = BarcodeEncoder()
                     val data = """
-                Nombre y Apellidos: ${etNombreCompleto.text}
-                Semestre: ${spSemestre.selectedItem}
-                Sección: ${spSeccion.selectedItem}
-                Código del Estudiante: ${etCodigoEstudiante.text}
-                Carrera: ${spCarrera.selectedItem}
-                Acceso RFID: ${etCodigoAcceso.text}
+                Nombre y Apellidos: ${et_nombre_completo.text}
+                Semestre: ${sp_semestre.selectedItem}
+                Sección: ${sp_seccion.selectedItem}
+                Código del Estudiante: ${et_codigo_estudiante.text}
+                Carrera: ${sp_carrera.selectedItem}
+                Acceso RFID: ${et_codigo_acceso.text}
             """.trimIndent()
 
                     val bitmap: Bitmap = barcodeEncoder.encodeBitmap(
@@ -82,7 +85,7 @@ class FormularioActivity : AppCompatActivity() {
                     editor.apply()
 
                     // Iniciar DatosPasaporteActivity
-                    val intent = Intent(this, GenerarQrActivity::class.java)
+                    val intent = Intent(this, DatosPasaporteActivity::class.java)
                     startActivity(intent)
 
                     Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
@@ -94,14 +97,8 @@ class FormularioActivity : AppCompatActivity() {
                 Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
-    @SuppressLint("MissingSuperCall")
-    override fun onBackPressed() {
-        return
-    }
     private fun configurarSpinner(spinner: Spinner, arrayResId: Int) {
         ArrayAdapter.createFromResource(
             this,
@@ -121,16 +118,18 @@ class FormularioActivity : AppCompatActivity() {
     }
 
     private fun validarCampos(): Boolean {
-        return etNombreCompleto.text.isNotEmpty() &&
-                spSemestre.selectedItem != null &&
-                spSeccion.selectedItem != null &&
-                etCodigoEstudiante.text.isNotEmpty() &&
-                spCarrera.selectedItem != null &&
-                etCodigoAcceso.text.isNotEmpty()
+        return et_nombre_completo.text.isNotEmpty() &&
+                sp_semestre.selectedItem != null &&
+                sp_seccion.selectedItem != null &&
+                et_codigo_estudiante.text.isNotEmpty() &&
+                sp_carrera.selectedItem != null &&
+                et_codigo_acceso.text.isNotEmpty()
     }
 
-    private fun obtenerDatosFormularioComoString(): String {
-        return "${etNombreCompleto.text},${spSemestre.selectedItem},${spSeccion.selectedItem}," +
-                "${etCodigoEstudiante.text},${spCarrera.selectedItem},${etCodigoAcceso.text}"
+    private fun obtenerDatosFormularioXComoString(): String {
+        return "${et_nombre_completo.text},${sp_semestre.selectedItem},${sp_seccion.selectedItem}," +
+                "${et_codigo_estudiante.text},${sp_carrera.selectedItem},${et_codigo_acceso.text}"
+
     }
 }
+

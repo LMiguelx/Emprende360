@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".DatosPasaporteActivity">
 
+
     <!-- Vista para la mitad superior (morado) -->
 
     <!-- Vista para la mitad inferior (blanco) -->
@@ -24,6 +25,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/ActilizarQR"
+        android:layout_width="30dp"
+        android:layout_height="26dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="#0025F3"
+        android:gravity="center"
+        android:src="@drawable/boton_datos_pasa"
+        android:text="QR"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
     <View
         android:id="@+id/lower_half"
         android:layout_width="match_parent"
@@ -38,9 +57,9 @@
 
     <TextView
         android:id="@+id/textViewActividades"
-        android:layout_width="190dp"
+        android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:gravity="left"
+        android:gravity="center"
         android:paddingStart="16dp"
         android:text="CIUDADANO"
         android:textColor="@color/color1"
@@ -51,11 +70,11 @@
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026" />
+        app:layout_constraintVertical_bias="0.072" />
 
     <TextView
         android:id="@+id/textViewActividades1"
-        android:layout_width="241dp"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
         android:paddingStart="16dp"
         android:text="TECSURIANO"
@@ -70,42 +89,42 @@
         app:layout_constraintVertical_bias="0.132" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="140dp"
+        android:id="@+id/imageViewProfile"
+        android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/perfil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewActividades1"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textViewActividades1" />
 
     <TextView
-        android:id="@+id/txtnombreCuenta"
+        android:id="@+id/hola"
         android:layout_width="301dp"
         android:layout_height="34dp"
-        android:textAlignment="center"
+        android:text="hola "
+        android:textAlignment="textStart"
         android:textColor="#9C27B0"
         android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+        app:layout_constraintVertical_bias="0.034" />
 
     <ImageView
         android:id="@+id/ivCodigoQR"
         android:layout_width="200dp"
         android:layout_height="200dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtnombreCuenta"
+        app:layout_constraintTop_toBottomOf="@+id/hola"
         app:layout_constraintVertical_bias="0.11" />
 
     <TextView

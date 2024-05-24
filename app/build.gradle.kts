@@ -59,5 +59,16 @@ dependencies {
 
     //QR
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation ("com.google.zxing:core:3.4.1")
+
+
+    //Perfil foto
+    implementation ("com.google.android.material:material:1.3.0")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+
+    //sql
+    implementation ("androidx.sqlite:sqlite:2.1.0")
 
 }
