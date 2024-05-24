@@ -2,6 +2,7 @@ package com.example.emprende360
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,12 +22,15 @@ class PortadaPasaPorteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_portada_pasa_porte)
 
-        val datosingresados : Button = findViewById(R.id.Ingresoadatospersonales)
-
-        datosingresados.setOnClickListener {
-            startActivity(Intent(this, DatosPasaporteActivity::class.java))
-        }
         // Initialize Firebase Auth
         firebaseAuth = Firebase.auth
+
+        // Configuración del temporizador para el splash screen
+        val handler = Handler()
+        handler.postDelayed({
+            // Acción a realizar después del tiempo especificado
+            startActivity(Intent(this, DatosPasaporteActivity::class.java))
+            finish() // Para que el usuario no pueda volver atrás con el botón de retroceso
+        }, 3000) // Tiempo de espera en milisegundos (en este caso, 2000ms = 2 segundos)
     }
 }
