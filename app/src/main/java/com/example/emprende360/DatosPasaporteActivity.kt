@@ -21,7 +21,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
+import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -44,11 +44,11 @@ import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 
 class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    private lateinit var firebaseAuth: FirebaseAuth
+    //private lateinit var fireba seAuth: FirebaseAuth
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var drawerLayout:DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var nombreUsuario: String // Aquí debes inicializar esta variable con el nombre del usuario
 
     //Foto de Perfil
@@ -56,7 +56,6 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
     private val sharedPreferences by lazy { getSharedPreferences("profile_prefs", Context.MODE_PRIVATE) }
     private var currentImageUri: Uri? = null
     private lateinit var db: FirebaseFirestore
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,13 +109,16 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         // Donde se muestra los nombres en el layout principal
         val userName = intent.getStringExtra("userName")
-        //drawer layout
+
+        firebaseAuth = Firebase.auth
+
         //drawel donde se define la varibles y el llamado del drawerLayout
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationVie: NavigationView = findViewById(R.id.nav_view)
         navigationVie.setNavigationItemSelectedListener(this)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar_main)
+
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         drawer = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -283,7 +285,8 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
         }
     } //Ultimas linea de codigo de foto perfil
-    // Inicio del drawel
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
@@ -350,7 +353,6 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
             // Iniciar SeguridadActivity
             //startActivity(Intent(this, SeguridadActivity::class.java))
             //}
-
         }
 
         // Cerrar el drawer después de manejar la selección
@@ -369,5 +371,5 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
-}
 
+}

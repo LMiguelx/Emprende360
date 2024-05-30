@@ -159,4 +159,5 @@ class CuestionarioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
+
 }

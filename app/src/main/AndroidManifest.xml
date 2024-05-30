@@ -29,22 +29,26 @@
             android:exported="false" />
         <activity
             android:name=".DatosPasaporteActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".SelectionActivity"
             android:exported="false" />
         <activity
             android:name=".CuestionarioActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".EventosActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".PuntosActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".PerfilActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".PortadaPasaPorteActivity"
             android:exported="true"

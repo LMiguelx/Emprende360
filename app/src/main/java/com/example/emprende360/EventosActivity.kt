@@ -78,7 +78,6 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         //fin de boton de navegacion inferior     -------------------------------------------
 
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
         return true
@@ -162,4 +161,5 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
+
 }

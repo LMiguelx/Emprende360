@@ -162,4 +162,5 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
+
 }

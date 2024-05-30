@@ -65,6 +65,12 @@ class LoginActivity : AppCompatActivity() {
         btnRecordar.setOnClickListener {
             startActivity(Intent(this, RecuperarContraseñaActivity::class.java))
         }
+
+        val ingresodire : Button = findViewById(R.id.ingresoDirecto)
+        ingresodire.setOnClickListener {
+            startActivity(Intent(this, PrincipalActivity::class.java))
+        }
+
     }
 
     private fun signIn(email: String, password: String) {
