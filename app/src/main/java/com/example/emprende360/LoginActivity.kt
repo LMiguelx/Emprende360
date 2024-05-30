@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -71,18 +72,14 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
+                    val correo = user?.email
                     val userId = user?.uid
                     userId?.let {
-                        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                        val editor = sharedPreferences.edit()
-                        editor.putString("userId", it)
-                        editor.apply()
-
-                        // Iniciar la actividad del formulario
-                        startActivity(Intent(this, FormularioActivity::class.java))
+                        checkIfUserExists(it, correo ?: "")
                     }
                 } else {
                     // Manejar errores de autenticación
+                    Toast.makeText(this, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -114,20 +111,42 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
+                    val correo = user?.email
                     val googleId = user?.uid  // Obtener el ID de Google del usuario
 
-                    // Guardar el ID de Google en SharedPreferences o enviarlo a la actividad del formulario
-                    // Aquí puedes guardar el ID de Google en SharedPreferences para usarlo más tarde
-                    val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.putString("googleId", googleId)
-                    editor.apply()
-
-                    // Iniciar la actividad del formulario
-                    startActivity(Intent(this, FormularioActivity::class.java))
+                    googleId?.let {
+                        checkIfUserExists(it, correo ?: "")
+                    }
                 } else {
                     // Manejar errores de autenticación
+                    Toast.makeText(this, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun checkIfUserExists(userId: String, email: String) {
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("estudiantes").document(userId)
+
+        docRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                // El usuario ya existe, redirigir a DatosPasaporteActivity
+                val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
+                    putExtra("userId", userId)
+                    putExtra("correo", email)
+                }
+                startActivity(intent)
+            } else {
+                // El usuario no existe, redirigir al formulario
+                val intent = Intent(this, FormularioActivity::class.java).apply {
+                    putExtra("userId", userId)
+                    putExtra("correo", email)
+                }
+                startActivity(intent)
+            }
+        }.addOnFailureListener { exception ->
+            // Manejar el error
+            Toast.makeText(this, "Error al verificar el usuario", Toast.LENGTH_SHORT).show()
+        }
     }
 }

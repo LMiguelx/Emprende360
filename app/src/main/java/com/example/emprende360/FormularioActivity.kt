@@ -16,6 +16,8 @@ class FormularioActivity : AppCompatActivity() {
     private lateinit var etCodigoAcceso: EditText
     private lateinit var btnGenerar: Button
     private lateinit var db: FirebaseFirestore
+    private lateinit var userId: String
+    private lateinit var correo: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +39,11 @@ class FormularioActivity : AppCompatActivity() {
         configurarFlecha(spSeccion, R.id.spIcono2)
         configurarFlecha(spCarrera, R.id.spIcono3)
 
-        val id = intent.getStringExtra("googleId")
-        val id2 = intent.getStringExtra("UserId")
-
-
         db = FirebaseFirestore.getInstance()
+
+        // Obtener el UID y el correo del intent
+        userId = intent.getStringExtra("userId").toString()
+        correo = intent.getStringExtra("correo").toString()
 
         btnGenerar.setOnClickListener {
             if (validarCampos()) {
@@ -52,7 +54,6 @@ class FormularioActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun configurarSpinner(spinner: Spinner, arrayResId: Int) {
         ArrayAdapter.createFromResource(
@@ -95,10 +96,11 @@ class FormularioActivity : AppCompatActivity() {
             "seccion" to seccion,
             "codigoEstudiante" to codigoEstudiante,
             "carrera" to carrera,
-            "codigoAcceso" to codigoAcceso
+            "codigoAcceso" to codigoAcceso,
+            "correo" to correo
         )
 
-        db.collection("estudiantes").document(codigoEstudiante)
+        db.collection("estudiantes").document(userId)
             .set(estudiante)
             .addOnSuccessListener {
                 Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
@@ -121,3 +123,4 @@ class FormularioActivity : AppCompatActivity() {
         startActivity(intent)
     }
 }
+
