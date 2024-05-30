@@ -44,7 +44,8 @@ import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 
 class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    //private lateinit var fireba seAuth: FirebaseAuth
+
+
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
@@ -72,18 +73,25 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         val carrera = intent.getStringExtra("carrera")
         val codigoAcceso = intent.getStringExtra("codigoAcceso")
 
-        // Mostrar el nombre en el TextView hola
-        val textViewHola = findViewById<TextView>(R.id.hola)
-        textViewHola.text = "$nombreCompleto"
+        mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso)
+    }
 
-        // Generar el QR con los datos del usuario y mostrarlo en la ImageView ivCodigoQR
-        val data = "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso"
-        val qrBitmap = generarQR(data)
-        if (qrBitmap != null) {
-            val ivCodigoQR = findViewById<ImageView>(R.id.ivCodigoQR)
-            ivCodigoQR.setImageBitmap(qrBitmap)
+    private fun mostrarDatos(nombreCompleto: String?, semestre: String?, seccion: String?, codigoEstudiante: String?, carrera: String?, codigoAcceso: String?) {
+        if (nombreCompleto != null && semestre != null && seccion != null && codigoEstudiante != null && carrera != null && codigoAcceso != null) {
+            // Si los datos están disponibles, mostrarlos en las vistas correspondientes
+            val textViewHola = findViewById<TextView>(R.id.hola)
+            textViewHola.text = nombreCompleto
+
+
+            val data = "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso"
+            val qrBitmap = generarQR(data)
+            if (qrBitmap != null) {
+                val ivCodigoQR = findViewById<ImageView>(R.id.ivCodigoQR)
+                ivCodigoQR.setImageBitmap(qrBitmap)
+            }
+        } else {
+            obtenerDatosDeFirestore()
         }
-
         // Configurar listener para el botón SellosRegistrados
         val sellosRegistradosButton: Button = findViewById(R.id.SellosRegistrados)
         sellosRegistradosButton.setOnClickListener {
@@ -170,6 +178,28 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         } catch (e: WriterException) {
             e.printStackTrace()
             null
+        }
+    }
+    private fun obtenerDatosDeFirestore() {
+        val userId = firebaseAuth.currentUser?.uid
+        if (userId != null) {
+            val docRef = db.collection("estudiantes").document(userId)
+            docRef.get().addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // Obtener datos del documento y mostrarlos
+                    val nombreCompleto = document.getString("nombreCompleto")
+                    val semestre = document.getString("semestre")
+                    val seccion = document.getString("seccion")
+                    val codigoEstudiante = document.getString("codigoEstudiante")
+                    val carrera = document.getString("carrera")
+                    val codigoAcceso = document.getString("codigoAcceso")
+
+                    mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso)
+                }
+            }.addOnFailureListener { exception ->
+                // Manejar el error
+                Toast.makeText(this, "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

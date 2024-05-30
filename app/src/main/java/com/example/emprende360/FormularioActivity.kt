@@ -48,7 +48,6 @@ class FormularioActivity : AppCompatActivity() {
         btnGenerar.setOnClickListener {
             if (validarCampos()) {
                 enviarDatosAFirestore()
-                abrirDatosPasaporteActivity()
             } else {
                 Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
             }
@@ -104,6 +103,7 @@ class FormularioActivity : AppCompatActivity() {
             .set(estudiante)
             .addOnSuccessListener {
                 Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
+                abrirDatosPasaporteActivity()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al enviar los datos", Toast.LENGTH_SHORT).show()
@@ -112,15 +112,9 @@ class FormularioActivity : AppCompatActivity() {
 
     private fun abrirDatosPasaporteActivity() {
         val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
-            // Pasar los datos del formulario a la actividad de DatosPasaporteActivity
-            putExtra("nombreCompleto", etNombreCompleto.text.toString())
-            putExtra("semestre", spSemestre.selectedItem.toString())
-            putExtra("seccion", spSeccion.selectedItem.toString())
-            putExtra("codigoEstudiante", etCodigoEstudiante.text.toString())
-            putExtra("carrera", spCarrera.selectedItem.toString())
-            putExtra("codigoAcceso", etCodigoAcceso.text.toString())
+            putExtra("userId", userId)
+            putExtra("correo", correo)
         }
         startActivity(intent)
     }
 }
-

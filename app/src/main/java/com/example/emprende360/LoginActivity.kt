@@ -66,11 +66,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RecuperarContraseñaActivity::class.java))
         }
 
-        val ingresodire : Button = findViewById(R.id.ingresoDirecto)
-        ingresodire.setOnClickListener {
-            startActivity(Intent(this, PrincipalActivity::class.java))
-        }
-
     }
 
     private fun signIn(email: String, password: String) {
@@ -138,8 +133,13 @@ class LoginActivity : AppCompatActivity() {
             if (document.exists()) {
                 // El usuario ya existe, redirigir a DatosPasaporteActivity
                 val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
-                    putExtra("userId", userId)
-                    putExtra("correo", email)
+                    putExtra("nombreCompleto", document.getString("nombreCompleto"))
+                    putExtra("semestre", document.getString("semestre"))
+                    putExtra("seccion", document.getString("seccion"))
+                    putExtra("codigoEstudiante", document.getString("codigoEstudiante"))
+                    putExtra("correo",document.getString("correo"))
+                    putExtra("carrera", document.getString("carrera"))
+                    putExtra("codigoAcceso", document.getString("codigoAcceso"))
                 }
                 startActivity(intent)
             } else {

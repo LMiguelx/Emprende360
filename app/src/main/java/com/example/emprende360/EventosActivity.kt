@@ -7,48 +7,50 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.google.firebase.auth.ktx.auth
-
+import com.google.firebase.firestore.FirebaseFirestore
 
 class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adaptador: AdaptadorEventos
+    private val listaEventos: MutableList<Map<String, Any>> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_eventos)
 
+        firebaseAuth = FirebaseAuth.getInstance()
 
-        firebaseAuth = com.google.firebase.ktx.Firebase.auth
+        // Configuración del RecyclerView
+        recyclerView = findViewById(R.id.recycler_view_eventos)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adaptador = AdaptadorEventos(listaEventos)
+        recyclerView.adapter = adaptador
 
-        //drawel donde se define la varibles y el llamado del drawerLayout
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val navigationVie: NavigationView = findViewById(R.id.nav_view)
-        navigationVie.setNavigationItemSelectedListener(this)
-
+        // Configuración del DrawerLayout
+        drawer = findViewById(R.id.drawer_layout)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
-        drawer = findViewById(R.id.drawer_layout)
-        toggle = ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
+        toggle.syncState()
 
-        //funcion del boton de navegacion inferior-------------------------------------------
+        // Configuración del BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -65,7 +67,7 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     true
                 }
                 R.id.bottom_eventos -> {
-                    startActivity(Intent(this, EventosActivity::class.java))
+                    // No hacer nada ya que estamos en la misma actividad
                     true
                 }
                 R.id.bottom_cuestionario -> {
@@ -75,9 +77,11 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 else -> false
             }
         }
-        //fin de boton de navegacion inferior     -------------------------------------------
 
+        // Obtener los datos de Firestore
+        obtenerDatosFirestore()
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
         return true
@@ -89,7 +93,9 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 Toast.makeText(baseContext, "Buscar información", Toast.LENGTH_SHORT).show()
             }
             R.id.menu_salir -> {
-                signOut()
+                firebaseAuth.signOut()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -97,62 +103,56 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        return
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
-    private fun signOut() {
-        firebaseAuth.signOut()
-        Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()
-        val i = Intent(this, LoginActivity::class.java)
-        startActivity(i)
-    }
+    private fun obtenerDatosFirestore() {
+        val db = FirebaseFirestore.getInstance()
+        val eventosRef = db.collection("eventos")
 
-    //Los drawers aqui desde la funcion -----------------------------------------------------------------------------
+        eventosRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    val datosEvento = document.data
+                    datosEvento?.let { evento ->
+                        listaEventos.add(evento)
+                    }
+                }
+                adaptador.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al obtener eventos: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_item_one -> {
-                // Iniciar PrincipalActivity cuando se hace clic en el primer ítem del menú
                 startActivity(Intent(this, PrincipalActivity::class.java))
             }
             R.id.nav_item_two -> {
-                // Iniciar PerfilActivity
                 startActivity(Intent(this, DatosPasaporteActivity::class.java))
             }
             R.id.nav_item_three -> {
-                // Iniciar PuntosActivity
                 startActivity(Intent(this, PuntosActivity::class.java))
             }
             R.id.nav_item_four -> {
-                // Iniciar EventosActivity
-                startActivity(Intent(this, EventosActivity::class.java))
+                // No hacer nada ya que estamos en la misma actividad
             }
             R.id.nav_item_five -> {
-                // Iniciar CuestionarioActivity
                 startActivity(Intent(this, CuestionarioActivity::class.java))
             }
-            //R.id.nav_item_six -> {
-            // Iniciar PerfilActivity
-            //  startActivity(Intent(this, PerfilActivity::class.java))
-            //}
-            //R.id.nav_item_seven -> {
-            // Iniciar PuntosActivity
-            //  startActivity(Intent(this, PuntosActivity::class.java))
-            //}
-            //R.id.nav_item_eight -> {
-            // Iniciar SeguridadActivity
-            //startActivity(Intent(this, SeguridadActivity::class.java))
-            //}
         }
 
-        // Cerrar el drawer después de manejar la selección
-        drawerLayout.closeDrawer(GravityCompat.START) // Corrección aquí
+        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 
-    //Los drawers finalizan aqui -----------------------------------------------------------------------------
-
-    override fun onPostCreate(savedInstanceState: Bundle?,) {
+    override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         toggle.syncState()
     }
@@ -161,5 +161,4 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
-
 }

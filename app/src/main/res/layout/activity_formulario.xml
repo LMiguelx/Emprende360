@@ -12,13 +12,15 @@
         android:layout_height="wrap_content"
         android:elevation="3dp">
         <TextView
-            android:layout_width="345dp"
-            android:layout_height="70dp"
-            android:text="Necesito ayuda  con este formulario !!! "
+            android:layout_width="340dp"
+            android:justificationMode="inter_word"
+            android:layout_height="170dp"
+            android:fontFamily="monospace"
+            android:text="¡Listo para despegar hacia tu camino emprendedor! Completa el último paso con tus datos y el código ID de tu tarjeta para abrir las puertas hacia el aprendizaje y la creación de tu emprendimiento. ¡Vamos juntos hacia el éxito!"
             android:textColor="@color/white"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="55dp"
             android:layout_marginStart="40dp"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
@@ -45,7 +47,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/rectangle"
         android:elevation="30dp"
         android:orientation="vertical"
@@ -218,7 +220,7 @@
             android:background="@drawable/circle"
             android:backgroundTint="#39B9EC"
             android:elevation="6dp"
-            android:text="Actualizar datos y Generar QR"
+            android:text="Empezar la aventura"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
