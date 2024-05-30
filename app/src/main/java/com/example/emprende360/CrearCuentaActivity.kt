@@ -25,7 +25,7 @@ class CrearCuentaActivity : AppCompatActivity() {
         val returnback : ImageButton = findViewById(R.id.retunback2)
 
         returnback.setOnClickListener(){
-            val intent = Intent(this , SelectionActivity::class.java)
+            val intent = Intent(this ,LoginActivity::class.java)
             startActivity(intent)
         }
 

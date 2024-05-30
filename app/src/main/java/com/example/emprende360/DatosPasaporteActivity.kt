@@ -1,5 +1,6 @@
 package com.example.emprende360
 
+import android.graphics.Color
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -27,48 +28,57 @@ import com.example.emprende360.R
 import com.example.emprende360.SellosRegistradosActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 
 class DatosPasaporteActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var nombreUsuario: String // Aquí debes inicializar esta variable con el nombre del usuario
 
     //Foto de Perfil
     private lateinit var imageViewProfile: ImageView
     private val sharedPreferences by lazy { getSharedPreferences("profile_prefs", Context.MODE_PRIVATE) }
     private var currentImageUri: Uri? = null
+    private lateinit var db: FirebaseFirestore
 
-
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_datos_pasaporte)
+
         // Inicializar FirebaseAuth
         firebaseAuth = Firebase.auth
+        db = FirebaseFirestore.getInstance()
 
-        val sellosregis: Button = findViewById(R.id.SellosRegistrados)
-        val ivCodigoQR: ImageView = findViewById(R.id.ivCodigoQR)
+        val nombreCompleto = intent.getStringExtra("nombreCompleto")
+        val semestre = intent.getStringExtra("semestre")
+        val seccion = intent.getStringExtra("seccion")
+        val codigoEstudiante = intent.getStringExtra("codigoEstudiante")
+        val carrera = intent.getStringExtra("carrera")
+        val codigoAcceso = intent.getStringExtra("codigoAcceso")
 
+        // Mostrar el nombre en el TextView hola
+        val textViewHola = findViewById<TextView>(R.id.hola)
+        textViewHola.text = "$nombreCompleto"
 
-        // Recuperar la cadena base64 del código QR desde SharedPreferences
-        val sharedPreferences = getSharedPreferences("QRPrefs", Context.MODE_PRIVATE)
-        val encodedString = sharedPreferences.getString("qr_code", null)
-
-        // Si hay una cadena base64 guardada, decodificarla y mostrar el código QR
-        if (encodedString != null) {
-            val decodedString = Base64.decode(encodedString, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            ivCodigoQR.setImageBitmap(decodedByte)
+        // Generar el QR con los datos del usuario y mostrarlo en la ImageView ivCodigoQR
+        val data = "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso"
+        val qrBitmap = generarQR(data)
+        if (qrBitmap != null) {
+            val ivCodigoQR = findViewById<ImageView>(R.id.ivCodigoQR)
+            ivCodigoQR.setImageBitmap(qrBitmap)
         }
 
         // Configurar listener para el botón SellosRegistrados
-        sellosregis.setOnClickListener {
+        val sellosRegistradosButton: Button = findViewById(R.id.SellosRegistrados)
+        sellosRegistradosButton.setOnClickListener {
             startActivity(Intent(this, SellosRegistradosActivity::class.java))
         }
 
-        //Se carga la imagen aqui
-        //fotos perfil
-
+        // Se carga la imagen aquí
+        // Fotos perfil
         imageViewProfile = findViewById(R.id.imageViewProfile)
 
         imageViewProfile.setOnClickListener {
@@ -82,22 +92,33 @@ class DatosPasaporteActivity : AppCompatActivity() {
 
         // Cargar la imagen guardada en el inicio
         loadSavedImage()
-        //Aqui se termina sobre foto de perfil
+        // Aquí termina sobre foto de perfil
 
-        //Donde se muestra los nombres en el layout principal
+        // Donde se muestra los nombres en el layout principal
         val userName = intent.getStringExtra("userName")
-        val textViewHola = findViewById<TextView>(R.id.hola)
-        textViewHola.text = "Hola, $userName"
-
-        val actulizarqr: Button = findViewById(R.id.ActilizarQR)
+        val actulizarqr: TextView= findViewById(R.id.ActualizarQR)
         actulizarqr.setOnClickListener {
-            startActivity(Intent(this, GenerarQrActivity::class.java))
-
+            startActivity(Intent(this, EventosActivity::class.java))
         }
     }
-
-
-
+    private fun generarQR(data: String): Bitmap? {
+        return try {
+            val qrCodeWriter = QRCodeWriter()
+            val bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 400, 400)
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+                }
+            }
+            bitmap
+        } catch (e: WriterException) {
+            e.printStackTrace()
+            null
+        }
+    }
 
     /**
      * Abre la galería de imágenes para que el usuario seleccione una imagen.

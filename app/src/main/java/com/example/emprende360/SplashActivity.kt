@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         val splashTimer = object : Thread() {
             override fun run() {
                 try {
-                    sleep(3000)
+                    sleep(5000)
                     // Cambia LoginActivity a SelectionActivity
                     val intent = Intent(applicationContext, SelectionActivity::class.java)
                     startActivity(intent)

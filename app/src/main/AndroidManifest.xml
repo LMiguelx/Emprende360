@@ -22,13 +22,10 @@
             android:name=".FormularioActivity"
             android:exported="false" />
         <activity
-            android:name=".GenerearQrActivity"
-            android:exported="false" />
-        <activity
             android:name=".SellosRegistradosActivity"
             android:exported="false" />
         <activity
-            android:name=".PortadaPasaPorteActivity"
+            android:name=".SplashActivity"
             android:exported="false" />
         <activity
             android:name=".DatosPasaporteActivity"
@@ -49,7 +46,7 @@
             android:name=".PerfilActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".PortadaPasaPorteActivity"
             android:exported="true"
             android:theme="@style/Sin.Nav">
             <intent-filter>

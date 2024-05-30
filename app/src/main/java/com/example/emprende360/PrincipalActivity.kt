@@ -148,7 +148,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private fun signOut() {
         firebaseAuth.signOut()
         Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()
-        val i = Intent(this, SelectionActivity::class.java)
+        val i = Intent(this, LoginActivity::class.java)
         startActivity(i)
     }
 

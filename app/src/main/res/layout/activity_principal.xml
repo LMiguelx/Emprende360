@@ -49,75 +49,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewActividades"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:text="Elige tu cuenta"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hola" />
-
-            <LinearLayout
-                android:id="@+id/linearLayoutCategorias"
-                android:layout_width="379dp"
-                android:layout_height="62dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_corner_rectangle"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewActividades">
-
-                <Button
-                    android:id="@+id/ingresoPasaporte"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corner_rectangle"
-                    android:backgroundTint="@color/purple_700"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="Tecsuria"
-                    android:textColor="@color/color1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <Space
-                    android:layout_width="16dp"
-                    android:layout_height="24dp" />
-
-                <Button
-                    android:id="@+id/ingresoqrgenerator"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corner_rectangle"
-                    android:backgroundTint="@color/purple_700"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="QR GENERADOR"
-                    android:textColor="@color/color1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
                 android:id="@+id/textViewEventosProximos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:paddingStart="16dp"
                 android:text="Actividades Resaltantes"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCategorias" />
+                tools:layout_editor_absoluteY="100dp" />
 
             <TextView
                 android:id="@+id/nombredeiam1"
@@ -202,6 +142,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imagenprinci4" />
 
+            <FrameLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -213,13 +158,6 @@
             app:menu="@menu/activity_main_drawer" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-    <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="193dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

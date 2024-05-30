@@ -1,11 +1,10 @@
 package com.example.emprende360
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,48 +20,50 @@ import com.google.firebase.ktx.Firebase
 class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 1001   // codigo
+    private val RC_SIGN_IN = 1001   // Código de solicitud de inicio de sesión
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicializar firebase
         firebaseAuth = Firebase.auth
 
-        // Instanciar elementos
+        // Configurar botones y campos de texto
         val txtEmail: EditText = findViewById(R.id.edtEmail)
         val txtPass: EditText = findViewById(R.id.edtPassword)
         val btnIngresar: Button = findViewById(R.id.btnIngresar)
         val btnGoogleSignIn: Button = findViewById(R.id.btnGoogleSignIn)
+        val btnRegister: Button = findViewById(R.id.btnRegister)
         val btnRecordar: TextView = findViewById(R.id.btnOlvidar)
-        val btnReturnBack = findViewById<ImageButton>(R.id.retunback1)
 
-        btnReturnBack.setOnClickListener {
-            val intent = Intent(this, SelectionActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Boton Iniciar Sesion
-        btnIngresar.setOnClickListener {
-            signIn(txtEmail.text.toString(), txtPass.text.toString())
-        }
-
-        btnGoogleSignIn.setOnClickListener {
-            signInWithGoogle()
-            Toast.makeText(this, "Google Sign-In may not prompt for password on trusted devices.", Toast.LENGTH_LONG).show()
-        }
-
-        btnRecordar.setOnClickListener {
-            startActivity(Intent(this, RecuperarContraseñaActivity::class.java))
-        }
-
-        // Configure Google Sign In
+        // Inicializar cliente de inicio de sesión de Google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // Botón para registrar nueva cuenta
+        btnRegister.setOnClickListener {
+            val intent2 = Intent(this, CrearCuentaActivity::class.java)
+            startActivity(intent2)
+        }
+
+        // Botón para iniciar sesión con email y contraseña
+        btnIngresar.setOnClickListener {
+            signIn(txtEmail.text.toString(), txtPass.text.toString())
+        }
+
+        // Botón para iniciar sesión con Google
+        btnGoogleSignIn.setOnClickListener {
+            signInWithGoogle()
+            Toast.makeText(this, "Google Sign-In may not prompt for password on trusted devices.", Toast.LENGTH_LONG).show()
+        }
+
+        // Botón para recuperar contraseña
+        btnRecordar.setOnClickListener {
+            startActivity(Intent(this, RecuperarContraseñaActivity::class.java))
+        }
     }
 
     private fun signIn(email: String, password: String) {
@@ -70,21 +71,24 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
-                    val verifica = user?.isEmailVerified
-                    if (verifica == true) {
-                        Toast.makeText(baseContext, "Autentificación exitosa", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, PrincipalActivity::class.java))
-                    } else {
-                        Toast.makeText(baseContext, "No ha verificado su correo", Toast.LENGTH_SHORT).show()
+                    val userId = user?.uid
+                    userId?.let {
+                        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("userId", it)
+                        editor.apply()
+
+                        // Iniciar la actividad del formulario
+                        startActivity(Intent(this, FormularioActivity::class.java))
                     }
                 } else {
-                    Toast.makeText(baseContext, "Error en el Email o Contraseña", Toast.LENGTH_SHORT).show()
+                    // Manejar errores de autenticación
                 }
             }
     }
 
-    // Logear con Google
     private fun signInWithGoogle() {
+        // Iniciar sesión con Google
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -110,33 +114,20 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
-                    val name = task.result?.user?.displayName
+                    val googleId = user?.uid  // Obtener el ID de Google del usuario
 
-                    // Enviar el nombre del usuario a la FormularioActivity
-                    val intent = Intent(this, FormularioActivity::class.java)
-                    intent.putExtra("userName", name)
-                    startActivity(intent)
+                    // Guardar el ID de Google en SharedPreferences o enviarlo a la actividad del formulario
+                    // Aquí puedes guardar el ID de Google en SharedPreferences para usarlo más tarde
+                    val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("googleId", googleId)
+                    editor.apply()
 
-                    Toast.makeText(this, "Autenticación exitosa con Google", Toast.LENGTH_SHORT).show()
-                    val textViewHola = findViewById<TextView>(R.id.hola)
-                    if (textViewHola != null) {
-                        textViewHola.text = "hola $name"
-                    } else {
-                        Log.e("LoginActivity", "El TextView 'hola' no se pudo encontrar.")
-                    }
-
-                    Log.d("TAG", "Datos de la tarea: ${task.result}")
-                    Log.d("nombre", "Nombre del usuario: $name")
-                    Log.d("email", "Email del usuario: ${task.result?.user?.email}")
-                    Log.d("email2", "PhotoUrl del usuario: ${task.result?.user?.photoUrl}")
+                    // Iniciar la actividad del formulario
+                    startActivity(Intent(this, FormularioActivity::class.java))
                 } else {
-                    Log.e("FirebaseAuth", "Error de autenticación con Google: ${task.exception?.message}")
-                    Toast.makeText(this, "Error de autenticación con Google", Toast.LENGTH_SHORT).show()
+                    // Manejar errores de autenticación
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.e("FirebaseAuth", "Error de autenticación con Google: ${exception.message}")
-                Toast.makeText(this, "Error de autenticación con Google: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }

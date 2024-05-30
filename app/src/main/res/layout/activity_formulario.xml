@@ -11,6 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="3dp">
+        <TextView
+            android:layout_width="345dp"
+            android:layout_height="70dp"
+            android:text="Necesito ayuda  con este formulario !!! "
+            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="40dp"
+            android:textSize="20dp"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <View
@@ -209,7 +218,7 @@
             android:background="@drawable/circle"
             android:backgroundTint="#39B9EC"
             android:elevation="6dp"
-            android:text="Dar el primer paso a tu futuro"
+            android:text="Actualizar datos y Generar QR"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />

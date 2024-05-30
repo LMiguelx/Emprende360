@@ -11,7 +11,7 @@ class SelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_selection)
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
-        val btnRegister = findViewById<Button>(R.id.btnRegister)
+        val btnRegister = findViewById<Button>(R.id.btnRegister2)
 
         btnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

@@ -9,9 +9,6 @@
     tools:context=".DatosPasaporteActivity">
 
 
-    <!-- Vista para la mitad superior (morado) -->
-
-    <!-- Vista para la mitad inferior (blanco) -->
 
     <View
         android:id="@+id/upper_half"
@@ -25,23 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ActilizarQR"
-        android:layout_width="30dp"
-        android:layout_height="26dp"
-        android:background="@drawable/circle"
-        android:backgroundTint="#0025F3"
-        android:gravity="center"
-        android:src="@drawable/boton_datos_pasa"
-        android:text="QR"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
 
     <View
         android:id="@+id/lower_half"
@@ -103,7 +83,7 @@
         android:id="@+id/hola"
         android:layout_width="301dp"
         android:layout_height="34dp"
-        android:text="hola "
+        android:text=" "
         android:textAlignment="textStart"
         android:textColor="#9C27B0"
         android:textSize="20sp"

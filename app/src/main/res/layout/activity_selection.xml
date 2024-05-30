@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnRegister2"
             android:layout_width="220dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
