@@ -31,6 +31,6 @@ class PortadaPasaPorteActivity : AppCompatActivity() {
             // Acción a realizar después del tiempo especificado
             startActivity(Intent(this,LoginActivity::class.java))
             finish() // Para que el usuario no pueda volver atrás con el botón de retroceso
-        }, 4000) // Tiempo de espera en milisegundos (en este caso, 2000ms = 2 segundos)
+        }, 5000) // Tiempo de espera en milisegundos (en este caso, 2000ms = 2 segundos)
     }
 }
