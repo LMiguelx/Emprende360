@@ -42,6 +42,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -74,6 +75,57 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         val codigoAcceso = intent.getStringExtra("codigoAcceso")
 
         mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso)
+
+        //funcion del boton de navegacion inferior-------------------------------------------
+        val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(2, "Puntos", R.drawable.baseline_123_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(3, "Pasaporte", R.drawable.baseline_perm_identity_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(4, "Eventos", R.drawable.baseline_ballot_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(5, "Preguntas", R.drawable.baseline_assignment_24)
+        )
+
+        bottomNavigation.setOnClickMenuListener { item ->
+            when (item.id) {
+                1 -> {
+                    replaceActivity(PrincipalActivity::class.java)
+                    true
+                }
+                2 -> {
+                    replaceActivity(PuntosActivity::class.java)
+                    true
+                }
+                3 -> {
+                    replaceActivity(DatosPasaporteActivity::class.java)
+                    true
+                }
+                4 -> {
+                    replaceActivity(EventosActivity::class.java)
+                    true
+                }
+                5 -> {
+                    replaceActivity(CuestionarioActivity::class.java)
+                    true
+                }
+                else -> false
+            }
+        }
+        bottomNavigation.show(3)
+    }
+    private fun replaceActivity(activityClass: Class<*>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        finish()
     }
 
     private fun mostrarDatos(nombreCompleto: String?, semestre: String?, seccion: String?, codigoEstudiante: String?, carrera: String?, codigoAcceso: String?) {
@@ -131,37 +183,8 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         drawer = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
-
-        //funcion del boton de navegacion inferior-------------------------------------------
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_home -> {
-                    startActivity(Intent(this, PrincipalActivity::class.java))
-                    true
-                }
-                R.id.bottom_id -> {
-                    startActivity(Intent(this, DatosPasaporteActivity::class.java))
-                    true
-                }
-                R.id.bottom_puntos -> {
-                    startActivity(Intent(this, PuntosActivity::class.java))
-                    true
-                }
-                R.id.bottom_eventos -> {
-                    startActivity(Intent(this, EventosActivity::class.java))
-                    true
-                }
-                R.id.bottom_cuestionario -> {
-                    startActivity(Intent(this, CuestionarioActivity::class.java))
-                    true
-                }
-                else -> false
-            }
-        }
-        //fin de boton de navegacion inferior     -------------------------------------------
-
     }
+
     private fun generarQR(data: String): Bitmap? {
         return try {
             val qrCodeWriter = QRCodeWriter()
@@ -203,19 +226,15 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
-    /**
-     * Abre la galería de imágenes para que el usuario seleccione una imagen.
-     */
+    //Abre la galería de imágenes para que el usuario seleccione una imagen.
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         pickImageLauncher.launch(intent)
     }
 
-    /**
-     * Guarda la URI de la imagen seleccionada en SharedPreferences.
-     *
-     * @param imageUri La URI de la imagen seleccionada.
-     */
+
+    //Guarda la URI de la imagen seleccionada en SharedPreferences.
+     //@param imageUri La URI de la imagen seleccionada.
     private fun saveImageUri(imageUri: Uri) {
         try {
             val editor = sharedPreferences.edit()
@@ -229,10 +248,9 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
-    /**
-     * Carga la URI de la imagen guardada en SharedPreferences y establece la imagen en la vista.
-     */
-    private fun loadSavedImage() {
+
+     //Carga la URI de la imagen guardada en SharedPreferences y establece la imagen en la vista.
+     private fun loadSavedImage() {
         try {
             val imageUriString = sharedPreferences.getString("profile_image_uri", null)
             if (imageUriString != null) {
@@ -246,11 +264,9 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
-    /**
-     * Establece la imagen en la vista de perfil utilizando la URI proporcionada.
-     *
-     * @param imageUri La URI de la imagen que se va a establecer.
-     */
+     //Establece la imagen en la vista de perfil utilizando la URI proporcionada.
+
+     //@param imageUri La URI de la imagen que se va a establecer.
     private fun setImage(imageUri: Uri) {
         try {
             Glide.with(this)
@@ -265,11 +281,9 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
-    /**
-     * Muestra un diálogo para que el usuario decida si desea guardar la imagen seleccionada o elegir otra.
-     *
-     * @param imageUri La URI de la imagen seleccionada.
-     */
+
+    //Muestra un diálogo para que el usuario decida si desea guardar la imagen seleccionada o elegir otra.
+    //@param imageUri La URI de la imagen seleccionada.
     private fun showSaveOrSelectDialog(imageUri: Uri) {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setMessage("¿Quieres guardar esta imagen o seleccionar otra?")
@@ -288,9 +302,8 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         alert.show()
     }
 
-    /**
-     * Solicita permiso para acceder al almacenamiento del dispositivo y abre la galería si se concede el permiso.
-     */
+    //Solicita permiso para acceder al almacenamiento del dispositivo y abre la galería si se concede el permiso.
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -301,9 +314,7 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
-    /**
-     * Lanza una actividad para seleccionar una imagen y maneja el resultado.
-     */
+    //Lanza una actividad para seleccionar una imagen y maneja el resultado.
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -371,18 +382,6 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 // Iniciar CuestionarioActivity
                 startActivity(Intent(this, CuestionarioActivity::class.java))
             }
-            //R.id.nav_item_six -> {
-            // Iniciar PerfilActivity
-            //  startActivity(Intent(this, PerfilActivity::class.java))
-            //}
-            //R.id.nav_item_seven -> {
-            // Iniciar PuntosActivity
-            //  startActivity(Intent(this, PuntosActivity::class.java))
-            //}
-            //R.id.nav_item_eight -> {
-            // Iniciar SeguridadActivity
-            //startActivity(Intent(this, SeguridadActivity::class.java))
-            //}
         }
 
         // Cerrar el drawer después de manejar la selección
@@ -401,5 +400,4 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
-
 }

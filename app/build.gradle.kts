@@ -38,7 +38,9 @@ android {
     }
     buildFeatures{
         viewBinding = true
-
+    }
+    buildFeatures{
+        dataBinding = true
     }
 }
 
@@ -77,5 +79,8 @@ dependencies {
 
     //sql
     implementation ("androidx.sqlite:sqlite:2.1.0")
+
+    //CurvedBottomNavigation
+    implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
 
 }

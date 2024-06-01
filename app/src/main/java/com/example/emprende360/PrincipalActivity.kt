@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -65,33 +66,57 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val textViewHola = findViewById<TextView>(R.id.hola)
         textViewHola.text = "Hola, $userName"
 
-        // Configuración de la navegación inferior
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_home -> {
-                    startActivity(Intent(this, PrincipalActivity::class.java))
+        //funcion del boton de navegacion inferior-------------------------------------------
+        val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(2, "Puntos", R.drawable.baseline_123_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(3, "Pasaporte", R.drawable.baseline_perm_identity_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(4, "Eventos", R.drawable.baseline_ballot_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(5, "Preguntas", R.drawable.baseline_assignment_24)
+        )
+
+        bottomNavigation.setOnClickMenuListener { item ->
+            when (item.id) {
+                1 -> {
+                    replaceActivity(PrincipalActivity::class.java)
                     true
                 }
-                R.id.bottom_id -> {
-                    startActivity(Intent(this, DatosPasaporteActivity::class.java))
+                2 -> {
+                    replaceActivity(PuntosActivity::class.java)
                     true
                 }
-                R.id.bottom_puntos -> {
-                    startActivity(Intent(this, PuntosActivity::class.java))
+                3 -> {
+                    replaceActivity(DatosPasaporteActivity::class.java)
                     true
                 }
-                R.id.bottom_eventos -> {
-                    startActivity(Intent(this, EventosActivity::class.java))
+                4 -> {
+                    replaceActivity(EventosActivity::class.java)
                     true
                 }
-                R.id.bottom_cuestionario -> {
-                    startActivity(Intent(this, CuestionarioActivity::class.java))
+                5 -> {
+                    replaceActivity(CuestionarioActivity::class.java)
                     true
                 }
                 else -> false
             }
         }
+        bottomNavigation.show(1)
+    }
+
+    private fun replaceActivity(activityClass: Class<*>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -133,15 +158,19 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_item_one -> {
                 startActivity(Intent(this, PrincipalActivity::class.java))
             }
+
             R.id.nav_item_two -> {
                 startActivity(Intent(this, DatosPasaporteActivity::class.java))
             }
+
             R.id.nav_item_three -> {
                 startActivity(Intent(this, PuntosActivity::class.java))
             }
+
             R.id.nav_item_four -> {
                 startActivity(Intent(this, EventosActivity::class.java))
             }
+
             R.id.nav_item_five -> {
                 startActivity(Intent(this, CuestionarioActivity::class.java))
             }

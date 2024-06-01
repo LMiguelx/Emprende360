@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,6 +33,8 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         setContentView(R.layout.activity_eventos)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        // Obtener los datos de Firestore
+        obtenerDatosFirestore()
 
         // Configuración del RecyclerView
         recyclerView = findViewById(R.id.recycler_view_eventos)
@@ -51,35 +54,56 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         toggle.syncState()
 
         // Configuración del BottomNavigationView
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_home -> {
-                    startActivity(Intent(this, PrincipalActivity::class.java))
+        val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(2, "Puntos", R.drawable.baseline_123_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(3, "Pasaporte", R.drawable.baseline_perm_identity_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(4, "Eventos", R.drawable.baseline_ballot_24)
+        )
+        bottomNavigation.add(
+            CurvedBottomNavigation.Model(5, "Preguntas", R.drawable.baseline_assignment_24)
+        )
+
+        bottomNavigation.setOnClickMenuListener { item ->
+            when (item.id) {
+                1 -> {
+                    replaceActivity(PrincipalActivity::class.java)
                     true
                 }
-                R.id.bottom_id -> {
-                    startActivity(Intent(this, DatosPasaporteActivity::class.java))
+                2 -> {
+                    replaceActivity(PuntosActivity::class.java)
                     true
                 }
-                R.id.bottom_puntos -> {
-                    startActivity(Intent(this, PuntosActivity::class.java))
+                3 -> {
+                    replaceActivity(DatosPasaporteActivity::class.java)
                     true
                 }
-                R.id.bottom_eventos -> {
-                    // No hacer nada ya que estamos en la misma actividad
+                4 -> {
+                    replaceActivity(EventosActivity::class.java)
                     true
                 }
-                R.id.bottom_cuestionario -> {
-                    startActivity(Intent(this, CuestionarioActivity::class.java))
+                5 -> {
+                    replaceActivity(CuestionarioActivity::class.java)
                     true
                 }
                 else -> false
             }
         }
+        bottomNavigation.show(4)
+    }
 
-        // Obtener los datos de Firestore
-        obtenerDatosFirestore()
+    private fun replaceActivity(activityClass: Class<*>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

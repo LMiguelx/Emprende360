@@ -63,19 +63,31 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="2dp"
-        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
-        app:itemIconSize="29dp"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal" />
+
+    <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cbn_background="#03A9F4"
+        app:cbn_fabColor="#FF5722"
+        app:cbn_iconColor="@color/white"
+        app:cbn_height="76dp"
+        app:cbn_icon_size="24dp"
+        app:cbn_curve_radius="26dp"
+        app:cbn_selected_icon_size="48dp"
+        app:cbn_selectedIconColor="@color/white"
+        app:cbn_titleColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
