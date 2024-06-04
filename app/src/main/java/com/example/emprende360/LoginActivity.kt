@@ -1,6 +1,5 @@
 package com.example.emprende360
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -76,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
                     val correo = user?.email
                     val userId = user?.uid
                     userId?.let {
+                        // Pasa el userId y el correo a la siguiente actividad
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {
@@ -116,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
                     val googleId = user?.uid  // Obtener el ID de Google del usuario
 
                     googleId?.let {
+                        // Pasa el googleId y el correo a la siguiente actividad
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {
@@ -127,32 +128,35 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkIfUserExists(userId: String, email: String) {
         val db = FirebaseFirestore.getInstance()
-        val docRef = db.collection("estudiantes").document(userId)
+        val collectionRef = db.collection("estudiantes")
 
-        docRef.get().addOnSuccessListener { document ->
-            if (document.exists()) {
-                // El usuario ya existe, redirigir a DatosPasaporteActivity
-                val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
-                    putExtra("nombreCompleto", document.getString("nombreCompleto"))
-                    putExtra("semestre", document.getString("semestre"))
-                    putExtra("seccion", document.getString("seccion"))
-                    putExtra("codigoEstudiante", document.getString("codigoEstudiante"))
-                    putExtra("correo",document.getString("correo"))
-                    putExtra("carrera", document.getString("carrera"))
-                    putExtra("codigoAcceso", document.getString("codigoAcceso"))
+        collectionRef.whereEqualTo("userId", userId).get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    val document = documents.documents[0]
+                    // El usuario ya existe, redirigir a DatosPasaporteActivity
+                    val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
+                        putExtra("nombreCompleto", document.getString("nombreCompleto"))
+                        putExtra("semestre", document.getString("semestre"))
+                        putExtra("seccion", document.getString("seccion"))
+                        putExtra("codigoEstudiante", document.getString("codigoEstudiante"))
+                        putExtra("correo", document.getString("correo"))
+                        putExtra("carrera", document.getString("carrera"))
+                        putExtra("codigoAcceso", document.getString("codigoAcceso"))
+                    }
+                    startActivity(intent)
+                } else {
+                    // El usuario no existe, redirigir al formulario
+                    val intent = Intent(this, FormularioActivity::class.java).apply {
+                        putExtra("userId", userId)
+                        putExtra("correo", email)
+                    }
+                    startActivity(intent)
                 }
-                startActivity(intent)
-            } else {
-                // El usuario no existe, redirigir al formulario
-                val intent = Intent(this, FormularioActivity::class.java).apply {
-                    putExtra("userId", userId)
-                    putExtra("correo", email)
-                }
-                startActivity(intent)
             }
-        }.addOnFailureListener { exception ->
-            // Manejar el error
-            Toast.makeText(this, "Error al verificar el usuario", Toast.LENGTH_SHORT).show()
-        }
+            .addOnFailureListener { exception ->
+                // Manejar el error
+                Toast.makeText(this, "Error al verificar el usuario", Toast.LENGTH_SHORT).show()
+            }
     }
 }

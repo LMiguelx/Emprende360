@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblNombreEventoDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Evento"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgFotoDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblNombreEventoDetalle"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/lblLugarDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgFotoDetalle"
+            android:layout_marginTop="16dp"
+            android:text="Lugar"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblAforoDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblLugarDetalle"
+            android:layout_marginTop="8dp"
+            android:text="Aforo"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblDescripcionDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblAforoDetalle"
+            android:layout_marginTop="8dp"
+            android:text="Descripción"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblHorarioDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblDescripcionDetalle"
+            android:layout_marginTop="8dp"
+            android:text="Horario"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblIntroduccionDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblHorarioDetalle"
+            android:layout_marginTop="8dp"
+            android:text="Introducción"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblTemasDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblIntroduccionDetalle"
+            android:layout_marginTop="8dp"
+            android:text="Temas"
+            android:textSize="18sp" />
+
+        <!-- Añadir más vistas según sea necesario -->
+    </RelativeLayout>
+</ScrollView>

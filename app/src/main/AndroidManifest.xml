@@ -10,11 +10,14 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Emprende 360"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.NavigationDrawerCodelia"
+        android:theme="@style/Sin.Nav"
         tools:targetApi="31">
+        <activity
+            android:name=".DetalleEventoActivity"
+            android:exported="false" />
         <activity
             android:name=".GenerarQrActivity"
             android:exported="false" />
@@ -28,22 +31,22 @@
             android:name=".SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".DatosPasaporteActivity"
-            android:exported="false"/>
-        <activity
             android:name=".SelectionActivity"
             android:exported="false" />
         <activity
             android:name=".CuestionarioActivity"
             android:exported="false"
+            android:label="Cuestionario"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".EventosActivity"
             android:exported="false"
+            android:label="Eventos"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".PuntosActivity"
             android:exported="false"
+            android:label="Puntos"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".PerfilActivity"
@@ -68,8 +71,14 @@
             android:exported="false"
             android:theme="@style/Sin.Nav" />
         <activity
+            android:name=".DatosPasaporteActivity"
+            android:exported="false"
+            android:label="Pasaporte"
+            android:theme="@style/Sin.Nav" />
+        <activity
             android:name=".PrincipalActivity"
             android:exported="true"
+            android:label="Emprende360"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia" />
         <activity
             android:name=".LoginActivity"

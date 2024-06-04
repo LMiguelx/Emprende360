@@ -82,5 +82,6 @@ dependencies {
 
     //CurvedBottomNavigation
     implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+    implementation ("com.intuit.sdp:sdp-android:1.1.1")
 
 }

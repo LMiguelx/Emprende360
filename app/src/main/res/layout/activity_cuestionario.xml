@@ -34,7 +34,7 @@
                 android:layout_width="183dp"
                 android:layout_height="88dp"
                 android:paddingStart="16dp"
-                android:text="CUESTIONARIO"
+                android:text="Cursos"
                 android:gravity="center"
                 android:textColor="@color/grayoscuro"
                 android:textSize="24sp"

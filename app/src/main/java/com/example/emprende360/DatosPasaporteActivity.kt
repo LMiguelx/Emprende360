@@ -23,18 +23,14 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.emprende360.R
 import com.example.emprende360.SellosRegistradosActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -44,14 +40,10 @@ import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
-class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class DatosPasaporteActivity : AppCompatActivity() {
 
-
-    private lateinit var drawer: DrawerLayout
-    private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var drawerLayout: DrawerLayout
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var nombreUsuario: String // Aquí debes inicializar esta variable con el nombre del usuario
+    private lateinit var nombreUsuario: String
 
     //Foto de Perfil
     private lateinit var imageViewProfile: ImageView
@@ -74,7 +66,7 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         val carrera = intent.getStringExtra("carrera")
         val codigoAcceso = intent.getStringExtra("codigoAcceso")
 
-        mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso)
+        mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso, null, null)
 
         //funcion del boton de navegacion inferior-------------------------------------------
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
@@ -91,7 +83,7 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
             CurvedBottomNavigation.Model(4, "Eventos", R.drawable.baseline_ballot_24)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(5, "Preguntas", R.drawable.baseline_assignment_24)
+            CurvedBottomNavigation.Model(5, "Cursos", R.drawable.baseline_assignment_24)
         )
 
         bottomNavigation.setOnClickMenuListener { item ->
@@ -121,6 +113,7 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
         bottomNavigation.show(3)
     }
+
     private fun replaceActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
@@ -128,14 +121,15 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         finish()
     }
 
-    private fun mostrarDatos(nombreCompleto: String?, semestre: String?, seccion: String?, codigoEstudiante: String?, carrera: String?, codigoAcceso: String?) {
-        if (nombreCompleto != null && semestre != null && seccion != null && codigoEstudiante != null && carrera != null && codigoAcceso != null) {
+    private fun mostrarDatos(nombreCompleto: String?, semestre: String?, seccion: String?, codigoEstudiante: String?, carrera: String?, codigoAcceso: String?, userId: String?, correo: String?) {
+        if (nombreCompleto != null && semestre != null && seccion != null && codigoEstudiante != null && carrera != null && codigoAcceso != null && userId != null && correo != null) {
             // Si los datos están disponibles, mostrarlos en las vistas correspondientes
-            val textViewHola = findViewById<TextView>(R.id.hola)
-            textViewHola.text = nombreCompleto
+            val textViewnombre = findViewById<TextView>(R.id.Nombre)
+            textViewnombre.text = nombreCompleto
+            val textViewcorreo = findViewById<TextView>(R.id.Gmail)
+            textViewcorreo.text = correo
 
-
-            val data = "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso"
+            val data = "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso\n$userId\n$correo"
             val qrBitmap = generarQR(data)
             if (qrBitmap != null) {
                 val ivCodigoQR = findViewById<ImageView>(R.id.ivCodigoQR)
@@ -144,12 +138,6 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         } else {
             obtenerDatosDeFirestore()
         }
-        // Configurar listener para el botón SellosRegistrados
-        val sellosRegistradosButton: Button = findViewById(R.id.SellosRegistrados)
-        sellosRegistradosButton.setOnClickListener {
-            startActivity(Intent(this, SellosRegistradosActivity::class.java))
-        }
-
         // Se carga la imagen aquí
         // Fotos perfil
         imageViewProfile = findViewById(R.id.imageViewProfile)
@@ -172,17 +160,6 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         firebaseAuth = Firebase.auth
 
-        //drawel donde se define la varibles y el llamado del drawerLayout
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val navigationVie: NavigationView = findViewById(R.id.nav_view)
-        navigationVie.setNavigationItemSelectedListener(this)
-
-
-        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_main)
-        setSupportActionBar(toolbar)
-        drawer = findViewById(R.id.drawer_layout)
-        toggle = ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
     }
 
     private fun generarQR(data: String): Bitmap? {
@@ -206,23 +183,27 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
     private fun obtenerDatosDeFirestore() {
         val userId = firebaseAuth.currentUser?.uid
         if (userId != null) {
-            val docRef = db.collection("estudiantes").document(userId)
-            docRef.get().addOnSuccessListener { document ->
-                if (document.exists()) {
-                    // Obtener datos del documento y mostrarlos
-                    val nombreCompleto = document.getString("nombreCompleto")
-                    val semestre = document.getString("semestre")
-                    val seccion = document.getString("seccion")
-                    val codigoEstudiante = document.getString("codigoEstudiante")
-                    val carrera = document.getString("carrera")
-                    val codigoAcceso = document.getString("codigoAcceso")
+            db.collection("estudiantes")
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents != null && !documents.isEmpty) {
+                        val document = documents.documents[0]
+                        // Obtener datos del documento y mostrarlos
+                        val nombreCompleto = document.getString("nombreCompleto")
+                        val semestre = document.getString("semestre")
+                        val seccion = document.getString("seccion")
+                        val codigoEstudiante = document.getString("codigoEstudiante")
+                        val carrera = document.getString("carrera")
+                        val codigoAcceso = document.getString("codigoAcceso")
+                        val correo = document.getString("correo")
 
-                    mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso)
+                        mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso, userId, correo)
+                    }
+                }.addOnFailureListener { exception ->
+                    // Manejar el error
+                    Toast.makeText(this, "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show()
                 }
-            }.addOnFailureListener { exception ->
-                // Manejar el error
-                Toast.makeText(this, "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
@@ -234,7 +215,7 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
 
     //Guarda la URI de la imagen seleccionada en SharedPreferences.
-     //@param imageUri La URI de la imagen seleccionada.
+    //@param imageUri La URI de la imagen seleccionada.
     private fun saveImageUri(imageUri: Uri) {
         try {
             val editor = sharedPreferences.edit()
@@ -249,8 +230,8 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
     }
 
 
-     //Carga la URI de la imagen guardada en SharedPreferences y establece la imagen en la vista.
-     private fun loadSavedImage() {
+    //Carga la URI de la imagen guardada en SharedPreferences y establece la imagen en la vista.
+    private fun loadSavedImage() {
         try {
             val imageUriString = sharedPreferences.getString("profile_image_uri", null)
             if (imageUriString != null) {
@@ -264,9 +245,9 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
-     //Establece la imagen en la vista de perfil utilizando la URI proporcionada.
+    //Establece la imagen en la vista de perfil utilizando la URI proporcionada.
 
-     //@param imageUri La URI de la imagen que se va a establecer.
+    //@param imageUri La URI de la imagen que se va a establecer.
     private fun setImage(imageUri: Uri) {
         try {
             Glide.with(this)
@@ -326,26 +307,6 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
         }
     } //Ultimas linea de codigo de foto perfil
-
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.nav_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_buscar -> {
-                Toast.makeText(baseContext, "Buscar información", Toast.LENGTH_SHORT).show()
-            }
-            R.id.menu_salir -> {
-                signOut()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         return
@@ -356,48 +317,5 @@ class DatosPasaporteActivity : AppCompatActivity(), NavigationView.OnNavigationI
         Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()
         val i = Intent(this, LoginActivity::class.java)
         startActivity(i)
-    }
-
-    //Los drawers aqui desde la funcion -----------------------------------------------------------------------------
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_item_one -> {
-                // Iniciar PrincipalActivity cuando se hace clic en el primer ítem del menú
-                startActivity(Intent(this, PrincipalActivity::class.java))
-            }
-            R.id.nav_item_two -> {
-                // Iniciar PerfilActivity
-                startActivity(Intent(this, DatosPasaporteActivity::class.java))
-            }
-            R.id.nav_item_three -> {
-                // Iniciar PuntosActivity
-                startActivity(Intent(this, PuntosActivity::class.java))
-            }
-            R.id.nav_item_four -> {
-                // Iniciar EventosActivity
-                startActivity(Intent(this, EventosActivity::class.java))
-            }
-            R.id.nav_item_five -> {
-                // Iniciar CuestionarioActivity
-                startActivity(Intent(this, CuestionarioActivity::class.java))
-            }
-        }
-
-        // Cerrar el drawer después de manejar la selección
-        drawerLayout.closeDrawer(GravityCompat.START) // Corrección aquí
-        return true
-    }
-
-    //Los drawers finalizan aqui -----------------------------------------------------------------------------
-
-    override fun onPostCreate(savedInstanceState: Bundle?,) {
-        super.onPostCreate(savedInstanceState)
-        toggle.syncState()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        toggle.syncState()
     }
 }

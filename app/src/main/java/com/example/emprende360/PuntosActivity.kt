@@ -64,7 +64,7 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             CurvedBottomNavigation.Model(4, "Eventos", R.drawable.baseline_ballot_24)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(5, "Preguntas", R.drawable.baseline_assignment_24)
+            CurvedBottomNavigation.Model(5, "Cursos", R.drawable.baseline_assignment_24)
         )
 
         bottomNavigation.setOnClickMenuListener { item ->
@@ -100,6 +100,10 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

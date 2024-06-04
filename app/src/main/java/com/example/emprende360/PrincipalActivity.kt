@@ -81,7 +81,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             CurvedBottomNavigation.Model(4, "Eventos", R.drawable.baseline_ballot_24)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(5, "Preguntas", R.drawable.baseline_assignment_24)
+            CurvedBottomNavigation.Model(5, "Cursos", R.drawable.baseline_assignment_24)
         )
 
         bottomNavigation.setOnClickMenuListener { item ->

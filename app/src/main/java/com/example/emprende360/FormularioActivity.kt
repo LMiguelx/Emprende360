@@ -47,7 +47,7 @@ class FormularioActivity : AppCompatActivity() {
 
         btnGenerar.setOnClickListener {
             if (validarCampos()) {
-                enviarDatosAFirestore()
+                validarCodigoAccesoYEnviarDatos()
             } else {
                 Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
             }
@@ -81,13 +81,28 @@ class FormularioActivity : AppCompatActivity() {
                 etCodigoAcceso.text.isNotEmpty()
     }
 
-    private fun enviarDatosAFirestore() {
+    private fun validarCodigoAccesoYEnviarDatos() {
+        val codigoAcceso = etCodigoAcceso.text.toString()
+
+        db.collection("tarjetas").document(codigoAcceso).get()
+            .addOnSuccessListener { document ->
+                if (document.exists() && document.getBoolean("estado") == false) {
+                    enviarDatosAFirestore(codigoAcceso)
+                } else {
+                    Toast.makeText(this, "Código de acceso no válido o ya usado", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al validar el código de acceso", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun enviarDatosAFirestore(codigoAcceso: String) {
         val nombreCompleto = etNombreCompleto.text.toString()
         val semestre = spSemestre.selectedItem.toString()
         val seccion = spSeccion.selectedItem.toString()
         val codigoEstudiante = etCodigoEstudiante.text.toString()
         val carrera = spCarrera.selectedItem.toString()
-        val codigoAcceso = etCodigoAcceso.text.toString()
 
         val estudiante = hashMapOf(
             "nombreCompleto" to nombreCompleto,
@@ -96,14 +111,23 @@ class FormularioActivity : AppCompatActivity() {
             "codigoEstudiante" to codigoEstudiante,
             "carrera" to carrera,
             "codigoAcceso" to codigoAcceso,
-            "correo" to correo
+            "correo" to correo,
+            "userId" to userId
         )
 
-        db.collection("estudiantes").document(userId)
+        db.collection("estudiantes").document(codigoAcceso)
             .set(estudiante)
             .addOnSuccessListener {
-                Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
-                abrirDatosPasaporteActivity()
+                // Actualizar estado del código de acceso a true
+                db.collection("tarjetas").document(codigoAcceso)
+                    .update("estado", true)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
+                        abrirDatosPasaporteActivity()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error al actualizar el estado del código de acceso", Toast.LENGTH_SHORT).show()
+                    }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al enviar los datos", Toast.LENGTH_SHORT).show()

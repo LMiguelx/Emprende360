@@ -3,223 +3,156 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/datos_pasa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".PrincipalActivity">
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MainActivity"
-        tools:openDrawer="start">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/barra_navegacion"
-                layout="@layout/barra_navegacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/hola"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:paddingStart="16dp"
-                android:paddingTop="70dp"
-                android:text="hola"
-                android:textColor="@color/grayoscuro"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewActividades"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:text="Elige tu cuenta"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hola" />
-
-            <LinearLayout
-                android:id="@+id/linearLayoutCategorias"
-                android:layout_width="379dp"
-                android:layout_height="62dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_corner_rectangle"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewActividades">
-
-                <Button
-                    android:id="@+id/ingresoPasaporte"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corner_rectangle"
-                    android:backgroundTint="@color/purple_700"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="Tecsuria"
-                    android:textColor="@color/color1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <Space
-                    android:layout_width="16dp"
-                    android:layout_height="24dp" />
-
-                <Button
-                    android:id="@+id/ingresoqrgenerator"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corner_rectangle"
-                    android:backgroundTint="@color/purple_700"
-                    android:elevation="2dp"
-                    android:gravity="center"
-                    android:text="QR GENERADOR"
-                    android:textColor="@color/color1"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textViewEventosProximos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingStart="16dp"
-                android:text="Actividades Resaltantes"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCategorias" />
-
-            <TextView
-                android:id="@+id/nombredeiam1"
-                android:layout_width="176dp"
-                android:layout_height="37dp"
-                android:layout_marginTop="20dp"
-                android:paddingStart="16dp"
-                android:text="Categoria 1"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.276"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewEventosProximos" />
-
-            <ImageView
-                android:id="@+id/imagenprinci3"
-                android:layout_width="247dp"
-                android:layout_height="112dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:paddingStart="16dp"
-                android:src="@drawable/ciberseguridad"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nombredeiam1" />
-
-            <TextView
-                android:id="@+id/btndireccional"
-                android:layout_width="match_parent"
-                android:layout_height="22dp"
-                android:layout_marginTop="5dp"
-                android:elevation="2dp"
-                android:gravity="center"
-                android:paddingStart="220dp"
-                android:text="Ver mas"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagenprinci3" />
-
-
-            <TextView
-                android:id="@+id/nombredeiam2"
-                android:layout_width="183dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="16dp"
-                android:paddingStart="16dp"
-                android:text="Categoria 2"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.276"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btndireccional" />
-
-            <ImageView
-                android:id="@+id/imagenprinci4"
-                android:layout_width="247dp"
-                android:layout_height="112dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:paddingStart="16dp"
-                android:src="@drawable/ciberseguridad"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nombredeiam2" />
-
-            <TextView
-                android:id="@+id/btndireccional1"
-                android:layout_width="409dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="5dp"
-                android:elevation="2dp"
-                android:gravity="center"
-                android:paddingStart="220dp"
-                android:text="Ver mas"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagenprinci4" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/activity_main_drawer" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    tools:context=".DatosPasaporteActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/upper_half"
+            android:layout_width="412dp"
+            android:layout_height="436dp"
+            android:background="@color/purple_700"
+            app:layout_constraintBottom_toTopOf="@+id/lower_half"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/lower_half"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upper_half" />
+
+        <TextView
+            android:id="@+id/textViewActividades"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:text="CIUDADANO"
+            android:textColor="@color/color1"
+            android:textSize="25sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.072" />
+
+        <TextView
+            android:id="@+id/textViewActividades1"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:paddingStart="16dp"
+            android:layout_marginTop="25dp"
+            android:text="TECSURIANO"
+            android:textAlignment="center"
+            android:textColor="@color/color1"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.132" />
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/perfil"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewActividades1" />
+
+        <TextView
+            android:id="@+id/hola"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textAlignment="textStart"
+            android:textColor="#9C27B0"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+            app:layout_constraintVertical_bias="0.034" />
+
+        <ImageView
+            android:id="@+id/ivCodigoQR"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hola"
+            app:layout_constraintVertical_bias="0.11" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="243dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Puntos obtenidos 100"
+            android:textColor="#F44336"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCodigoQR" />
+
+        <Button
+            android:id="@+id/SellosRegistrados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Sellos Registrados"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintVertical_bias="0.088" />
+
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal" />
@@ -233,6 +166,7 @@
         app:cbn_iconColor="@color/white"
         app:cbn_height="76dp"
         app:cbn_icon_size="24dp"
+        android:elevation="10dp"
         app:cbn_curve_radius="26dp"
         app:cbn_selected_icon_size="48dp"
         app:cbn_selectedIconColor="@color/white"

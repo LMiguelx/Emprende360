@@ -6,6 +6,13 @@
         <item name="colorPrimaryVariant">@color/color1</item>
         <item name="android:statusBarColor">@color/blue</item>
     </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Personaliza tu tema aquí -->
+    </style>
+
+    <!-- Tema sin ActionBar -->
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
 
     <!-- Estilo base de la aplicación sin barra de navegación -->
     <style name="Sin.Nav" parent="Theme.AppCompat.DayNight.NoActionBar">
