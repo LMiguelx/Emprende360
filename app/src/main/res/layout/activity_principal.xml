@@ -20,10 +20,11 @@
         tools:context=".MainActivity"
         tools:openDrawer="start">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <include
                 android:id="@+id/barra_navegacion"
@@ -34,116 +35,128 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/hola"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:paddingStart="16dp"
-                android:paddingTop="70dp"
-                android:text="hola"
-                android:textColor="@color/grayoscuro"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewEventosProximos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingStart="16dp"
-                android:text="Actividades Resaltantes"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hola" />
-
-            <TextView
-                android:id="@+id/nombredeiam1"
-                android:layout_width="176dp"
-                android:layout_height="37dp"
-                android:layout_marginTop="20dp"
-                android:paddingStart="16dp"
-                android:text="Categoria 1"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.276"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewEventosProximos" />
-
-            <ImageView
-                android:id="@+id/imagenprinci3"
-                android:layout_width="247dp"
-                android:layout_height="112dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:paddingStart="16dp"
-                android:src="@drawable/ciberseguridad"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.463"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nombredeiam1" />
-
-            <TextView
-                android:id="@+id/btndireccional"
+            <!-- Inicio de ScrollView -->
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
-                android:layout_marginTop="5dp"
-                android:elevation="2dp"
-                android:gravity="center"
-                android:paddingStart="220dp"
-                android:text="Ver mas"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagenprinci3" />
+                android:layout_height="wrap_content"
+                android:elevation="20dp"
+                app:layout_constraintTop_toBottomOf="@id/barra_navegacion">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/nombredeiam2"
-                android:layout_width="183dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="16dp"
-                android:paddingStart="16dp"
-                android:text="Categoria 2"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.276"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btndireccional" />
+                    <TextView
+                        android:id="@+id/hola"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingTop="70dp"
+                        android:text="hola"
+                        android:textColor="@color/grayoscuro"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imagenprinci4"
-                android:layout_width="247dp"
-                android:layout_height="112dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:paddingStart="16dp"
-                android:src="@drawable/ciberseguridad"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nombredeiam2" />
+                    <TextView
+                        android:id="@+id/textViewEventosProximos"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Actividades Resaltantes"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/hola" />
 
-            <TextView
-                android:id="@+id/btndireccional1"
-                android:layout_width="409dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="5dp"
-                android:elevation="2dp"
-                android:gravity="center"
-                android:paddingStart="220dp"
-                android:text="Ver mas"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagenprinci4" />
+                    <TextView
+                        android:id="@+id/nombredeiam1"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="20dp"
+                        android:text="DETALLE BLANCO"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewEventosProximos" />
+
+                    <!-- CardView with ViewPager -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/carviewinformacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_margin="50dp"
+                        android:background="@color/teal_700"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.463"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nombredeiam1" />
+                    <!-- CardView with ViewPager -->
+
+                    <TextView
+                        android:id="@+id/txtcareventos"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="16dp"
+                        android:paddingStart="16dp"
+                        android:text="Eventos proximos y/o cercas"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/carviewinformacion" />
+
+                    <!-- CardView with ViewPager2 -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="50dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtcareventos">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="500dp" />
+                    </androidx.cardview.widget.CardView>
+                    <!-- CardView with ViewPager2 -->
+
+                    <TextView
+                        android:id="@+id/titlecalendario"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/color2"
+                        android:paddingStart="16dp"
+                        android:text="Fechas de los cursos"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                    <TextView
+                        android:id="@+id/ejemplo_spa"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:text="Esto es ListView para mostrar fechas cursos"
+                        app:layout_constraintTop_toBottomOf="@+id/titlecalendario"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:layout_constraintTop_toBottomOf="@+id/ejemplo_spa"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+            <!-- Fin de ScrollView -->
 
             <FrameLayout
                 android:id="@+id/frame_container"
@@ -161,6 +174,7 @@
             android:layout_gravity="start"
             app:headerLayout="@layout/drawer_header"
             app:menu="@menu/activity_main_drawer" />
+
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
@@ -189,6 +203,8 @@
         app:cbn_titleColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"/>
+    <!-- para tapar desde fondo colocar backraund white-->
 </androidx.constraintlayout.widget.ConstraintLayout>
+

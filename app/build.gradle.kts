@@ -84,4 +84,12 @@ dependencies {
     implementation ("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
     implementation ("com.intuit.sdp:sdp-android:1.1.1")
 
+
+    //carview2
+
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
+
+
 }

@@ -7,86 +7,91 @@
     android:layout_height="match_parent"
     tools:context=".DatosPasaporteActivity"
     android:background="#ececec">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/top_background" />
+
+            <ImageView
+                android:id="@+id/imageViewProfile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:srcCompat="@drawable/profile"/>
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/top_background" />
+            <TextView
+                android:id="@+id/Nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewProfile"
+                app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
 
-                <ImageView
-                    android:id="@+id/imageViewProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
-                    app:srcCompat="@drawable/profile"/>
+            <TextView
+                android:id="@+id/Gmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grayclaro"
+                android:text=""
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/Nombre"
+                app:layout_constraintStart_toStartOf="@+id/Nombre"
+                app:layout_constraintTop_toBottomOf="@+id/Nombre"/>
 
-                <TextView
-                    android:id="@+id/Nombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/imageViewProfile"
-                    app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
+            <ImageView
+                android:id="@+id/ivCodigoQR"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Gmail"
+                app:layout_constraintBottom_toTopOf="@+id/DatoPuntos"
+                app:layout_constraintHorizontal_bias="0.5" />
 
-                <TextView
-                    android:id="@+id/Gmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grayclaro"
-                    android:text=""
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="@+id/Nombre"
-                    app:layout_constraintStart_toStartOf="@+id/Nombre"
-                    app:layout_constraintTop_toBottomOf="@+id/Nombre"/>
+            <TextView
+                android:id="@+id/DatoPuntos"
+                android:layout_width="243dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="Puntos obtenidos 0"
+                android:textColor="#F44336"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivCodigoQR" />
 
-                <ImageView
-                    android:id="@+id/ivCodigoQR"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Gmail"
-                    app:layout_constraintBottom_toTopOf="@+id/DatoPuntos"
-                    app:layout_constraintHorizontal_bias="0.5" />
+            <!-- Contenido ya no despues de esta linea-->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                app:layout_constraintTop_toBottomOf="@+id/DatoPuntos"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/DatoPuntos"
-                    android:layout_width="243dp"
-                    android:layout_height="33dp"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center"
-                    android:text="Puntos obtenidos 0"
-                    android:textColor="#F44336"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivCodigoQR" />
+    </ScrollView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
     <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -103,7 +108,8 @@
         app:cbn_titleColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

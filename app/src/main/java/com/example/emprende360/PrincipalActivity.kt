@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +27,13 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
+
+    //carview
+    private lateinit var viewPager: ViewPager2
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
+    private var currentPage = 0
+    //fin carview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,14 +62,14 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         supportActionBar?.setHomeButtonEnabled(true)
 
         // Configuración de botones de ver más
-        val btnVerMas: TextView = findViewById(R.id.btndireccional)
-        val btnVerMas2: TextView = findViewById(R.id.btndireccional1)
-        btnVerMas.setOnClickListener {
-            startActivity(Intent(this, EventosActivity::class.java))
-        }
-        btnVerMas2.setOnClickListener {
-            startActivity(Intent(this, EventosActivity::class.java))
-        }
+        //val btnVerMas: TextView = findViewById(R.id.btndireccional)
+        //val btnVerMas2: TextView = findViewById(R.id.btndireccional1)
+        //btnVerMas.setOnClickListener {
+           /// startActivity(Intent(this, EventosActivity::class.java))
+        //}
+        //btnVerMas2.setOnClickListener {
+          //  startActivity(Intent(this, EventosActivity::class.java))
+      //  }
 
         // Mostrar el nombre del usuario
         val userName = intent.getStringExtra("userName")
@@ -110,7 +120,40 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
         bottomNavigation.show(1)
+
+        //carview inicio
+        viewPager = findViewById(R.id.viewPager)
+        val images = listOf(
+            R.drawable.image1,
+            R.drawable.image2,
+            R.drawable.image3,
+            R.drawable.image4,
+            R.drawable.image5
+        )
+
+        val adapter = ImagePagerAdapter(this, images)
+        viewPager.adapter = adapter
+
+        handler = Handler(Looper.getMainLooper())
+        runnable = object : Runnable {
+            override fun run() {
+                if (currentPage == images.size) {
+                    currentPage = 0
+                }
+                viewPager.setCurrentItem(currentPage++, true)
+                handler.postDelayed(this, 4000)
+            }
+        }
+        handler.post(runnable)
+        //fin carview
     }
+
+    //carview
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
+    }
+    //carview
 
     private fun replaceActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)

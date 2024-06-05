@@ -29,19 +29,37 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/hola"
-                android:layout_width="183dp"
-                android:layout_height="88dp"
-                android:paddingStart="16dp"
-                android:text="Cursos"
-                android:gravity="center"
-                android:textColor="@color/grayoscuro"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/barra_navegacion"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/barra_navegacion">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Contenido apartir de esta linea-->
+                    <TextView
+                        android:id="@+id/bottom_puntos"
+                        android:layout_width="183dp"
+                        android:layout_height="88dp"
+                        android:paddingStart="16dp"
+                        android:text="CURSOS"
+                        android:gravity="center"
+                        android:textColor="@color/grayoscuro"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Contenido ya no despues de esta linea-->
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:layout_constraintTop_toBottomOf="@+id/bottom_puntos"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
 
 
             <FrameLayout
@@ -88,6 +106,7 @@
         app:cbn_titleColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
