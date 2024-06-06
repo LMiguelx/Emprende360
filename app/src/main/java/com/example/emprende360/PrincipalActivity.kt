@@ -3,9 +3,15 @@ package com.example.emprende360
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -23,6 +29,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var db: FirebaseFirestore
@@ -32,8 +40,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     //carview
     private lateinit var viewPager: ViewPager2
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
+
     private var currentPage = 0
     //fin carview
 
@@ -42,6 +49,18 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private val sliderHandler = Handler()
     //carrusel
 
+
+    //hora y fecha
+    private lateinit var tvDate: TextView
+    private lateinit var tvTime: TextView
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val runnable = object : Runnable {
+        override fun run() {
+            updateDateTime()
+            handler.postDelayed(this, 100) // Actualizar cada segundo
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
@@ -151,6 +170,41 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 sliderHandler.postDelayed(sliderRunnable, 2000)  // 3000 ms = 3 seconds
             }
         })
+        tvDate = findViewById(R.id.textViewDate)
+        tvTime = findViewById(R.id.textViewTime)
+
+        updateDateTime()
+        handler.post(runnable) // Iniciar la actualización
+        // Array con los nombres de los eventos
+        val eventosArray = arrayOf("ExpoTecsup", "Campeonato", "Juegos olímpicos", "Bases del Emprendimiento")
+
+        // Adaptador para el ListView
+        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, eventosArray) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getView(position, convertView, parent)
+                val textView = view.findViewById<TextView>(android.R.id.text1)
+                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_lista_icon, 0, 0, 0)
+                textView.compoundDrawablePadding = 16
+                return view
+            }
+        }
+        // Asigna el adaptador al ListView
+        val listView = findViewById<ListView>(R.id.listview_eventos)
+        listView.adapter = adapter
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable) // Detener la actualización al cerrar la actividad
+    }
+
+    private fun updateDateTime() {
+        val currentDateTime = Calendar.getInstance().time
+
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val timeFormat = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+
+        tvDate.text = dateFormat.format(currentDateTime)
+        tvTime.text = timeFormat.format(currentDateTime)
     }
 
     private val sliderRunnable = Runnable {
