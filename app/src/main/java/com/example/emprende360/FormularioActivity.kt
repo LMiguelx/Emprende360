@@ -105,7 +105,8 @@ class FormularioActivity : AppCompatActivity() {
                     .update("estado", true)
                     .addOnSuccessListener {
                         Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
-                        abrirDatosPasaporteActivity()
+                        abrirDatosPasaporteActivity(nombreCompleto)
+                        abrirDatosPrincipalActivity(codigoAcceso)
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Error al actualizar el estado del código de acceso", Toast.LENGTH_SHORT).show()
@@ -116,10 +117,17 @@ class FormularioActivity : AppCompatActivity() {
             }
     }
 
-    private fun abrirDatosPasaporteActivity() {
+    private fun abrirDatosPasaporteActivity(nombreCompleto: String) {
         val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
-            putExtra("userId", userId)
-            putExtra("correo", correo)
+            putExtra("nombreCompleto", nombreCompleto)
+            // Añade otros extras si es necesario
+        }
+        startActivity(intent)
+    }
+
+    private fun abrirDatosPrincipalActivity(codigoAcceso: String) {
+        val intent = Intent(this, PrincipalActivity::class.java).apply {
+            putExtra("codigoAcceso", codigoAcceso)
         }
         startActivity(intent)
     }
@@ -145,3 +153,4 @@ class FormularioActivity : AppCompatActivity() {
         editText.inputType = InputType.TYPE_NULL
     }
 }
+

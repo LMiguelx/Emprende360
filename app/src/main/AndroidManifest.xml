@@ -16,6 +16,9 @@
         android:theme="@style/Sin.Nav"
         tools:targetApi="31">
         <activity
+            android:name=".DetalleEventoAsistidoActivity"
+            android:exported="false" />
+        <activity
             android:name=".CuestionarioActivity"
             android:exported="false" />
         <activity
@@ -56,9 +59,9 @@
             android:theme="@style/Base.Theme.NavigationDrawerCodelia"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".PuntosActivity"
+            android:name=".EventosAsistidosActivity"
             android:exported="false"
-            android:label="Puntos"
+            android:label="Eventos asistidos"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia"
             android:windowSoftInputMode="adjustPan" />
         <activity

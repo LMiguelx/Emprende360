@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -21,10 +20,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var db: FirebaseFirestore
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
@@ -46,7 +47,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_principal)
         firebaseAuth = Firebase.auth
 
-
+        db = FirebaseFirestore.getInstance()
         // Inicialización del DrawerLayout y NavigationView
         drawer = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
@@ -68,20 +69,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        // Configuración de botones de ver más
-        //val btnVerMas: TextView = findViewById(R.id.btndireccional)
-        //val btnVerMas2: TextView = findViewById(R.id.btndireccional1)
-        //btnVerMas.setOnClickListener {
-           /// startActivity(Intent(this, EventosActivity::class.java))
-        //}
-        //btnVerMas2.setOnClickListener {
-          //  startActivity(Intent(this, EventosActivity::class.java))
-      //  }
+        val nombreCompleto = intent.getStringExtra("nombreCompleto")
+        val textViewNombreCompleto = findViewById<TextView>(R.id.hola)
+        textViewNombreCompleto.text = "hola  $nombreCompleto "
 
-        // Mostrar el nombre del usuario
-        val userName = intent.getStringExtra("userName")
-        val textViewHola = findViewById<TextView>(R.id.hola)
-        textViewHola.text = "Hola, $userName"
+
 
         //funcion del boton de navegacion inferior-------------------------------------------
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
@@ -89,7 +81,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(2, "Puntos", R.drawable.baseline_123_24)
+            CurvedBottomNavigation.Model(2, "Asistencia", R.drawable.baseline_123_24)
         )
         bottomNavigation.add(
             CurvedBottomNavigation.Model(3, "Pasaporte", R.drawable.baseline_perm_identity_24)
@@ -108,7 +100,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     true
                 }
                 2 -> {
-                    replaceActivity(PuntosActivity::class.java)
+                    replaceActivity(EventosAsistidosActivity::class.java)
                     true
                 }
                 3 -> {
@@ -165,6 +157,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         viewPager2.currentItem = viewPager2.currentItem + 1
     }
 
+
     private fun replaceActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
@@ -201,7 +194,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
 
             R.id.nav_item_three -> {
-                startActivity(Intent(this, PuntosActivity::class.java))
+                startActivity(Intent(this, EventosAsistidosActivity::class.java))
             }
 
             R.id.nav_item_four -> {
@@ -229,7 +222,5 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        toggle.syncState()
-    }
+        toggle.syncState() }
 }
-

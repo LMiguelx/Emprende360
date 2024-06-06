@@ -36,6 +36,8 @@ class DatosPasaporteActivity : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var nombreUsuario: String
+    private val eventosAsistidosRegistrados = mutableListOf<String>()
+    private var fechasUnicas = HashSet<String>()
 
     //Foto de Perfil
     private lateinit var imageViewProfile: ImageView
@@ -80,7 +82,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
             CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(2, "Puntos", R.drawable.baseline_123_24)
+            CurvedBottomNavigation.Model(2, "Asistencia", R.drawable.baseline_123_24)
         )
         bottomNavigation.add(
             CurvedBottomNavigation.Model(3, "Pasaporte", R.drawable.baseline_perm_identity_24)
@@ -100,7 +102,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
                 }
 
                 2 -> {
-                    replaceActivity(PuntosActivity::class.java)
+                    replaceActivity(EventosAsistidosActivity::class.java)
                     true
                 }
 
@@ -157,7 +159,11 @@ class DatosPasaporteActivity : AppCompatActivity() {
                 val ivCodigoQR = findViewById<ImageView>(R.id.ivCodigoQR)
                 ivCodigoQR.setImageBitmap(qrBitmap)
             }
-            obtenerPuntosDelEstudiante(codigoAcceso)
+            obtenerPuntosDelEstudiante(codigoAcceso) { puntosTotales ->
+                mostrarPuntos(puntosTotales)
+                actualizarPuntosEstudiante(codigoAcceso, puntosTotales)
+                obtenerEventosAsistidosParaTodos()
+            }
         } else {
             obtenerDatosDeFirestore()
         }
@@ -353,31 +359,37 @@ class DatosPasaporteActivity : AppCompatActivity() {
         estudianteRef.get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    val codigoAcceso = document.getString("codigoAcceso")  // el codigo del estudiante pa q no cada usuario tenga sus pripios puntos xd
+                    val codigoAcceso = document.getString("codigoAcceso")  // Obtener el código de acceso del estudiante
 
                     codigoAcceso?.let {
+                        // Consultar las asistencias del estudiante con el código de acceso correspondiente
                         db.collection("asistencias")
                             .whereEqualTo("codigoAcceso", codigoAcceso)
                             .get()
                             .addOnSuccessListener { documents ->
                                 if (documents != null && !documents.isEmpty) {
                                     val fechasUnicas = HashSet<String>()
-                                    val dateFormat =
-                                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
                                     for (document in documents) {
-                                        val fechaAsistencia = document.getTimestamp("ingreso")  // el timestamp lo eliminamos y solo quiero fecha no mas
+                                        val fechaAsistencia = document.getTimestamp("ingreso")
+                                        val nombreEvento = document.getString("nombre")
+
                                         fechaAsistencia?.let {
                                             val fechaSinHora = dateFormat.format(it.toDate())
                                             fechasUnicas.add(fechaSinHora)
                                         }
+
+                                        // Verificar si el nombre del evento está presente en la colección de eventos
+                                        nombreEvento?.let {
+                                            verificarEvento(nombreEvento,codigoAcceso)
+                                        }
                                     }
+
                                     val puntosTotales = fechasUnicas.size
                                     mostrarPuntos(puntosTotales)
                                 } else {
-                                    Log.e(
-                                        "zz",
-                                        "No se encontraron asistencias para el código de acceso $codigoAcceso"
-                                    )
+                                    Log.e("zz", "No se encontraron asistencias para el código de acceso $codigoAcceso")
                                 }
                             }
                             .addOnFailureListener { e ->
@@ -387,10 +399,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
                         Log.e("zzz", "El código de acceso es nulo")
                     }
                 } else {
-                    Log.e(
-                        "zzz",
-                        "No se encontró el documento del estudiante con ID $estudianteId"
-                    )
+                    Log.e("zzz", "No se encontró el documento del estudiante con ID $estudianteId")
                 }
             }
             .addOnFailureListener { e ->
@@ -398,9 +407,165 @@ class DatosPasaporteActivity : AppCompatActivity() {
             }
     }
 
+    private var eventoRegistrado = false
+
+    private fun verificarEvento(nombreEvento: String, codigoAcceso: String) {
+        db.collection("eventosAsistidos")
+            .whereEqualTo("nombre", nombreEvento)
+            .whereEqualTo("codigoAcceso", codigoAcceso)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    // El evento no está registrado para este código de acceso, se crea el documento
+                    val eventoAsistidoData = hashMapOf(
+                        "nombre" to nombreEvento,
+                        "codigoAcceso" to codigoAcceso,
+                        // Agregar otros campos relevantes del evento si es necesario
+                    )
+
+                    db.collection("eventos")
+                        .whereEqualTo("nombre", nombreEvento)
+                        .get()
+                        .addOnSuccessListener { eventos ->
+                            if (!eventos.isEmpty) {
+                                val imagenEvento = eventos.documents[0].getString("imagen")
+                                if (imagenEvento != null) {
+                                    eventoAsistidoData["imagen"] = imagenEvento
+                                }
+                            }
+
+                            // Guardar el documento del evento asistido
+                            db.collection("eventosAsistidos")
+                                .add(eventoAsistidoData)
+                                .addOnSuccessListener {
+                                    Log.d("zzz", "Documento creado en eventosAsistidos para el evento $nombreEvento y código de acceso $codigoAcceso")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("zzz", "Error al crear el documento en eventosAsistidos", e)
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("zzz", "Error al obtener el evento en la colección de eventos", e)
+                        }
+                } else {
+                    Log.d("zzz", "El evento $nombreEvento ya está registrado en eventosAsistidos para el código de acceso $codigoAcceso")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al verificar el evento en la colección de eventosAsistidos", e)
+            }
+    }
+    private fun obtenerEventosAsistidosParaTodos() {
+        // Obtener todos los códigos de acceso únicos de la colección "asistencias"
+        db.collection("asistencias")
+            .get()
+            .addOnSuccessListener { documents ->
+                val codigosAccesoUnicos = HashSet<String>()
+                for (document in documents) {
+                    val codigoAcceso = document.getString("codigoAcceso")
+                    codigoAcceso?.let {
+                        codigosAccesoUnicos.add(it)
+                    }
+                }
+
+                // Para cada código de acceso único, obtener los eventos asociados
+                for (codigoAcceso in codigosAccesoUnicos) {
+                    obtenerEventosAsistidosParaCodigoAcceso(codigoAcceso)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al obtener las asistencias", e)
+            }
+    }
+
+    private fun obtenerEventosAsistidosParaCodigoAcceso(codigoAcceso: String) {
+        db.collection("asistencias")
+            .whereEqualTo("codigoAcceso", codigoAcceso)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val nombreEvento = document.getString("nombre")
+                    nombreEvento?.let {
+                        verificarEvento(nombreEvento, codigoAcceso)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al obtener las asistencias para el código de acceso $codigoAcceso", e)
+            }
+    }
+
     private fun mostrarPuntos(puntos: Int) {
         val textViewPuntos = findViewById<TextView>(R.id.DatoPuntos)
         textViewPuntos.text = "Puntos: $puntos"
-    }}
+    }
+    private fun obtenerPuntosDelEstudiante(codigoAcceso: String, callback: (Int) -> Unit) {
+        val estudianteRef = db.collection("estudiantes").document(codigoAcceso)
+        estudianteRef.get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val codigoAcceso = document.getString("codigoAcceso")
+
+                codigoAcceso?.let {
+                    db.collection("asistencias")
+                        .whereEqualTo("codigoAcceso", codigoAcceso)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            if (documents != null && !documents.isEmpty) {
+                                val fechasUnicas = HashSet<String>()
+                                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+                                for (document in documents) {
+                                    val fechaAsistencia = document.getTimestamp("ingreso")
+                                    val nombreEvento = document.getString("nombre")
+
+                                    fechaAsistencia?.let {
+                                        val fechaSinHora = dateFormat.format(it.toDate())
+                                        fechasUnicas.add(fechaSinHora)
+                                    }
+
+                                    nombreEvento?.let {
+                                        verificarEvento(nombreEvento,codigoAcceso)
+                                    }
+                                }
+
+                                val puntosTotales = fechasUnicas.size
+                                callback(puntosTotales)
+                            } else {
+                                Log.e("zz", "No se encontraron asistencias para el código de acceso $codigoAcceso")
+                                callback(0)
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("zzz", "Error al obtener las asistencias", e)
+                            callback(0)
+                        }
+                } ?: run {
+                    Log.e("zzz", "El código de acceso es nulo")
+                    callback(0)
+                }
+            } else {
+                Log.e("zzz", "No se encontró el documento del estudiante con ID $codigoAcceso")
+                callback(0)
+            }
+        }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al obtener el documento del estudiante", e)
+                callback(0)
+            }
+    }
+    private fun actualizarPuntosEstudiante(codigoAcceso: String, nuevosPuntos: Int) {
+        val estudianteRef = db.collection("estudiantes").document(codigoAcceso)
+
+        estudianteRef
+            .update("puntos_asistencia", nuevosPuntos)
+            .addOnSuccessListener {
+                Log.d("zzz", "Puntos del estudiante actualizados correctamente")
+            }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al actualizar los puntos del estudiante", e)
+            }
+    }
+    }
+
 
 

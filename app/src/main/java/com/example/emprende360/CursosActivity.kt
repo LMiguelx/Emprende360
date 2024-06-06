@@ -57,7 +57,7 @@ class CursosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
         )
         bottomNavigation.add(
-            CurvedBottomNavigation.Model(2, "Puntos", R.drawable.baseline_123_24)
+            CurvedBottomNavigation.Model(2, "Asistencia", R.drawable.baseline_123_24)
         )
         bottomNavigation.add(
             CurvedBottomNavigation.Model(3, "Pasaporte", R.drawable.baseline_perm_identity_24)
@@ -76,7 +76,7 @@ class CursosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     true
                 }
                 2 -> {
-                    replaceActivity(PuntosActivity::class.java)
+                    replaceActivity(EventosAsistidosActivity::class.java)
                     true
                 }
                 3 -> {
@@ -150,7 +150,7 @@ class CursosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
 
             R.id.nav_item_three -> {
-                startActivity(Intent(this, PuntosActivity::class.java))
+                startActivity(Intent(this, EventosAsistidosActivity::class.java))
             }
 
             R.id.nav_item_four -> {
