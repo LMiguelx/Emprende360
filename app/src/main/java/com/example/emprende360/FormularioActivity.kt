@@ -1,18 +1,21 @@
 package com.example.emprende360
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FormularioActivity : AppCompatActivity() {
 
     private lateinit var etNombreCompleto: EditText
-    private lateinit var spSemestre: Spinner
-    private lateinit var spSeccion: Spinner
+    private lateinit var etSemestre: EditText
+    private lateinit var etSeccion: EditText
     private lateinit var etCodigoEstudiante: EditText
-    private lateinit var spCarrera: Spinner
+    private lateinit var etCarrera: EditText
     private lateinit var etCodigoAcceso: EditText
     private lateinit var btnGenerar: Button
     private lateinit var db: FirebaseFirestore
@@ -24,20 +27,12 @@ class FormularioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_formulario)
 
         etNombreCompleto = findViewById(R.id.etNombreCompleto)
-        spSemestre = findViewById(R.id.spSemestre)
-        spSeccion = findViewById(R.id.spSeccion)
+        etSemestre = findViewById(R.id.etSemestre)
+        etSeccion = findViewById(R.id.etSeccion)
         etCodigoEstudiante = findViewById(R.id.etCodigoEstudiante)
-        spCarrera = findViewById(R.id.spCarrera)
+        etCarrera = findViewById(R.id.etCarrera)
         etCodigoAcceso = findViewById(R.id.etCodigoAcceso)
         btnGenerar = findViewById(R.id.btnGenerar)
-
-        configurarSpinner(spSemestre, R.array.Semestre)
-        configurarSpinner(spSeccion, R.array.Seccion)
-        configurarSpinner(spCarrera, R.array.Carreras)
-
-        configurarFlecha(spSemestre, R.id.spIcono1)
-        configurarFlecha(spSeccion, R.id.spIcono2)
-        configurarFlecha(spCarrera, R.id.spIcono3)
 
         db = FirebaseFirestore.getInstance()
 
@@ -52,32 +47,19 @@ class FormularioActivity : AppCompatActivity() {
                 Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+        configurarEditTextComoSpinner(etSemestre, findViewById(R.id.spIcono1), resources.getStringArray(R.array.Semestre))
+        configurarEditTextComoSpinner(etSeccion, findViewById(R.id.spIcono2), resources.getStringArray(R.array.Seccion))
+        configurarEditTextComoSpinner(etCarrera, findViewById(R.id.spIcono3), resources.getStringArray(R.array.Carreras))
 
-    private fun configurarSpinner(spinner: Spinner, arrayResId: Int) {
-        ArrayAdapter.createFromResource(
-            this,
-            arrayResId,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
-    }
 
-    private fun configurarFlecha(spinner: Spinner, iconoResId: Int) {
-        val iconoFlecha = findViewById<ImageView>(iconoResId)
-        iconoFlecha.setOnClickListener {
-            spinner.performClick()
-        }
     }
 
     private fun validarCampos(): Boolean {
         return etNombreCompleto.text.isNotEmpty() &&
-                spSemestre.selectedItem != null &&
-                spSeccion.selectedItem != null &&
+                etSemestre.text.isNotEmpty() &&
+                etSeccion.text.isNotEmpty() &&
                 etCodigoEstudiante.text.isNotEmpty() &&
-                spCarrera.selectedItem != null &&
+                etCarrera.text.isNotEmpty() &&
                 etCodigoAcceso.text.isNotEmpty()
     }
 
@@ -99,10 +81,10 @@ class FormularioActivity : AppCompatActivity() {
 
     private fun enviarDatosAFirestore(codigoAcceso: String) {
         val nombreCompleto = etNombreCompleto.text.toString()
-        val semestre = spSemestre.selectedItem.toString()
-        val seccion = spSeccion.selectedItem.toString()
+        val semestre = etSemestre.text.toString()
+        val seccion = etSeccion.text.toString()
         val codigoEstudiante = etCodigoEstudiante.text.toString()
-        val carrera = spCarrera.selectedItem.toString()
+        val carrera = etCarrera.text.toString()
 
         val estudiante = hashMapOf(
             "nombreCompleto" to nombreCompleto,
@@ -140,5 +122,26 @@ class FormularioActivity : AppCompatActivity() {
             putExtra("correo", correo)
         }
         startActivity(intent)
+    }
+
+    private fun configurarEditTextComoSpinner(editText: EditText, flecha: ImageView, opciones: Array<String>) {
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            editText.setText(opciones[which])
+        }
+
+        val builder = AlertDialog.Builder(this)
+        builder.setItems(opciones, dialogClickListener)
+        val dialog = builder.create()
+
+        flecha.setOnClickListener {
+            dialog.show()
+        }
+
+        // Deshabilitar la edición de texto
+        editText.isFocusable = false
+        editText.isClickable = true
+        editText.isLongClickable = false
+        editText.keyListener = null
+        editText.inputType = InputType.TYPE_NULL
     }
 }

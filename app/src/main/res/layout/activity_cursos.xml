@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".EventosActivity">
+    tools:context=".CursosActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -18,11 +17,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".EventosActivity"
+        tools:context=".CursosActivity"
         tools:openDrawer="start">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/eventos"
+            android:id="@+id/cursos"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -46,7 +45,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view_eventos"
+                        android:id="@+id/recycler_view_cursos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -59,10 +58,9 @@
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        app:layout_constraintTop_toBottomOf="@+id/recycler_view_eventos"/>
+                        app:layout_constraintTop_toBottomOf="@+id/recycler_view_cursos"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -72,7 +70,6 @@
             android:layout_gravity="start"
             app:headerLayout="@layout/drawer_header"
             app:menu="@menu/activity_main_drawer" />
-
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <FrameLayout
@@ -111,6 +108,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@color/white"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

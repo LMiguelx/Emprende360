@@ -7,7 +7,6 @@
     <string name="navigation_drawer_close">Close</string>
 
     <string-array name="Carreras">
-        <item>Selecciona Tu Carrera</item>
         <item>Electronica y Automatizacion Industrial</item>
         <item>Operaciones Mineras</item>
         <item>Operacion de Plantas de Procesamiento de Minerales</item>
@@ -21,14 +20,12 @@
         <item>Mantenimiento de Equipo Pesado</item>
     </string-array>
     <string-array name="Seccion">
-        <item>Selecciona tu Seccion</item>
         <item>A</item>
         <item>B</item>
         <item>C</item>
         <item>D</item>
     </string-array>
     <string-array name="Semestre">
-        <item>Selecciona tu Semestre</item>
         <item>Primer Semestre</item>
         <item>Segundo Semestre</item>
         <item>Tercer Semestre</item>

@@ -6,46 +6,52 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
-class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class CursosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var drawerLayout: DrawerLayout
-    @SuppressLint("MissingInflatedId")
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adaptador: AdaptadorCursos
+    private val listaCursos: MutableList<Map<String, Any>> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_puntos)
+        setContentView(R.layout.activity_cursos)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+        // Obtener los datos de Firestore
+        obtenerDatosFirestore()
 
+        // Configuración del RecyclerView
+        recyclerView = findViewById(R.id.recycler_view_cursos)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adaptador = AdaptadorCursos(this, listaCursos)
+        recyclerView.adapter = adaptador
 
-        firebaseAuth = Firebase.auth
-
-        //drawel donde se define la varibles y el llamado del drawerLayout
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val navigationVie: NavigationView = findViewById(R.id.nav_view)
-        navigationVie.setNavigationItemSelectedListener(this)
-
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar_main)
-        setSupportActionBar(toolbar)
+        // Configuración del DrawerLayout
         drawer = findViewById(R.id.drawer_layout)
-        toggle = ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
-        //funcion del boton de navegacion inferior-------------------------------------------
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_main)
+        setSupportActionBar(toolbar)
+        toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        // Configuración del BottomNavigationView
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
         bottomNavigation.add(
             CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
@@ -88,7 +94,7 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 else -> false
             }
         }
-        bottomNavigation.show(2)
+        bottomNavigation.show(5)
     }
 
     private fun replaceActivity(activityClass: Class<*>) {
@@ -97,9 +103,33 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }
+
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        return
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun obtenerDatosFirestore() {
+        val db = FirebaseFirestore.getInstance()
+        val cursosRef = db.collection("cursos")
+
+        cursosRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot.documents) {
+                    val datosCurso = document.data
+                    datosCurso?.let { curso ->
+                        listaCursos.add(curso)
+                    }
+                }
+                adaptador.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al obtener cursos: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun signOut() {
@@ -108,8 +138,6 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val i = Intent(this, LoginActivity::class.java)
         startActivity(i)
     }
-
-    //Los drawers aqui desde la funcion -----------------------------------------------------------------------------
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -138,13 +166,12 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
         }
 
+        // Cerrar el drawer después de manejar la selección
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
 
-    //Los drawers finalizan aqui -----------------------------------------------------------------------------
-
-    override fun onPostCreate(savedInstanceState: Bundle?,) {
+    override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         toggle.syncState()
     }
@@ -153,5 +180,4 @@ class PuntosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
     }
-
 }

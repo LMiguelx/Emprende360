@@ -2,7 +2,7 @@
 
     <!-- Estilo base de la aplicación con barra de navegación -->
     <style name="Con.Nav" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">@color/color2</item>
+        <item name="colorPrimary">#7A46D6</item>
         <item name="colorPrimaryVariant">@color/color1</item>
         <item name="android:statusBarColor">@color/blue</item>
     </style>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DatosPasaporteActivity"
-    android:background="#ececec">
+    android:background="#FFFFFF">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/imageViewProfile"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="130dp"
+                android:layout_height="140dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
+                android:layout_marginTop="10dp"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewProfile"
@@ -53,41 +54,44 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/grayclaro"
                 android:text=""
-                android:textSize="20sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@+id/Nombre"
                 app:layout_constraintStart_toStartOf="@+id/Nombre"
                 app:layout_constraintTop_toBottomOf="@+id/Nombre"/>
 
-            <ImageView
-                android:id="@+id/ivCodigoQR"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Gmail"
-                app:layout_constraintBottom_toTopOf="@+id/DatoPuntos"
-                app:layout_constraintHorizontal_bias="0.5" />
-
             <TextView
                 android:id="@+id/DatoPuntos"
-                android:layout_width="243dp"
-                android:layout_height="33dp"
+                android:layout_width="240dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
-                android:text="Puntos obtenidos 0"
-                android:textColor="#F44336"
+                android:text=""
+                android:textColor="#117DD3"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivCodigoQR" />
+                app:layout_constraintTop_toBottomOf="@+id/Gmail" />
+
+            <ImageView
+                android:id="@+id/ivCodigoQR"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Gmail"
+                app:layout_constraintBottom_toTopOf="@+id/space1"
+                app:layout_constraintHorizontal_bias="0.5" />
+
+
 
             <!-- Contenido ya no despues de esta linea-->
             <Space
+                android:id="@+id/space1"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                app:layout_constraintTop_toBottomOf="@+id/DatoPuntos"/>
+                app:layout_constraintTop_toBottomOf="@+id/ivCodigoQR"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -96,13 +100,13 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cbn_background="#03A9F4"
-        app:cbn_fabColor="#9C27B0"
+        app:cbn_background="#7935E4"
+        app:cbn_fabColor="#FFD700"
         app:cbn_iconColor="@color/white"
         app:cbn_height="76dp"
         app:cbn_icon_size="24dp"
         android:elevation="10dp"
-        app:cbn_curve_radius="26dp"
+        app:cbn_curve_radius="30dp"
         app:cbn_selected_icon_size="48dp"
         app:cbn_selectedIconColor="@color/white"
         app:cbn_titleColor="@color/white"

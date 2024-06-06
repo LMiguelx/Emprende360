@@ -25,6 +25,9 @@
             <item android:id="@+id/nav_item_seven"
                 android:icon="@drawable/baseline_seguridad_24"
                 android:title="Seguridad"/>
+            <item android:id="@+id/nav_item_eight"
+                android:icon="@drawable/baseline_reply_24"
+                android:title="Cerrar Sesion"/>
         </menu>
     </item>
 </menu>

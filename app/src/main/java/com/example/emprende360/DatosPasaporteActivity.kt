@@ -7,30 +7,20 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.emprende360.R
-import com.example.emprende360.SellosRegistradosActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,6 +29,8 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DatosPasaporteActivity : AppCompatActivity() {
 
@@ -47,7 +39,12 @@ class DatosPasaporteActivity : AppCompatActivity() {
 
     //Foto de Perfil
     private lateinit var imageViewProfile: ImageView
-    private val sharedPreferences by lazy { getSharedPreferences("profile_prefs", Context.MODE_PRIVATE) }
+    private val sharedPreferences by lazy {
+        getSharedPreferences(
+            "profile_prefs",
+            Context.MODE_PRIVATE
+        )
+    }
     private var currentImageUri: Uri? = null
     private lateinit var db: FirebaseFirestore
 
@@ -66,7 +63,16 @@ class DatosPasaporteActivity : AppCompatActivity() {
         val carrera = intent.getStringExtra("carrera")
         val codigoAcceso = intent.getStringExtra("codigoAcceso")
 
-        mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso, null, null)
+        mostrarDatos(
+            nombreCompleto,
+            semestre,
+            seccion,
+            codigoEstudiante,
+            carrera,
+            codigoAcceso,
+            null,
+            null
+        )
 
         //funcion del boton de navegacion inferior-------------------------------------------
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
@@ -92,26 +98,32 @@ class DatosPasaporteActivity : AppCompatActivity() {
                     replaceActivity(PrincipalActivity::class.java)
                     true
                 }
+
                 2 -> {
                     replaceActivity(PuntosActivity::class.java)
                     true
                 }
+
                 3 -> {
                     replaceActivity(DatosPasaporteActivity::class.java)
                     true
                 }
+
                 4 -> {
                     replaceActivity(EventosActivity::class.java)
                     true
                 }
+
                 5 -> {
-                    replaceActivity(CuestionarioActivity::class.java)
+                    replaceActivity(CursosActivity::class.java)
                     true
                 }
+
                 else -> false
             }
         }
         bottomNavigation.show(3)
+
     }
 
     private fun replaceActivity(activityClass: Class<*>) {
@@ -121,20 +133,31 @@ class DatosPasaporteActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun mostrarDatos(nombreCompleto: String?, semestre: String?, seccion: String?, codigoEstudiante: String?, carrera: String?, codigoAcceso: String?, userId: String?, correo: String?) {
+    private fun mostrarDatos(
+        nombreCompleto: String?,
+        semestre: String?,
+        seccion: String?,
+        codigoEstudiante: String?,
+        carrera: String?,
+        codigoAcceso: String?,
+        userId: String?,
+        correo: String?
+    ) {
         if (nombreCompleto != null && semestre != null && seccion != null && codigoEstudiante != null && carrera != null && codigoAcceso != null && userId != null && correo != null) {
             // Si los datos están disponibles, mostrarlos en las vistas correspondientes
             val textViewnombre = findViewById<TextView>(R.id.Nombre)
             textViewnombre.text = nombreCompleto
             val textViewcorreo = findViewById<TextView>(R.id.Gmail)
-            textViewcorreo.text = correo
+            textViewcorreo.text = codigoAcceso
 
-            val data = "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso\n$userId\n$correo"
+            val data =
+                "$nombreCompleto\n$semestre\n$seccion\n$codigoEstudiante\n$carrera\n$codigoAcceso\n$userId\n$correo"
             val qrBitmap = generarQR(data)
             if (qrBitmap != null) {
                 val ivCodigoQR = findViewById<ImageView>(R.id.ivCodigoQR)
                 ivCodigoQR.setImageBitmap(qrBitmap)
             }
+            obtenerPuntosDelEstudiante(codigoAcceso)
         } else {
             obtenerDatosDeFirestore()
         }
@@ -144,7 +167,9 @@ class DatosPasaporteActivity : AppCompatActivity() {
 
         imageViewProfile.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
-                    this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             } else {
                 openGallery()
@@ -180,6 +205,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
             null
         }
     }
+
     private fun obtenerDatosDeFirestore() {
         val userId = firebaseAuth.currentUser?.uid
         if (userId != null) {
@@ -198,23 +224,35 @@ class DatosPasaporteActivity : AppCompatActivity() {
                         val codigoAcceso = document.getString("codigoAcceso")
                         val correo = document.getString("correo")
 
-                        mostrarDatos(nombreCompleto, semestre, seccion, codigoEstudiante, carrera, codigoAcceso, userId, correo)
+                        mostrarDatos(
+                            nombreCompleto,
+                            semestre,
+                            seccion,
+                            codigoEstudiante,
+                            carrera,
+                            codigoAcceso,
+                            userId,
+                            correo
+                        )
                     }
                 }.addOnFailureListener { exception ->
                     // Manejar el error
-                    Toast.makeText(this, "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Error al obtener los datos del usuario",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
         }
     }
 
-    //Abre la galería de imágenes para que el usuario seleccione una imagen.
+    // Abre la galería de imágenes para que el usuario seleccione una imagen.
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         pickImageLauncher.launch(intent)
     }
 
-
-    //Guarda la URI de la imagen seleccionada en SharedPreferences.
+    // Guarda la URI de la imagen seleccionada en SharedPreferences.
     //@param imageUri La URI de la imagen seleccionada.
     private fun saveImageUri(imageUri: Uri) {
         try {
@@ -229,8 +267,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
         }
     }
 
-
-    //Carga la URI de la imagen guardada en SharedPreferences y establece la imagen en la vista.
+    // Carga la URI de la imagen guardada en SharedPreferences y establece la imagen en la vista.
     private fun loadSavedImage() {
         try {
             val imageUriString = sharedPreferences.getString("profile_image_uri", null)
@@ -245,8 +282,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
         }
     }
 
-    //Establece la imagen en la vista de perfil utilizando la URI proporcionada.
-
+    // Establece la imagen en la vista de perfil utilizando la URI proporcionada.
     //@param imageUri La URI de la imagen que se va a establecer.
     private fun setImage(imageUri: Uri) {
         try {
@@ -262,8 +298,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
         }
     }
 
-
-    //Muestra un diálogo para que el usuario decida si desea guardar la imagen seleccionada o elegir otra.
+    // Muestra un diálogo para que el usuario decida si desea guardar la imagen seleccionada o elegir otra.
     //@param imageUri La URI de la imagen seleccionada.
     private fun showSaveOrSelectDialog(imageUri: Uri) {
         val dialogBuilder = AlertDialog.Builder(this)
@@ -283,8 +318,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
         alert.show()
     }
 
-    //Solicita permiso para acceder al almacenamiento del dispositivo y abre la galería si se concede el permiso.
-
+    // Solicita permiso para acceder al almacenamiento del dispositivo y abre la galería si se concede el permiso.
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -295,7 +329,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
         }
     }
 
-    //Lanza una actividad para seleccionar una imagen y maneja el resultado.
+    // Lanza una actividad para seleccionar una imagen y maneja el resultado.
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -306,16 +340,67 @@ class DatosPasaporteActivity : AppCompatActivity() {
                 showSaveOrSelectDialog(imageUri)
             }
         }
-    } //Ultimas linea de codigo de foto perfil
+    } // Últimas líneas de código de foto perfil
+
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         return
     }
 
-    private fun signOut() {
-        firebaseAuth.signOut()
-        Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()
-        val i = Intent(this, LoginActivity::class.java)
-        startActivity(i)
+
+    private fun obtenerPuntosDelEstudiante(estudianteId: String) {
+        val estudianteRef = db.collection("estudiantes").document(estudianteId)
+        estudianteRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val codigoAcceso = document.getString("codigoAcceso")  // el codigo del estudiante pa q no cada usuario tenga sus pripios puntos xd
+
+                    codigoAcceso?.let {
+                        db.collection("asistencias")
+                            .whereEqualTo("codigoAcceso", codigoAcceso)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                if (documents != null && !documents.isEmpty) {
+                                    val fechasUnicas = HashSet<String>()
+                                    val dateFormat =
+                                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                    for (document in documents) {
+                                        val fechaAsistencia = document.getTimestamp("ingreso")  // el timestamp lo eliminamos y solo quiero fecha no mas
+                                        fechaAsistencia?.let {
+                                            val fechaSinHora = dateFormat.format(it.toDate())
+                                            fechasUnicas.add(fechaSinHora)
+                                        }
+                                    }
+                                    val puntosTotales = fechasUnicas.size
+                                    mostrarPuntos(puntosTotales)
+                                } else {
+                                    Log.e(
+                                        "zz",
+                                        "No se encontraron asistencias para el código de acceso $codigoAcceso"
+                                    )
+                                }
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("zzz", "Error al obtener las asistencias", e)
+                            }
+                    } ?: run {
+                        Log.e("zzz", "El código de acceso es nulo")
+                    }
+                } else {
+                    Log.e(
+                        "zzz",
+                        "No se encontró el documento del estudiante con ID $estudianteId"
+                    )
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al obtener el documento del estudiante", e)
+            }
     }
-}
+
+    private fun mostrarPuntos(puntos: Int) {
+        val textViewPuntos = findViewById<TextView>(R.id.DatoPuntos)
+        textViewPuntos.text = "Puntos: $puntos"
+    }}
+
+

@@ -18,7 +18,7 @@
 
 
         <TextView
-            android:id="@+id/lblNombreCurso"
+            android:id="@+id/NombreCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -29,8 +29,8 @@
         <ImageView
             android:id="@+id/imgFotoCursos"
             android:layout_width="97dp"
-            android:layout_height="103dp"
-            android:layout_below="@+id/lblNombreCurso"
+            android:layout_height="120dp"
+            android:layout_below="@+id/NombreCurso"
             android:layout_alignParentStart="true"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
@@ -41,21 +41,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblNombreCurso"
+            android:layout_below="@+id/NombreCurso"
             android:layout_marginStart="16dp"
             android:layout_marginTop="19dp"
             android:layout_toEndOf="@+id/imgFotoCursos"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/lblIntroduccion"
+                android:id="@+id/IntroduccionCurso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
                 android:text="Introduccion"
                 android:textSize="16sp" />
             <TextView
-                android:id="@+id/lblIncripcion"
+                android:id="@+id/InscripcionCurso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
@@ -63,7 +63,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/lblHorario"
+                android:id="@+id/HorarioCurso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -71,7 +71,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/lblPrecio"
+                android:id="@+id/PrecioCurso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

@@ -7,14 +7,4 @@
         android:icon="@drawable/baseline_salir"
         android:title="Cerrar Sessión"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_buscar"
-        android:icon="@drawable/sharp_themas"
-        android:title="Temas"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_nose"
-        android:icon="@drawable/icons192"
-        android:title="Google"
-        app:showAsAction="ifRoom" />
 </menu>

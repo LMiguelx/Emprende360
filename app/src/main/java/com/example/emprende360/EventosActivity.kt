@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -13,7 +12,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -90,7 +88,7 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     true
                 }
                 5 -> {
-                    replaceActivity(CuestionarioActivity::class.java)
+                    replaceActivity(CursosActivity::class.java)
                     true
                 }
                 else -> false
@@ -106,24 +104,6 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         finish()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.nav_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_buscar -> {
-                Toast.makeText(baseContext, "Buscar información", Toast.LENGTH_SHORT).show()
-            }
-            R.id.menu_salir -> {
-                firebaseAuth.signOut()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
@@ -152,26 +132,41 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 Toast.makeText(this, "Error al obtener eventos: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
+    private fun signOut() {
+        firebaseAuth.signOut()
+        Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()
+        val i = Intent(this, LoginActivity::class.java)
+        startActivity(i)
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_item_one -> {
                 startActivity(Intent(this, PrincipalActivity::class.java))
             }
+
             R.id.nav_item_two -> {
                 startActivity(Intent(this, DatosPasaporteActivity::class.java))
             }
+
             R.id.nav_item_three -> {
                 startActivity(Intent(this, PuntosActivity::class.java))
             }
+
             R.id.nav_item_four -> {
-                // No hacer nada ya que estamos en la misma actividad
+                startActivity(Intent(this, EventosActivity::class.java))
             }
+
             R.id.nav_item_five -> {
-                startActivity(Intent(this, CuestionarioActivity::class.java))
+                startActivity(Intent(this, CursosActivity::class.java))
+            }
+
+            R.id.nav_item_eight -> {
+                signOut()
             }
         }
 
+        // Cerrar el drawer después de manejar la selección
         drawer.closeDrawer(GravityCompat.START)
         return true
     }

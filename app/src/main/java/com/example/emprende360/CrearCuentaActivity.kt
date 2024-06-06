@@ -17,7 +17,6 @@ class CrearCuentaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crearcuenta)
-        val txtnombre_nuevo : TextView = findViewById(R.id.edtNombre)
         val txtemail_nuevo :TextView =findViewById(R.id.edtEmailNuevo)
         val txtpassword1 : TextView = findViewById(R.id.edtPasswordNuevo1)
         val txtpassword2 : TextView = findViewById(R.id.edtPasswordNuevo2)
@@ -51,7 +50,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                 if (task.isSuccessful)
                 {
                     sendEmailVerification()
-                    Toast.makeText(baseContext,"Cuenta Creada Correctamente, se requiere Vereificacion", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext,"Cuenta Creada Correctamente,Verifica tu Gmail", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     Toast.makeText(baseContext, "Algo salio mal, Error: " + task.exception, Toast.LENGTH_SHORT).show()
@@ -63,7 +62,7 @@ class CrearCuentaActivity : AppCompatActivity() {
     private fun sendEmailVerification()
     {
     val user = firebaseAuth.currentUser!!
-        user.sendEmailVerification().addOnCompleteListener(this){task->  //verificacion mediante correo ( necesitamos solucion)
+        user.sendEmailVerification().addOnCompleteListener(this){task->
             if (task.isSuccessful)
             {
 

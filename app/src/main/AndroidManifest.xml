@@ -16,6 +16,12 @@
         android:theme="@style/Sin.Nav"
         tools:targetApi="31">
         <activity
+            android:name=".CuestionarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdaptadorCursos"
+            android:exported="false" />
+        <activity
             android:name=".DetalleCursoActivity"
             android:exported="false" />
         <activity
@@ -38,9 +44,9 @@
             android:name=".SelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".CuestionarioActivity"
+            android:name=".CursosActivity"
             android:exported="false"
-            android:label="Cuestionario"
+            android:label="Cursos"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -88,7 +94,7 @@
         <activity
             android:name=".PrincipalActivity"
             android:exported="true"
-            android:label="Emprende360"
+            android:label="EMPRENDE 360"
             android:theme="@style/Base.Theme.NavigationDrawerCodelia"
             android:windowSoftInputMode="adjustPan" />
         <activity

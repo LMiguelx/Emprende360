@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -16,7 +15,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -113,7 +111,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     true
                 }
                 5 -> {
-                    replaceActivity(CuestionarioActivity::class.java)
+                    replaceActivity(CursosActivity::class.java)
                     true
                 }
                 else -> false
@@ -162,22 +160,6 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         finish()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.nav_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_buscar -> {
-                Toast.makeText(baseContext, "Buscar información", Toast.LENGTH_SHORT).show()
-            }
-            R.id.menu_salir -> {
-                signOut()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
@@ -215,7 +197,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
 
             R.id.nav_item_five -> {
-                startActivity(Intent(this, CuestionarioActivity::class.java))
+                startActivity(Intent(this, CursosActivity::class.java))
+            }
+
+            R.id.nav_item_eight -> {
+                signOut()
             }
         }
 
