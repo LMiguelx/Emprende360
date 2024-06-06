@@ -10,9 +10,15 @@
 
         <TextView
             android:id="@+id/lblNombreEventoDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="278dp"
+            android:layout_height="52dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="center"
             android:text="Nombre del Evento"
+            android:textColor="#FF0000"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -21,16 +27,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblNombreEventoDetalle"
-            android:layout_marginTop="16dp" />
+/>
 
         <TextView
             android:id="@+id/lblLugarDetalle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgFotoDetalle"
-            android:layout_marginTop="16dp"
-            android:text="Lugar"
-            android:textSize="18sp" />
+            android:text="Lugar:"
+            android:textAllCaps="true"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/lblAforoDetalle"
@@ -38,8 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblLugarDetalle"
             android:layout_marginTop="8dp"
-            android:text="Aforo"
-            android:textSize="18sp" />
+            android:text="Aforo:"
+            android:textAllCaps="true"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/lblDescripcionDetalle"
@@ -47,8 +58,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblAforoDetalle"
             android:layout_marginTop="8dp"
-            android:text="Descripción"
-            android:textSize="18sp" />
+            android:text="Descripción:"
+            android:textAllCaps="true"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            android:textStyle="bold"  />
 
         <TextView
             android:id="@+id/lblHorarioDetalle"
@@ -56,8 +70,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblDescripcionDetalle"
             android:layout_marginTop="8dp"
-            android:text="Horario"
-            android:textSize="18sp" />
+            android:text="Horario:"
+            android:textAllCaps="true"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            android:textStyle="bold"  />
 
         <TextView
             android:id="@+id/lblIntroduccionDetalle"
@@ -65,8 +82,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblHorarioDetalle"
             android:layout_marginTop="8dp"
-            android:text="Introducción"
-            android:textSize="18sp" />
+            android:text="Introducción:"
+            android:textAlignment="viewStart"
+            android:textAllCaps="true"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            android:textStyle="bold"  />
 
         <TextView
             android:id="@+id/lblTemasDetalle"
@@ -74,9 +95,40 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblIntroduccionDetalle"
             android:layout_marginTop="8dp"
-            android:text="Temas"
-            android:textSize="18sp" />
+            android:text="Temas:"
+            android:textAllCaps="true"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            android:textStyle="bold"  />
 
-        <!-- Añadir más vistas según sea necesario -->
+        <Button
+            android:id="@+id/btnregistrarse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblTemasDetalle"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="-9dp"
+            android:background="@drawable/btn_izquierdo"
+            android:text="Registrarse"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/btncuestionario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblTemasDetalle"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/btn_derecho"
+            android:text="Cuestionario"
+            android:textSize="10dp" />
+
+        <!-- Añadir más vistas registrarse y cuestionario -->
     </RelativeLayout>
 </ScrollView>

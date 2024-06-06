@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -33,10 +36,16 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private var currentPage = 0
     //fin carview
 
+    //carrusel
+    private lateinit var viewPager2: ViewPager2
+    private val sliderHandler = Handler()
+    //carrusel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
         firebaseAuth = Firebase.auth
+
 
         // Inicialización del DrawerLayout y NavigationView
         drawer = findViewById(R.id.drawer_layout)
@@ -118,40 +127,43 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
         bottomNavigation.show(1)
+        viewPager2 = findViewById(R.id.viewPagerImageSlider)
 
-        //carview inicio
-        viewPager = findViewById(R.id.viewPager)
-        val images = listOf(
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-            R.drawable.image4,
-            R.drawable.image5
-        )
+        // Preparing list of images from drawable (you can get it from API as well)
+        val sliderItems = mutableListOf<SliderItem>()
+        sliderItems.add(SliderItem(R.drawable.image1))
+        sliderItems.add(SliderItem(R.drawable.image2))
+        sliderItems.add(SliderItem(R.drawable.image3))
+        sliderItems.add(SliderItem(R.drawable.image4))
+        sliderItems.add(SliderItem(R.drawable.image5))
 
-        val adapter = ImagePagerAdapter(this, images)
-        viewPager.adapter = adapter
+        viewPager2.adapter = SliderAdapter(sliderItems, viewPager2)
 
-        handler = Handler(Looper.getMainLooper())
-        runnable = object : Runnable {
-            override fun run() {
-                if (currentPage == images.size) {
-                    currentPage = 0
-                }
-                viewPager.setCurrentItem(currentPage++, true)
-                handler.postDelayed(this, 4000)
+        viewPager2.clipToPadding = false
+        viewPager2.clipChildren = false
+        viewPager2.offscreenPageLimit = 3
+        viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(40))
+        compositePageTransformer.addTransformer(ViewPager2.PageTransformer { page, position ->
+            val r = 1 - kotlin.math.abs(position)
+            page.scaleY = 0.85f + r * 0.15f
+        })
+        viewPager2.setPageTransformer(compositePageTransformer)
+
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                sliderHandler.removeCallbacks(sliderRunnable)
+                sliderHandler.postDelayed(sliderRunnable, 2000)  // 3000 ms = 3 seconds
             }
-        }
-        handler.post(runnable)
-        //fin carview
+        })
     }
 
-    //carview
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(runnable)
+    private val sliderRunnable = Runnable {
+        viewPager2.currentItem = viewPager2.currentItem + 1
     }
-    //carview
 
     private fun replaceActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
