@@ -62,8 +62,7 @@
             android:name=".EventosAsistidosActivity"
             android:exported="false"
             android:label="Eventos asistidos"
-            android:theme="@style/Base.Theme.NavigationDrawerCodelia"
-            android:windowSoftInputMode="adjustPan" />
+            android:theme="@style/Theme.NavigationDrawerCodelia"/>
         <activity
             android:name=".PerfilActivity"
             android:exported="false"
@@ -98,7 +97,7 @@
             android:name=".PrincipalActivity"
             android:exported="true"
             android:label="EMPRENDE 360"
-            android:theme="@style/Base.Theme.NavigationDrawerCodelia"
+            android:theme="@style/Theme.NavigationDrawerCodelia"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"

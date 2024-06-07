@@ -88,9 +88,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val nombreCompleto = intent.getStringExtra("nombreCompleto")
-        val textViewNombreCompleto = findViewById<TextView>(R.id.hola)
-        textViewNombreCompleto.text = "hola  $nombreCompleto "
+
 
 
 

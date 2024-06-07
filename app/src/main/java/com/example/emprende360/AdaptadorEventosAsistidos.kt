@@ -40,7 +40,7 @@ class AdaptadorEventosAsistidos(private val context: Context, private val evento
         // Hacemos la rotación de la imagen
         val bitmap = (imageView.drawable as BitmapDrawable).bitmap
         val matrix = Matrix()
-        matrix.postRotate(-40f)
+        matrix.postRotate(-30f)
         val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
         imageView.setImageBitmap(rotatedBitmap)
 

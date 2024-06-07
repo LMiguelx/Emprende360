@@ -15,7 +15,9 @@
     </style>
 
     <!-- Estilo base de la aplicación sin barra de navegación -->
-    <style name="Sin.Nav" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Sin.Nav" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#7935E4</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <!-- Definir el nuevo tema para la pantalla de login -->
@@ -50,12 +52,13 @@
 
     <!-- Estilo base para un NavigationDrawer -->
     <style name="Base.Theme.NavigationDrawerCodelia" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">#7935E4</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/color1</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
