@@ -97,7 +97,7 @@
             android:name=".PrincipalActivity"
             android:exported="true"
             android:label="EMPRENDE 360"
-            android:theme="@style/Theme.NavigationDrawerCodelia"
+            android:theme="@style/Sin.Nav"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"

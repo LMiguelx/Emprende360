@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class AdaptadorEventosAsistidos(private val context: Context, private val eventosAsistidos: List<Map<String, Any>>) :
+class AdaptadorEventosAsistidos(private val context: Context, private var eventosAsistidos: List<Map<String, Any>>) :
     RecyclerView.Adapter<AdaptadorEventosAsistidos.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,23 +21,23 @@ class AdaptadorEventosAsistidos(private val context: Context, private val evento
         val lblNombreEvento: TextView = view.findViewById(R.id.lblNombreEvento)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_evento_asistido, parent, false)
         return ViewHolder(view)
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val evento = eventosAsistidos[position]
         holder.lblNombreEvento.text = evento["nombre"].toString()
         val imageUrl = evento["imagen"].toString()
 
-        Glide.with(context) // Aquí se utiliza el contexto pasado como parámetro
+        Glide.with(context)
             .load(imageUrl)
             .into(holder.imgFoto)
 
         val imageView: ImageView = holder.itemView.findViewById(R.id.imgIcono)
 
-        // Hacemos la rotación de la imagen
+        // Rotar la imagen
         val bitmap = (imageView.drawable as BitmapDrawable).bitmap
         val matrix = Matrix()
         matrix.postRotate(-30f)
@@ -45,14 +45,20 @@ class AdaptadorEventosAsistidos(private val context: Context, private val evento
         imageView.setImageBitmap(rotatedBitmap)
 
         holder.itemView.setOnClickListener {
+            // Abrir la actividad de detalle del evento asistido
             val intent = Intent(context, DetalleEventoAsistidoActivity::class.java)
             intent.putExtra("evento", HashMap(evento))
             context.startActivity(intent)
         }
     }
 
-
     override fun getItemCount(): Int {
         return eventosAsistidos.size
+    }
+
+    // Método para actualizar los datos del adaptador
+    fun updateData(newEventosAsistidos: List<Map<String, Any>>) {
+        eventosAsistidos = newEventosAsistidos
+        notifyDataSetChanged()
     }
 }

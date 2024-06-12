@@ -10,4 +10,12 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold|italic</item>
     </style>
+    <style name="AlertDialogPersonalizado" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Estilo del texto del mensaje -->
+        <item name="android:textColor">@color/black</item>
+        <!-- Estilo del botón positivo -->
+        <item name="android:colorAccent">@color/black</item>
+        <!-- Estilo del botón negativo -->
+        <item name="android:textColorSecondary">@color/black</item>
+    </style>
 </resources>

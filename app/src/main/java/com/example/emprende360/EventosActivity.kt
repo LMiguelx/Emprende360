@@ -24,21 +24,18 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: AdaptadorEventos
-    private val listaEventos: MutableList<Map<String, Any>> = mutableListOf()
+    private val listaEventos: MutableList<Pair<String, Map<String, Any>>> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eventos)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        // Obtener los datos de Firestore
-        obtenerDatosFirestore()
 
         // Configuración del RecyclerView
         recyclerView = findViewById(R.id.recycler_view_eventos)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adaptador = AdaptadorEventos(listaEventos)
-        recyclerView.adapter = adaptador
 
         // Configuración del DrawerLayout
         drawer = findViewById(R.id.drawer_layout)
@@ -95,6 +92,9 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
         }
         bottomNavigation.show(4)
+
+        // Obtener los datos de Firestore
+        obtenerDatosFirestore()
     }
 
     private fun replaceActivity(activityClass: Class<*>) {
@@ -103,7 +103,6 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }
-
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
@@ -121,17 +120,26 @@ class EventosActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         eventosRef.get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
+                    val eventoId = document.id
                     val datosEvento = document.data
                     datosEvento?.let { evento ->
-                        listaEventos.add(evento)
+                        listaEventos.add(eventoId to evento) // Agregar el par (eventoId, evento) a listaEventos
                     }
                 }
+                adaptador =
+                    AdaptadorEventos(listaEventos) // Crear el adaptador después de obtener los datos
+                recyclerView.adapter = adaptador // Configurar el adaptador en el RecyclerView
                 adaptador.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error al obtener eventos: ${exception.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Error al obtener eventos: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
+
     private fun signOut() {
         firebaseAuth.signOut()
         Toast.makeText(baseContext, "Sesión Cerrada Correctamente", Toast.LENGTH_SHORT).show()

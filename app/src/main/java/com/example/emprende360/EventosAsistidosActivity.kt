@@ -1,9 +1,10 @@
-package  com.example.emprende360
+package com.example.emprende360
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,6 +30,7 @@ class EventosAsistidosActivity : AppCompatActivity(), NavigationView.OnNavigatio
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: AdaptadorEventosAsistidos
     private val listaEventosAsistidos: MutableList<Map<String, Any>> = mutableListOf()
+    private var eventosCargados: Boolean = false
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,9 +56,8 @@ class EventosAsistidosActivity : AppCompatActivity(), NavigationView.OnNavigatio
         recyclerView.layoutManager = LinearLayoutManager(this)
         adaptador = AdaptadorEventosAsistidos(this, listaEventosAsistidos)
         recyclerView.adapter = adaptador
+        actualizarEventosAsistidosConDatosDeEventos()
 
-        // Obtener eventos asociados por código de acceso
-        obtenerEventosAsociados()
 
         // Configuración del botón de navegación inferior
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
@@ -102,57 +103,102 @@ class EventosAsistidosActivity : AppCompatActivity(), NavigationView.OnNavigatio
             }
         }
         bottomNavigation.show(2)
+
+        // Obtener eventos asociados por código de acceso solo si no se han cargado previamente
+        if (!eventosCargados) {
+            obtenerEventosAsociados()
+        }
     }
 
-    private fun actualizarLista(nuevaLista: MutableList<Map<String, Any>>) {
-        listaEventosAsistidos.clear()
-        listaEventosAsistidos.addAll(nuevaLista)
-        adaptador.notifyDataSetChanged()
+    private fun actualizarLista(nuevaLista: List<Map<String, Any>>) {
+        adaptador.updateData(nuevaLista)
     }
 
     private fun obtenerEventosAsociados() {
         val db = FirebaseFirestore.getInstance()
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            val userId = user.uid
+            db.collection("estudiantes")
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnSuccessListener { estudiantesSnapshot ->
+                    if (!estudiantesSnapshot.isEmpty) {
+                        val codigoAccesoEstudiante = estudiantesSnapshot.documents[0].id
 
-        // Consulta para obtener todos los documentos de la colección "asistencias"
-        db.collection("asistencias")
-            .get()
-            .addOnSuccessListener { asistenciasSnapshot ->
-                val codigosAccesoEstudiantes = mutableSetOf<String>()
+                        db.collection("eventosAsistidos")
+                            .whereEqualTo("codigoAcceso", codigoAccesoEstudiante)
+                            .get()
+                            .addOnSuccessListener { eventosSnapshot ->
+                                val eventosAsistidos = mutableListOf<Map<String, Any>>()
 
-                // Obtener los códigos de acceso de todos los estudiantes
-                for (asistenciaDoc in asistenciasSnapshot.documents) {
-                    val codigoAccesoEstudiante = asistenciaDoc.getString("codigoAcceso")
-                    if (codigoAccesoEstudiante != null) {
-                        codigosAccesoEstudiantes.add(codigoAccesoEstudiante)
+                                for (eventoDoc in eventosSnapshot.documents) {
+                                    val evento = eventoDoc.data
+                                    if (evento != null) {
+                                        eventosAsistidos.add(evento)
+                                    }
+                                }
+
+                                listaEventosAsistidos.clear()
+                                listaEventosAsistidos.addAll(eventosAsistidos)
+
+                                actualizarLista(eventosAsistidos)
+                            }
+                            .addOnFailureListener { exception ->
+                                exception.printStackTrace()
+                            }
                     }
                 }
+                .addOnFailureListener { exception ->
+                    exception.printStackTrace()
+                }
+        }
+    }
+    private fun actualizarEventosAsistidosConDatosDeEventos() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("eventosAsistidos")
+            .get()
+            .addOnSuccessListener { eventosAsistidosSnapshot ->
+                // Iterar sobre cada documento de la colección "eventos asistidos"
+                for (eventoAsistidoDoc in eventosAsistidosSnapshot.documents) {
+                    val nombreEventoAsistido = eventoAsistidoDoc.getString("nombre")
 
-                // Consulta para obtener los eventos asistidos que coincidan con los códigos de acceso de los estudiantes
-                db.collection("eventosAsistidos")
-                    .whereIn("codigoAcceso", codigosAccesoEstudiantes.toList())
-                    .get()
-                    .addOnSuccessListener { eventosSnapshot ->
-                        val eventosAsistidos = mutableListOf<Map<String, Any>>()
-
-                        // Agregar los eventos asistidos a la lista
-                        for (eventoDoc in eventosSnapshot.documents) {
-                            val evento = eventoDoc.data
-                            if (evento != null) {
-                                eventosAsistidos.add(evento)
+                    if (nombreEventoAsistido != null) {
+                        // Buscar documentos en la colección "eventos" que coincidan con el nombre del evento asistido
+                        db.collection("eventos")
+                            .whereEqualTo("nombre", nombreEventoAsistido)
+                            .get()
+                            .addOnSuccessListener { eventosSnapshot ->
+                                // Si se encontraron documentos en la colección "eventos" con el mismo nombre,
+                                // actualizar el documento de "eventos asistidos" con los datos correspondientes
+                                if (!eventosSnapshot.isEmpty) {
+                                    val datosEvento = eventosSnapshot.documents[0].data
+                                    if (datosEvento != null) {
+                                        // Actualizar el documento de "eventos asistidos" con los datos del evento encontrado
+                                        eventoAsistidoDoc.reference.update(datosEvento)
+                                            .addOnSuccessListener {
+                                                Log.d("ActualizarEventosAsistidos", "Datos actualizados para el evento asistido: $nombreEventoAsistido")
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.e("ActualizarEventosAsistidos", "Error al actualizar datos para el evento asistido: $nombreEventoAsistido", e)
+                                            }
+                                    }
+                                } else {
+                                    Log.d("ActualizarEventosAsistidos", "No se encontraron eventos en la colección 'eventos' para el nombre: $nombreEventoAsistido")
+                                }
                             }
-                        }
-                        adaptador.run { actualizarLista(eventosAsistidos) }
+                            .addOnFailureListener { e ->
+                                Log.e("ActualizarEventosAsistidos", "Error al buscar eventos en la colección 'eventos' para el nombre: $nombreEventoAsistido", e)
+                            }
                     }
-                    .addOnFailureListener { exception ->
-                        // Manejar errores al obtener los eventos asistidos
-                        exception.printStackTrace()
-                    }
+                }
             }
-            .addOnFailureListener { exception ->
-                // Manejar errores al obtener las asistencias
-                exception.printStackTrace()
+            .addOnFailureListener { e ->
+                Log.e("ActualizarEventosAsistidos", "Error al obtener eventos asistidos", e)
             }
     }
+
+
 
     private fun replaceActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
@@ -197,6 +243,7 @@ class EventosAsistidosActivity : AppCompatActivity(), NavigationView.OnNavigatio
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         toggle.syncState()
@@ -205,4 +252,6 @@ class EventosAsistidosActivity : AppCompatActivity(), NavigationView.OnNavigatio
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         toggle.syncState()
-    }}
+    }
+}
+

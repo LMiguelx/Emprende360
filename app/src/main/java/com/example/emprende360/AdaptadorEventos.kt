@@ -1,8 +1,7 @@
 package com.example.emprende360
 
-import java.util.Date
-import com.google.firebase.Timestamp
 import android.content.Intent
+import com.google.firebase.Timestamp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AdaptadorEventos(private val listaEventos: List<Map<String, Any>>) :
+class AdaptadorEventos(private val listaEventos: List<Pair<String, Map<String, Any>>>) :
     RecyclerView.Adapter<AdaptadorEventos.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +21,7 @@ class AdaptadorEventos(private val listaEventos: List<Map<String, Any>>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val evento = listaEventos[position]
+        val (eventoId, evento) = listaEventos[position]
         holder.bind(evento)
 
         holder.itemView.setOnClickListener {
@@ -30,8 +29,9 @@ class AdaptadorEventos(private val listaEventos: List<Map<String, Any>>) :
             val intent = Intent(context, DetalleEventoActivity::class.java)
 
             // Pasar datos al intent
+            intent.putExtra("eventId", eventoId)
             intent.putExtra("nombre", evento["nombre"] as? String)
-            intent.putExtra("lugar", evento["Lugar"] as? String)
+            intent.putExtra("lugar", evento["lugar"] as? String)
             intent.putExtra("aforo", (evento["aforo"] as? Long)?.toInt() ?: 0)
             intent.putExtra("descripcion", evento["descripcion"] as? String)
             intent.putExtra("horario", (evento["horario"] as? Timestamp)?.seconds)

@@ -113,10 +113,9 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     val correo = user?.email
-                    val googleId = user?.uid  // Obtener el ID de Google del usuario
+                    val googleId = user?.uid
 
                     googleId?.let {
-                        // Pasa el googleId y el correo a la siguiente actividad
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {

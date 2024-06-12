@@ -1,6 +1,7 @@
 package com.example.emprende360
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.icu.util.Calendar
@@ -38,6 +39,13 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
+    private val sharedPreferences by lazy {
+        getSharedPreferences(
+            "profile_prefs",
+            Context.MODE_PRIVATE
+        )
+    }
+
     //carview
     private lateinit var viewPager: ViewPager2
 
@@ -47,6 +55,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     //carrusel
     private lateinit var viewPager2: ViewPager2
     private val sliderHandler = Handler()
+
     //carrusel
 
 
@@ -87,8 +96,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
-
+        establecerNombreUsuario()
 
 
 
@@ -194,7 +202,10 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onDestroy()
         handler.removeCallbacks(runnable) // Detener la actualización al cerrar la actividad
     }
-
+    private fun establecerNombreUsuario() {
+        val nombreUsuario = sharedPreferences.getString("nombreCompleto", "Usuario")
+        findViewById<TextView>(R.id.nombre)?.text = "Hola $nombreUsuario"
+    }
     private fun updateDateTime() {
         val currentDateTime = Calendar.getInstance().time
 

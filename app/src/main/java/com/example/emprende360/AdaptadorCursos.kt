@@ -75,7 +75,7 @@ class AdaptadorCursos(private val context: Context, private val listaCursos: Lis
                 val isDateTime = timestamp.toString().length > 10
 
                 val dateFormat = if (isDateTime) {
-                    SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                    SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 } else {
                     SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 }
