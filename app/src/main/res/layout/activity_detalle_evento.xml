@@ -115,6 +115,7 @@
             android:id="@+id/btncuestionario"
             android:layout_width="182dp"
             android:layout_height="37dp"
+            android:visibility="visible"
             android:layout_below="@+id/btnregistrarse"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"

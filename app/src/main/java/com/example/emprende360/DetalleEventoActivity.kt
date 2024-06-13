@@ -2,6 +2,7 @@ package com.example.emprende360
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
@@ -76,15 +77,25 @@ class DetalleEventoActivity : AppCompatActivity() {
         btnRegistrarse.setOnClickListener {
             val codigoAcceso = sharedPreferences.getString("codigoAcceso", null)
             if (codigoAcceso != null) {
-                registrarAsistencia(eventId, codigoAcceso,nombre)
+                registrarAsistencia(eventId, codigoAcceso, nombre)
             } else {
                 Toast.makeText(this, "No se pudo obtener el código de acceso", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // Botón para ir al cuestionario
+        val btnCuestionario = findViewById<Button>(R.id.btncuestionario)
+        btnCuestionario.setOnClickListener {
+            // Crear el Intent y pasar el eventId como extra
+            val intent = Intent(this, CuestionarioActivity::class.java).apply {
+                putExtra("eventId", eventId) // Aquí pasamos el eventId obtenido del intent inicial
+            }
+            startActivity(intent)
+        }
     }
 
-    private fun registrarAsistencia(eventId: String?, codigoAcceso: String, nombre : String?) {
-        // Verificar si ya existe un registro para el evento q quiero ps
+    private fun registrarAsistencia(eventId: String?, codigoAcceso: String, nombre: String?) {
+        // Verificar si ya existe un registro para el evento
         val registroRef = db.collection("registro")
             .whereEqualTo("eventoId", eventId)
             .whereEqualTo("codigoAcceso", codigoAcceso)
@@ -93,10 +104,10 @@ class DetalleEventoActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val documents = task.result
                 if (documents != null && !documents.isEmpty) {
-                    // Ya hay el evento que quiero si registro
+                    // Ya está registrado para este evento
                     Toast.makeText(this, "Ya estás registrado para este evento", Toast.LENGTH_SHORT).show()
                 } else {
-                    // No hay eevento
+                    // No está registrado
                     val builder = AlertDialog.Builder(this, R.style.AlertDialogPersonalizado)
                         .setTitle("Confirmar Asistencia")
                         .setMessage("¿Estás seguro de que deseas registrarte para el evento '$nombre'?")
