@@ -1,18 +1,16 @@
 package com.example.emprende360
 
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -77,9 +75,16 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         db = FirebaseFirestore.getInstance()
         // Inicialización del DrawerLayout y NavigationView
+
         drawer = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+        val ver_mas_eventos_carview: TextView = findViewById(R.id.btn_ver_mas)
+
+        ver_mas_eventos_carview.setOnClickListener{
+            val intent23 = Intent(this, EventosActivity::class.java)
+            startActivity(intent23)
+        }
 
         // Configuración de la barra de herramientas
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
@@ -173,7 +178,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 sliderHandler.removeCallbacks(sliderRunnable)
-                sliderHandler.postDelayed(sliderRunnable, 2000)  // 3000 ms = 3 seconds
+                sliderHandler.postDelayed(sliderRunnable, 1000)  // 3000 ms = 3 seconds
             }
         })
         tvDate = findViewById(R.id.textViewDate)
@@ -181,22 +186,6 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         updateDateTime()
         handler.post(runnable) // Iniciar la actualización
-        // Array con los nombres de los eventos
-        val eventosArray = arrayOf("ExpoTecsup", "Campeonato", "Juegos olímpicos", "Bases del Emprendimiento")
-
-        // Adaptador para el ListView
-        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, eventosArray) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent)
-                val textView = view.findViewById<TextView>(android.R.id.text1)
-                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_lista_icon, 0, 0, 0)
-                textView.compoundDrawablePadding = 16
-                return view
-            }
-        }
-        // Asigna el adaptador al ListView
-        val listView = findViewById<ListView>(R.id.listview_eventos)
-        listView.adapter = adapter
     }
     override fun onDestroy() {
         super.onDestroy()

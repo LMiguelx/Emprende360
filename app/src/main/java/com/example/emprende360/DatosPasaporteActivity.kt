@@ -31,6 +31,12 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import java.text.SimpleDateFormat
 import java.util.Locale
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
+import android.util.TypedValue
+
 
 class DatosPasaporteActivity : AppCompatActivity() {
 
@@ -133,6 +139,37 @@ class DatosPasaporteActivity : AppCompatActivity() {
         }
         bottomNavigation.show(3)
 
+        val textView = findViewById<TextView>(R.id.textbienvenido)
+        animateTextSize(textView, 10f, 25f)
+    }
+
+    private fun animateTextSize(textView: TextView, startSize: Float, endSize: Float) {
+        val increaseAnimator = ValueAnimator.ofFloat(startSize, endSize).apply {
+            duration = 1000 // Duración de la animación en milisegundos
+            addUpdateListener { animator ->
+                val animatedValue = animator.animatedValue as Float
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
+            }
+        }
+
+        val decreaseAnimator = ValueAnimator.ofFloat(endSize, startSize).apply {
+            duration = 1000 // Duración de la animación en milisegundos
+            addUpdateListener { animator ->
+                val animatedValue = animator.animatedValue as Float
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, animatedValue)
+            }
+        }
+
+        val animatorSet = AnimatorSet().apply {
+            playSequentially(increaseAnimator, decreaseAnimator)
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    // Reiniciamos el conjunto de animadores para que el bucle continúe
+                    start()
+                }
+            })
+        }
+        animatorSet.start()
     }
 
     private fun replaceActivity(activityClass: Class<*>) {

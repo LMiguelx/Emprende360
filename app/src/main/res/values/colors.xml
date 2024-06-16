@@ -18,6 +18,8 @@
     <color name="transparent">#00FFFFFF</color>
 
 
+    <color name="fondo_eve_cur">#7935E4</color>
+
     <!--Aquie van los colores para de drawer-->
     <color name="purple_700">#740088</color>
     <color name="purple_500">#E470F8</color>

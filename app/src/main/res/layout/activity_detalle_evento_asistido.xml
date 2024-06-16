@@ -4,86 +4,130 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/lblNombreEventoDetalle"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre del Punto"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:background="@drawable/borde_circle">
+            <TextView
+                android:id="@+id/lblNombreEventoDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre del Punto"
+                android:gravity="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:layout_margin="10dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/solo_borde"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imgFotoDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/lblNombreEventoDetalle"
+                android:layout_marginTop="16dp"
+                android:layout_margin="15dp"
+                android:scaleType="centerCrop"/>
 
-        <ImageView
-            android:id="@+id/imgFotoDetalle"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblNombreEventoDetalle"
-            android:layout_marginTop="16dp" />
+            android:layout_margin="5dp"
+            android:background="#7935E4"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/lblLugarDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgFotoDetalle"
+                android:text="Lugar"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblLugarDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_below="@+id/imgFotoDetalle"
-            android:layout_marginTop="16dp"
-            android:text="Lugar"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/lblAforoDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblLugarDetalle"
+                android:layout_marginTop="8dp"
+                android:layout_margin="10dp"
+                android:textColor="#FFFFFF"
+                android:text="Aforo"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblAforoDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_below="@+id/lblLugarDetalle"
-            android:layout_marginTop="8dp"
-            android:text="Aforo"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/lblDescripcionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblAforoDetalle"
+                android:layout_marginTop="8dp"
+                android:text="Descripción"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/roboto_medium"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/lblDescripcionDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_below="@+id/lblAforoDetalle"
-            android:layout_marginTop="8dp"
-            android:text="Descripción"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/lblHorarioDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblDescripcionDetalle"
+                android:layout_marginTop="8dp"
+                android:text="Horario"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/roboto_medium"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/lblHorarioDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_below="@+id/lblDescripcionDetalle"
-            android:layout_marginTop="8dp"
-            android:text="Horario"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/lblIntroduccionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblHorarioDetalle"
+                android:layout_marginTop="8dp"
+                android:text="Introducción"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/roboto_medium"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/lblIntroduccionDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_below="@+id/lblHorarioDetalle"
-            android:layout_marginTop="8dp"
-            android:text="Introducción"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/lblTemasDetalle"
-            android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblIntroduccionDetalle"
-            android:layout_marginTop="8dp"
-            android:text="Temas"
-            android:textSize="18sp" />
-
-        <!-- Añadir más vistas según sea necesario -->
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/lblTemasDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblIntroduccionDetalle"
+                android:layout_marginTop="8dp"
+                android:text="Temas"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/roboto_medium"
+                android:textStyle="bold"/>
+            <!-- Añadir más vistas según sea necesario -->
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

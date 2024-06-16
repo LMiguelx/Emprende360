@@ -33,8 +33,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <!-- Inicio de ScrollView -->
             <ScrollView
@@ -54,7 +53,7 @@
                         android:text=""
                         android:textColor="@color/grayoscuro"
                         android:textSize="15sp"
-                        android:textStyle="bold"
+                        android:textStyle="normal"
                         android:layout_margin="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -65,9 +64,9 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="16dp"
                         android:paddingTop="30dp"
-                        android:text="Disfruta de tu estadia"
+                        android:text="Disfruta de tu estadia tus proximos eventos"
                         android:textColor="@color/grayoscuro"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:layout_margin="16dp"
                         android:layout_marginTop="30dp"
@@ -76,67 +75,69 @@
 
                     <!-- FrameLayout with ImageView -->
                     <LinearLayout
-                        android:id="@+id/frametecsup"
+                        android:id="@+id/frametecsup4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="30dp"
-                        android:orientation="vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:orientation="horizontal"
                         app:layout_constraintTop_toBottomOf="@+id/textViewEventosProximos">
 
                         <!-- LinearLayout with TextViews -->
-                        <LinearLayout
-                            android:id="@+id/frametecsup4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:orientation="horizontal"
-                            android:weightSum="3">
+                        <!-- LinearLayout with TextViews -->
+                        <TextView
+                            android:id="@+id/textViewDate"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="7dp"
+                            android:paddingStart="5dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="@color/grayoscuro"
+                            android:background="@drawable/rounded_corner_rectangle"
+                            android:drawableStart="@drawable/baseline_calendar_24"
+                            android:text="Fecha"
+                            android:textSize="10sp" />
 
-                            <TextView
-                                android:id="@+id/textViewDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/grayoscuro"
-                                android:layout_marginEnd="7dp"
-                                android:layout_weight="1"
-                                android:drawableStart="@drawable/baseline_calendar_24"
-                                android:text="Fecha"
-                                android:textSize="8sp" />
+                        <TextView
+                            android:id="@+id/textViewTime"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/grayoscuro"
+                            android:background="@drawable/rounded_corner_rectangle"
+                            android:drawableStart="@drawable/baseline_time_24"
+                            android:text="Hora"
+                            android:fontFamily="@font/roboto_medium"
+                            android:paddingStart="5dp"
+                            android:textSize="10sp" />
 
-                            <TextView
-                                android:id="@+id/textViewTime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="end"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/grayoscuro"
-                                android:layout_marginEnd="7dp"
-                                android:layout_weight="1"
-                                android:drawableStart="@drawable/baseline_time_24"
-                                android:text="Hora"
-                                android:textSize="8sp" />
-                            <TextView
-                                android:id="@+id/clima_peru"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/grayoscuro"
-                                android:layout_marginEnd="7dp"
-                                android:layout_weight="1"
-                                android:drawableStart="@drawable/baseline_bedtime_24"
-                                android:text="10.0 °C Arequipa"
-                                android:textSize="10sp" />
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/imageview_tecsup"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:src="@drawable/tecsup_campus" />
+                        <TextView
+                            android:id="@+id/clima_peru"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="start|center_vertical"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="7dp"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@color/grayoscuro"
+                            android:background="@drawable/rounded_corner_rectangle"
+                            android:drawableStart="@drawable/baseline_bedtime_24"
+                            android:text="10.0 °C AQP"
+                            android:paddingStart="5dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
@@ -145,33 +146,37 @@
                     <LinearLayout
                         android:id="@+id/frametecsup44"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="16dp"
                         android:orientation="horizontal"
-                        app:layout_constraintTop_toBottomOf="@+id/frametecsup">
+                        app:layout_constraintTop_toBottomOf="@+id/frametecsup4">
+
                         <TextView
                             android:id="@+id/txtcareventos"
-                            android:layout_width="wrap_content"
+                            android:layout_width="224dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
                             android:layout_marginTop="12dp"
                             android:paddingStart="16dp"
+                            android:text="Eventos proximos"
                             android:textColor="@color/grayoscuro"
-                            android:text="Eventos proximos y/o cercas"
-                            android:textSize="18sp"
+                            android:textSize="15sp"
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@+id/frametecsup"
                             tools:layout_editor_absoluteX="16dp" />
 
                         <TextView
                             android:id="@+id/btn_ver_mas"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginStart="12dp"
                             android:fontFamily="@font/roboto_medium"
                             android:paddingStart="16dp"
+                            android:textSize="12sp"
                             android:text="Ver mas..."
+                            android:layout_marginEnd="30dp"
                             android:textAlignment="viewStart"
                             android:textAllCaps="false"
                             android:textColor="#001DBC"
@@ -184,38 +189,19 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewPagerImageSlider"
                         android:layout_width="match_parent"
-                        android:layout_height="250dp"
+                        android:layout_height="300dp"
                         android:layout_marginBottom="48dp"
-                        android:paddingStart="80dp"
-                        android:paddingEnd="80dp"
-                        android:layout_margin="30dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_goneMarginBottom="30dp"
                         app:layout_constraintTop_toBottomOf="@+id/frametecsup44"
                         tools:layout_editor_absoluteX="0dp" />
-
-                    <TextView
-                        android:id="@+id/titlecalendario"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="16dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@color/color2"
-                        android:paddingStart="16dp"
-                        android:text="Fechas de los cursos"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider" />
-
-                    <ListView
-                        android:id="@+id/listview_eventos"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_margin="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/titlecalendario"/>
 
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        app:layout_constraintTop_toBottomOf="@+id/listview_eventos"/>
+                        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>

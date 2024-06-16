@@ -5,99 +5,130 @@
     android:padding="16dp"
     android:background="@color/white">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="30dp">
 
-        <TextView
-            android:id="@+id/lblNombreCursoDetalle"
-            android:layout_width="278dp"
-            android:layout_height="52dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:gravity="center"
-            android:text="Nombre del Curso"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textColor="#673AB7"
- />
-
-        <ImageView
-            android:id="@+id/imgFotoCursoDetalle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblNombreCursoDetalle"
-            android:layout_marginTop="16dp" />
+            android:orientation="vertical"
+            android:background="@drawable/borde_circle"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/lblDescripcionDetalle"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/lblNombreCursoDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nombre del Curso"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/color1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgFotoCursoDetalle"
-            android:text="DESCRIPCIÓN:"
-            android:layout_marginTop="16dp"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold"  />
+            android:orientation="vertical"
+            android:background="@drawable/solo_borde"
+            android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/lblDuracionDetalle"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imgFotoCursoDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblDescripcionDetalle"
-            android:layout_marginTop="8dp"
-            android:text="DURACIÓN:"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:background="@drawable/btn6"
+            android:backgroundTint="#8D53F3"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="50dp">
 
-        <TextView
-            android:id="@+id/lblHorarioDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblDuracionDetalle"
-            android:layout_marginTop="8dp"
-            android:text="HORARIO:"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lblDescripcionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="DESCRIPCIÓN:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblInscripcionDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblHorarioDetalle"
-            android:layout_marginTop="8dp"
-            android:text="INSCRIPCIÓN:"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lblDuracionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:text="DURACIÓN:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblPrecioDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblInscripcionDetalle"
-            android:layout_marginTop="8dp"
-            android:text="PRECIO:"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold"  />
+            <TextView
+                android:id="@+id/lblHorarioDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:text="HORARIO:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblIntroduccionDetalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblPrecioDetalle"
-            android:layout_marginTop="8dp"
-            android:text="INTRODUCCIÓN:"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lblInscripcionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:text="INSCRIPCIÓN:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/lblPrecioDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:text="PRECIO:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblIntroduccionDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:text="INTRODUCCIÓN:"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

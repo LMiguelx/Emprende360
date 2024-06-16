@@ -2,6 +2,7 @@ package com.example.emprende360
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -18,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var firebaseAuth: FirebaseAuth
+    lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 1001   // Código de solicitud de inicio de sesión
 
@@ -51,11 +52,13 @@ class LoginActivity : AppCompatActivity() {
 
         // Botón para iniciar sesión con email y contraseña
         btnIngresar.setOnClickListener {
+            Log.d("LoginActivity", "Attempting to sign in with email and password.")
             signIn(txtEmail.text.toString(), txtPass.text.toString())
         }
 
         // Botón para iniciar sesión con Google
         btnGoogleSignIn.setOnClickListener {
+            Log.d("LoginActivity", "Attempting to sign in with Google.")
             signInWithGoogle()
             Toast.makeText(this, "Google Sign-In may not prompt for password on trusted devices.", Toast.LENGTH_LONG).show()
         }
@@ -74,12 +77,14 @@ class LoginActivity : AppCompatActivity() {
                     val user = firebaseAuth.currentUser
                     val correo = user?.email
                     val userId = user?.uid
+                    Log.d("LoginActivity", "Sign in successful. User ID: $userId, Email: $correo")
                     userId?.let {
                         // Pasa el userId y el correo a la siguiente actividad
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {
                     // Manejar errores de autenticación
+                    Log.e("LoginActivity", "Sign in failed.", task.exception)
                     Toast.makeText(this, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -98,8 +103,10 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             if (task.isSuccessful) {
                 val account = task.result
+                Log.d("LoginActivity", "Google sign-in successful. Account: ${account.email}")
                 firebaseAuthWithGoogle(account!!)
             } else {
+                Log.e("LoginActivity", "Google sign-in failed.", task.exception)
                 Toast.makeText(this, "Error en inicio de sesión con Google", Toast.LENGTH_SHORT).show()
             }
         }
@@ -114,12 +121,13 @@ class LoginActivity : AppCompatActivity() {
                     val user = firebaseAuth.currentUser
                     val correo = user?.email
                     val googleId = user?.uid
-
+                    Log.d("LoginActivity", "Firebase authentication with Google successful. User ID: $googleId, Email: $correo")
                     googleId?.let {
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {
                     // Manejar errores de autenticación
+                    Log.e("LoginActivity", "Firebase authentication with Google failed.", task.exception)
                     Toast.makeText(this, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -133,6 +141,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
                     val document = documents.documents[0]
+                    Log.d("LoginActivity", "User exists in Firestore. Document ID: ${document.id}")
                     // El usuario ya existe, redirigir a DatosPasaporteActivity
                     val intent = Intent(this, DatosPasaporteActivity::class.java).apply {
                         putExtra("nombreCompleto", document.getString("nombreCompleto"))
@@ -145,6 +154,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 } else {
+                    Log.d("LoginActivity", "User does not exist in Firestore. Redirecting to FormularioActivity.")
                     // El usuario no existe, redirigir al formulario
                     val intent = Intent(this, FormularioActivity::class.java).apply {
                         putExtra("userId", userId)
@@ -155,6 +165,7 @@ class LoginActivity : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
                 // Manejar el error
+                Log.e("LoginActivity", "Error checking user existence in Firestore.", exception)
                 Toast.makeText(this, "Error al verificar el usuario", Toast.LENGTH_SHORT).show()
             }
     }

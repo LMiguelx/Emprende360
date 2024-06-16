@@ -3,7 +3,7 @@
     <solid android:color="@android:color/white" />
     <stroke
         android:width="2dp"
-        android:color="#00BFFF" /> <!-- Color celeste definido como #00BFFF -->
-    <corners android:radius="20dp" />
+        android:color="#7935E4" /> <!-- Color celeste definido como #00BFFF -->
+    <corners android:radius="0dp" />
 </shape>
 

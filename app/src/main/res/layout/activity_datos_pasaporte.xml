@@ -25,6 +25,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/top_background" />
 
+            <TextView
+                android:id="@+id/textbienvenido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Bienvenidos a Emprende 360"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_medium"
+                app:layout_constraintBottom_toTopOf="@+id/imageViewProfile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0.371" />
+
             <ImageView
                 android:id="@+id/imageViewProfile"
                 android:layout_width="130dp"
@@ -66,32 +81,55 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:text=""
-                android:textColor="#117DD3"
+                android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Gmail" />
 
-            <ImageView
-                android:id="@+id/ivCodigoQR"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:layout_marginTop="50dp"
+            <LinearLayout
+                android:id="@+id/linearqr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Gmail"
-                app:layout_constraintBottom_toTopOf="@+id/space1"
-                app:layout_constraintHorizontal_bias="0.5" />
+                app:layout_constraintTop_toBottomOf="@+id/DatoPuntos">
 
+                <ImageView
+                    android:id="@+id/ivCodigoQR"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/space1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Gmail" />
+            </LinearLayout>
 
-
+            <Button
+                android:id="@+id/btnverpuntos"
+                android:layout_width="170dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/borde_circle"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="Ver mis puntos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearqr" />
             <!-- Contenido ya no despues de esta linea-->
             <Space
                 android:id="@+id/space1"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                app:layout_constraintTop_toBottomOf="@+id/ivCodigoQR"/>
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnverpuntos"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -116,4 +154,3 @@
         android:background="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
