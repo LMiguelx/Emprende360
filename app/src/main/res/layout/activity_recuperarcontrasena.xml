@@ -87,7 +87,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/circle"
-            android:backgroundTint="#39B9EC"
+            android:backgroundTint="#561CBD"
             android:elevation="6dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Cambiar Contraseña"

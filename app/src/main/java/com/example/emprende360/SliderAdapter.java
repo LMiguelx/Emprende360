@@ -8,16 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
-public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder>{
+public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 
-    private List<SliderItem> sliderItems;
+    private List<String> sliderItems;
     private ViewPager2 viewPager2;
 
-    SliderAdapter(List<SliderItem> sliderItems, ViewPager2 viewPager2) {
+    SliderAdapter(List<String> sliderItems, ViewPager2 viewPager2) {
         this.sliderItems = sliderItems;
         this.viewPager2 = viewPager2;
     }
@@ -37,9 +38,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
         holder.setImageView(sliderItems.get(position));
-        if(position ==sliderItems.size()-2){
+        if (position == sliderItems.size() - 2) {
             viewPager2.post(runnable);
-
         }
     }
 
@@ -56,15 +56,17 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             imageView = itemView.findViewById(R.id.imageSlider);
         }
 
-        void setImageView(SliderItem sliderItem) {
-            imageView.setImageResource(sliderItem.getImage());
+        void setImageView(String imageUrl) {
+            Glide.with(itemView.getContext())
+                    .load(imageUrl)
+                    .into(imageView);
         }
     }
+
     // Define a Runnable
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            // Code to be executed by the Runnable
             sliderItems.addAll(sliderItems);
             notifyDataSetChanged();
         }

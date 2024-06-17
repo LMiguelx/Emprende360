@@ -96,7 +96,7 @@
         <activity
             android:name=".PrincipalActivity"
             android:exported="true"
-            android:label="EMPRENDE 360"
+            android:label=""
             android:theme="@style/Sin.Nav"
             android:windowSoftInputMode="adjustPan" />
         <activity

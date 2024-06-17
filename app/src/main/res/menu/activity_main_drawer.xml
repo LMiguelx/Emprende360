@@ -6,16 +6,16 @@
             android:title="Home"/>
         <item android:id="@+id/nav_item_two"
             android:icon="@drawable/baseline_perm_identity_24"
-            android:title="Perfil"/>
+            android:title="Asistencia"/>
         <item android:id="@+id/nav_item_three"
             android:icon="@drawable/baseline_123_24"
-            android:title="Puntos"/>
+            android:title="Pasaporte"/>
         <item android:id="@+id/nav_item_four"
             android:icon="@drawable/baseline_ballot_24"
-            android:title="Eventos Proximos"/>
+            android:title="Eventos "/>
         <item android:id="@+id/nav_item_five"
             android:icon="@drawable/baseline_assignment_24"
-            android:title="Cuestionario"/>
+            android:title="Cursos"/>
     </group>
     <item android:title="Configuración">
         <menu>
@@ -24,7 +24,7 @@
                 android:title="Cuenta"/>
             <item android:id="@+id/nav_item_seven"
                 android:icon="@drawable/baseline_seguridad_24"
-                android:title="Seguridad"/>
+                android:title="Configuracion"/>
             <item android:id="@+id/nav_item_eight"
                 android:icon="@drawable/baseline_reply_24"
                 android:title="Cerrar Sesion"/>

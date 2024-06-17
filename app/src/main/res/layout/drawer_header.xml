@@ -4,7 +4,7 @@
     android:id="@+id/header"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="#162534"
+    android:background="#6A30D1"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -28,6 +28,7 @@
         <TextView
             android:id="@+id/headertext"
             android:layout_width="match_parent"
+            android:fontFamily="@font/roboto_medium"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="hola "

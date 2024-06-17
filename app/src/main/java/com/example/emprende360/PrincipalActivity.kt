@@ -1,6 +1,5 @@
 package com.example.emprende360
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -44,20 +43,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         )
     }
 
-    //carview
-    private lateinit var viewPager: ViewPager2
-
-    private var currentPage = 0
-    //fin carview
-
-    //carrusel
+    // Slider
     private lateinit var viewPager2: ViewPager2
     private val sliderHandler = Handler()
 
-    //carrusel
-
-
-    //hora y fecha
+    // Hora y fecha
     private lateinit var tvDate: TextView
     private lateinit var tvTime: TextView
 
@@ -65,23 +55,23 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private val runnable = object : Runnable {
         override fun run() {
             updateDateTime()
-            handler.postDelayed(this, 100) // Actualizar cada segundo
+            handler.postDelayed(this, 1000)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
         firebaseAuth = Firebase.auth
-
         db = FirebaseFirestore.getInstance()
-        // Inicialización del DrawerLayout y NavigationView
 
+        // Inicialización del DrawerLayout y NavigationView
         drawer = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-        val ver_mas_eventos_carview: TextView = findViewById(R.id.btn_ver_mas)
+        val verMasEventosCarview: TextView = findViewById(R.id.btn_ver_mas)
 
-        ver_mas_eventos_carview.setOnClickListener{
+        verMasEventosCarview.setOnClickListener {
             val intent23 = Intent(this, EventosActivity::class.java)
             startActivity(intent23)
         }
@@ -103,9 +93,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         supportActionBar?.setHomeButtonEnabled(true)
         establecerNombreUsuario()
 
-
-
-        //funcion del boton de navegacion inferior-------------------------------------------
+        // Función del botón de navegación inferior
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
         bottomNavigation.add(
             CurvedBottomNavigation.Model(1, "Home", R.drawable.baseline_home_24)
@@ -149,17 +137,17 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
         bottomNavigation.show(1)
+
+        // Slider de imágenes
         viewPager2 = findViewById(R.id.viewPagerImageSlider)
 
-        // Preparing list of images from drawable (you can get it from API as well)
-        val sliderItems = mutableListOf<SliderItem>()
-        sliderItems.add(SliderItem(R.drawable.image1))
-        sliderItems.add(SliderItem(R.drawable.image2))
-        sliderItems.add(SliderItem(R.drawable.image3))
-        sliderItems.add(SliderItem(R.drawable.image4))
-        sliderItems.add(SliderItem(R.drawable.image5))
-
-        viewPager2.adapter = SliderAdapter(sliderItems, viewPager2)
+        // Obtener imágenes desde Firestore
+        db.collection("eventos")
+            .get()
+            .addOnSuccessListener { result ->
+                val sliderItems = result.mapNotNull { it.getString("imagen") }
+                viewPager2.adapter = SliderAdapter(sliderItems, viewPager2)
+            }
 
         viewPager2.clipToPadding = false
         viewPager2.clipChildren = false
@@ -178,23 +166,27 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 sliderHandler.removeCallbacks(sliderRunnable)
-                sliderHandler.postDelayed(sliderRunnable, 1000)  // 3000 ms = 3 seconds
+                sliderHandler.postDelayed(sliderRunnable, 3000) // 3000 ms = 3 seconds
             }
         })
+
         tvDate = findViewById(R.id.textViewDate)
         tvTime = findViewById(R.id.textViewTime)
 
         updateDateTime()
         handler.post(runnable) // Iniciar la actualización
     }
+
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnable) // Detener la actualización al cerrar la actividad
     }
+
     private fun establecerNombreUsuario() {
         val nombreUsuario = sharedPreferences.getString("nombreCompleto", "Usuario")
         findViewById<TextView>(R.id.nombre)?.text = "Hola $nombreUsuario"
     }
+
     private fun updateDateTime() {
         val currentDateTime = Calendar.getInstance().time
 
@@ -209,14 +201,12 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         viewPager2.currentItem = viewPager2.currentItem + 1
     }
 
-
     private fun replaceActivity(activityClass: Class<*>) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }
-
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
@@ -240,23 +230,18 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_item_one -> {
                 startActivity(Intent(this, PrincipalActivity::class.java))
             }
-
             R.id.nav_item_two -> {
                 startActivity(Intent(this, DatosPasaporteActivity::class.java))
             }
-
             R.id.nav_item_three -> {
                 startActivity(Intent(this, EventosAsistidosActivity::class.java))
             }
-
             R.id.nav_item_four -> {
                 startActivity(Intent(this, EventosActivity::class.java))
             }
-
             R.id.nav_item_five -> {
                 startActivity(Intent(this, CursosActivity::class.java))
             }
-
             R.id.nav_item_eight -> {
                 signOut()
             }
@@ -274,5 +259,6 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        toggle.syncState() }
+        toggle.syncState()
+    }
 }

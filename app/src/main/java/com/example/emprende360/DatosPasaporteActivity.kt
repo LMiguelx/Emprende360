@@ -205,6 +205,7 @@ class DatosPasaporteActivity : AppCompatActivity() {
             }
             obtenerPuntosDelEstudiante(codigoAcceso) { puntosTotales ->
                 mostrarPuntos(puntosTotales)
+                actualizarPuntosTotalesEstudiantes(codigoAcceso)
                 actualizarPuntosEstudiante(codigoAcceso, puntosTotales)
                 obtenerEventosAsistidosParaTodos(codigoAcceso)
                 eliminarDuplicados(codigoAcceso)
@@ -480,8 +481,6 @@ class DatosPasaporteActivity : AppCompatActivity() {
                 Log.e("zzz", "Error al verificar el evento en la colección de eventosAsistidos", e)
             }
     }
-
-
     private fun obtenerEventosAsistidosParaTodos(codigoAcceso: String) {
         db.collection("asistencias")
             .whereEqualTo("codigoAcceso", codigoAcceso)
@@ -500,14 +499,9 @@ class DatosPasaporteActivity : AppCompatActivity() {
             }
     }
 
-
-
-
-
-
-    private fun mostrarPuntos(puntos: Int) {
+    private fun mostrarPuntos(puntosTotales: Int) {
         val textViewPuntos = findViewById<TextView>(R.id.DatoPuntos)
-        textViewPuntos.text = "Puntos: $puntos"
+        textViewPuntos.text = "Puntos Totales: $puntosTotales"
     }
     private fun obtenerPuntosDelEstudiante(codigoAcceso: String, callback: (Int) -> Unit) {
         val estudianteRef = db.collection("estudiantes").document(codigoAcceso)
@@ -573,6 +567,33 @@ class DatosPasaporteActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.e("zzz", "Error al actualizar los puntos del estudiante", e)
+            }
+    }
+    private fun actualizarPuntosTotalesEstudiantes(codigoAcceso: String) {
+        val estudianteRef = db.collection("estudiantes").document(codigoAcceso)
+
+        estudianteRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val puntosAsistidos = documentSnapshot.getLong("puntos_asistencia") ?: 0
+                    val puntosCuestionarios = documentSnapshot.getLong("puntos_cuestionario") ?: 0
+
+                    val puntosTotales = puntosAsistidos.toInt() + puntosCuestionarios.toInt()
+
+                    estudianteRef.update("puntos_totales", puntosTotales)
+                        .addOnSuccessListener {
+                            Log.d("zzz", "Puntos totales del estudiante actualizados correctamente a $puntosTotales")
+                            mostrarPuntos(puntosTotales)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("zzz", "Error al actualizar los puntos totales del estudiante", e)
+                        }
+                } else {
+                    Log.e("zzz", "No se encontró el documento del estudiante con ID $codigoAcceso")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("zzz", "Error al obtener el documento del estudiante", e)
             }
     }
 }
