@@ -1,5 +1,6 @@
 package com.example.emprende360
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         firebaseAuth = Firebase.auth
 
@@ -69,6 +71,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+    private val sharedPreferences by lazy {
+        getSharedPreferences("profile_prefs", Context.MODE_PRIVATE)
+    }
 
     private fun signIn(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -76,10 +81,11 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     val correo = user?.email
+                    val photourl = user?.photoUrl
                     val userId = user?.uid
                     Log.d("LoginActivity", "Sign in successful. User ID: $userId, Email: $correo")
                     userId?.let {
-                        // Pasa el userId y el correo a la siguiente actividad
+                        saveProfileData(correo, photourl?.toString(), userId)
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {
@@ -120,9 +126,11 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     val correo = user?.email
+                    val photourl = user?.photoUrl
                     val googleId = user?.uid
                     Log.d("LoginActivity", "Firebase authentication with Google successful. User ID: $googleId, Email: $correo")
                     googleId?.let {
+                        saveProfileData(correo, photourl?.toString(), googleId)
                         checkIfUserExists(it, correo ?: "")
                     }
                 } else {
@@ -131,6 +139,15 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+    private fun saveProfileData(email: String?, photoUrl: String?, userId: String?) {
+        val editor = sharedPreferences.edit()
+        editor.putString("email", email)
+        editor.putString("photoUrl", photoUrl)
+        userId?.let {
+            editor.putString("userId", it)
+        }
+        editor.apply()
     }
 
     private fun checkIfUserExists(userId: String, email: String) {

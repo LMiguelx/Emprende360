@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -70,6 +72,23 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val verMasEventosCarview: TextView = findViewById(R.id.btn_ver_mas)
+
+        val headerView = navigationView.getHeaderView(0)
+        val imgUserProfile:ImageView = headerView.findViewById(R.id.nav_header_imagenView)
+        val txtUserEmail: TextView = headerView.findViewById(R.id.headertext)
+
+        val email = sharedPreferences.getString("email", "")
+        val photoUrl = sharedPreferences.getString("photoUrl", "")
+
+        photoUrl?.let {
+            Glide.with(this)
+                .load(it)
+                .placeholder(R.drawable.google) // Imagen predeterminada mientras carga
+                .error(R.drawable.google) // Imagen predeterminada si hay error
+                .circleCrop()
+                .into(imgUserProfile)
+        }
+        txtUserEmail.text = email
 
         verMasEventosCarview.setOnClickListener {
             val intent23 = Intent(this, EventosActivity::class.java)

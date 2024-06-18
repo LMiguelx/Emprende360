@@ -1,30 +1,31 @@
 package com.example.emprende360
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CuestionarioActivity : AppCompatActivity() {
 
     private lateinit var lblPregunta: TextView
-    private lateinit var radioGroup: RadioGroup
-    private lateinit var radioBtn1: RadioButton
-    private lateinit var radioBtn2: RadioButton
-    private lateinit var radioBtn3: RadioButton
-    private lateinit var radioBtn4: RadioButton
+    private lateinit var optionsContainer: LinearLayout
     private lateinit var btnResponder: Button
     private lateinit var btnSiguiente: Button
     private lateinit var btnSalir: Button
+    private lateinit var progressBar: ProgressBar
     private lateinit var db: FirebaseFirestore
     private lateinit var cuestionariosRef: CollectionReference
     private lateinit var sharedPreferences: SharedPreferences
@@ -34,6 +35,8 @@ class CuestionarioActivity : AppCompatActivity() {
     private var puntosCuestionarioActual = 0
     private var totalPuntosAcumulados = 0
     private var cuestionarioCompletado = true
+    private var selectedOption: CardView? = null
+    private var respuestaCorrecta = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +44,11 @@ class CuestionarioActivity : AppCompatActivity() {
 
         // Inicialización de vistas
         lblPregunta = findViewById(R.id.lblPregunta)
-        radioGroup = findViewById(R.id.radioGroup)
-        radioBtn1 = findViewById(R.id.radioBtn1)
-        radioBtn2 = findViewById(R.id.radioBtn2)
-        radioBtn3 = findViewById(R.id.radioBtn3)
-        radioBtn4 = findViewById(R.id.radioBtn4)
+        optionsContainer = findViewById(R.id.optionsContainer)
         btnResponder = findViewById(R.id.btnResponder)
         btnSiguiente = findViewById(R.id.btnSiguiente)
         btnSalir = findViewById(R.id.btnSalir)
+        progressBar = findViewById(R.id.progressBar)
 
         // Inicialización de Firebase Firestore
         db = FirebaseFirestore.getInstance()
@@ -91,10 +91,14 @@ class CuestionarioActivity : AppCompatActivity() {
         cuestionariosRef.whereEqualTo("id_cuestionario", idCuestionario)
             .get()
             .addOnSuccessListener { querySnapshot ->
+                val preguntas = mutableListOf<Map<String, Any>>()
                 for (document in querySnapshot) {
-                    listaCuestionarios.add(document.data)
+                    preguntas.add(document.data)
                 }
-                if (listaCuestionarios.isNotEmpty()) {
+                if (preguntas.isNotEmpty()) {
+                    // Obtener solo 5 preguntas al azar
+                    listaCuestionarios = seleccionarPreguntasAlAzar(preguntas, 5)
+                    // Mostrar la primera pregunta del cuestionario seleccionado
                     mostrarPregunta(indexPreguntaActual)
                 } else {
                     Log.d(TAG, "No se encontraron cuestionarios con id_cuestionario: $idCuestionario")
@@ -103,6 +107,29 @@ class CuestionarioActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Error al obtener cuestionarios: $exception")
             }
+    }
+    private fun seleccionarPreguntasAlAzar(preguntas: List<Map<String, Any>>, cantidad: Int): MutableList<Map<String, Any>> {
+        // Verificar que hay suficientes preguntas
+        if (preguntas.size <= cantidad) {
+            return preguntas.toMutableList()
+        }
+
+        // Lista para almacenar las preguntas seleccionadas al azar
+        val preguntasSeleccionadas = mutableListOf<Map<String, Any>>()
+
+        // Generar índices aleatorios únicos
+        val indicesAleatorios = mutableSetOf<Int>()
+        while (indicesAleatorios.size < cantidad) {
+            val randomIndex = (0 until preguntas.size).random()
+            indicesAleatorios.add(randomIndex)
+        }
+
+        // Agregar las preguntas correspondientes a los índices aleatorios generados
+        for (index in indicesAleatorios) {
+            preguntasSeleccionadas.add(preguntas[index])
+        }
+
+        return preguntasSeleccionadas
     }
 
     private fun mostrarPregunta(index: Int) {
@@ -114,18 +141,21 @@ class CuestionarioActivity : AppCompatActivity() {
         val respuestas = opciones.values.toMutableList()
 
         // Obtener la respuesta correcta y agregarla como una de las opciones
-        val respuestaCorrecta = cuestionario["respuesta"].toString()
+        respuestaCorrecta = cuestionario["respuesta"].toString()
         respuestas.add(respuestaCorrecta)
 
-        // Asignar las opciones a los RadioButtons de forma aleatoria
-        respuestas.shuffle()
-        radioBtn1.text = respuestas[0]
-        radioBtn2.text = respuestas[1]
-        radioBtn3.text = respuestas[2]
-        radioBtn4.text = respuestas[3]
+        // Limpiar el contenedor de opciones previo
+        optionsContainer.removeAllViews()
 
-        // Limpiar selección previa del RadioGroup
-        radioGroup.clearCheck()
+        // Asignar las opciones a CardViews de forma aleatoria
+        respuestas.shuffle()
+        respuestas.forEach { respuesta ->
+            val optionCard = createOptionCard(respuesta)
+            optionsContainer.addView(optionCard)
+        }
+
+        // Limpiar selección previa
+        selectedOption = null
 
         // Ocultar el botón Siguiente si es la última pregunta
         btnSiguiente.visibility = if (index < listaCuestionarios.size - 1) {
@@ -133,111 +163,116 @@ class CuestionarioActivity : AppCompatActivity() {
         } else {
             View.GONE
         }
+
+        // Actualizar la barra de progreso
+        progressBar.progress = (index.toFloat() / listaCuestionarios.size * 100).toInt()
+    }
+
+    private fun createOptionCard(respuesta: String): CardView {
+        val cardView = CardView(this)
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.setMargins(0, 16, 0, 16)
+        cardView.layoutParams = layoutParams
+        cardView.radius = 8f
+        cardView.setCardBackgroundColor(Color.LTGRAY)
+        cardView.setContentPadding(16, 16, 16, 16)
+
+        val textView = TextView(this)
+        textView.text = respuesta
+        textView.textSize = 16f
+        textView.setTextColor(Color.BLACK)
+
+        cardView.addView(textView)
+
+        cardView.setOnClickListener {
+            selectedOption?.setCardBackgroundColor(Color.LTGRAY)
+            cardView.setCardBackgroundColor(Color.YELLOW)
+            selectedOption = cardView
+        }
+
+        return cardView
     }
 
     private fun validarRespuesta() {
-        val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-        val respuestaSeleccionada = selectedRadioButton.text.toString()
-        val respuestaCorrecta = listaCuestionarios[indexPreguntaActual]["respuesta"].toString()
-
-        if (selectedRadioButton.tag == null) {
-            selectedRadioButton.tag = false
-        }
-
-        if (respuestaSeleccionada == respuestaCorrecta) {
-            // Verificar si la respuesta ya fue marcada como correcta
-            if (!(selectedRadioButton.tag as Boolean)) {
-                // Respuesta correcta: Incrementar puntos
+        if (selectedOption != null) {
+            val selectedText = (selectedOption?.getChildAt(0) as TextView).text.toString()
+            if (selectedText == respuestaCorrecta) {
+                selectedOption?.setCardBackgroundColor(Color.GREEN)
                 puntosCuestionarioActual++
-                selectedRadioButton.tag = true // Marcar la respuesta como correcta
-                Toast.makeText(this, "Respuesta correcta", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Ya has respondido correctamente esta pregunta", Toast.LENGTH_SHORT).show()
+                selectedOption?.setCardBackgroundColor(Color.RED)
             }
+            btnResponder.isEnabled = false
+            btnSiguiente.visibility = View.VISIBLE
         } else {
-            // Respuesta incorrecta
-            Toast.makeText(this, "Respuesta incorrecta", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Seleccione una opción", Toast.LENGTH_SHORT).show()
         }
-
-
-        // Mostrar automáticamente la siguiente pregunta
-        mostrarSiguientePregunta()
     }
 
     private fun mostrarSiguientePregunta() {
-        // Avanzar al índice de la siguiente pregunta
-        indexPreguntaActual++
-
-        // Mostrar la siguiente pregunta si no se ha llegado al final
-        if (indexPreguntaActual < listaCuestionarios.size) {
+        if (indexPreguntaActual < listaCuestionarios.size - 1) {
+            indexPreguntaActual++
             mostrarPregunta(indexPreguntaActual)
+            btnResponder.isEnabled = true
+            btnSiguiente.visibility = View.GONE
         } else {
-            // Mostrar el botón de salir al completar todas las preguntas
+            totalPuntosAcumulados += puntosCuestionarioActual
+            Toast.makeText(this, "Cuestionario completado. Puntos obtenidos: $puntosCuestionarioActual", Toast.LENGTH_LONG).show()
+            guardarPuntosEnFirestore()
+            btnSiguiente.visibility = View.GONE
             btnSalir.visibility = View.VISIBLE
-            cuestionarioCompletado = true
-
-            // Al finalizar todas las preguntas, enviar los puntos acumulados a Firestore
-            actualizarPuntosFirestore()
         }
     }
 
-    private fun actualizarPuntosFirestore() {
-        // Actualizar puntos acumulados
-        totalPuntosAcumulados += puntosCuestionarioActual
-
-        // Actualizar o crear documento de estudiante en Firestore
-        db.collection("estudiantes")
-            .document(codigoAcceso)
-            .get()
+    private fun guardarPuntosEnFirestore() {
+        val userRef = db.collection("estudiantes").document(codigoAcceso)
+        userRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
-                    // El documento del estudiante existe, actualizar puntos_cuestionario
-                    val puntosAnteriores = documentSnapshot.getLong("puntos_cuestionario") ?: 0
-                    val nuevosPuntos = puntosAnteriores + puntosCuestionarioActual
-
-                    db.collection("estudiantes")
-                        .document(codigoAcceso)
-                        .update("puntos_cuestionario", nuevosPuntos)
-                        .addOnSuccessListener {
-                            Log.d(TAG, "Puntos actualizados en Firestore")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.e(TAG, "Error al actualizar puntos: $e")
-                        }
-                } else {
-                    // El documento del estudiante no existe, crear uno nuevo
-                    val nuevoEstudiante = hashMapOf(
-                        "codigoAcceso" to codigoAcceso,
-                        "puntos_cuestionario" to puntosCuestionarioActual
+                    val datosUsuario = documentSnapshot.data
+                    val puntosAcumulados = datosUsuario?.get("puntos_cuestionario") as? Long ?: 0
+                    userRef.update(
+                        "puntos_cuestionario",
+                        puntosAcumulados + puntosCuestionarioActual
                     )
-
-                    db.collection("estudiantes")
-                        .document(codigoAcceso)
-                        .set(nuevoEstudiante)
                         .addOnSuccessListener {
-                            Log.d(TAG, "Nuevo estudiante creado con puntos")
+                            Log.d(TAG, "Puntos acumulados actualizados en Firestore")
+
+                            // Crear Intent para enviar datos a DetalleCuestionarioActivity
+                            val intent = Intent(
+                                this@CuestionarioActivity,
+                                DetalleCuestionarioActivity::class.java
+                            )
+                            intent.putExtra("puntosObtenidos", puntosCuestionarioActual)
+                            startActivity(intent)
                         }
                         .addOnFailureListener { e ->
-                            Log.e(TAG, "Error al crear nuevo estudiante: $e")
+                            Log.e(TAG, "Error al actualizar puntos acumulados en Firestore", e)
                         }
                 }
             }
             .addOnFailureListener { e ->
-                Log.e(TAG, "Error al verificar existencia de estudiante: $e")
+                Log.e(TAG, "Error al obtener datos del usuario en Firestore", e)
             }
     }
 
-    private fun iniciarCuestionario() {
-        indexPreguntaActual = 0
-        puntosCuestionarioActual = 0
-        cuestionarioCompletado = false
-        totalPuntosAcumulados = 0 // Reiniciar puntos acumulados
-        mostrarPregunta(indexPreguntaActual)
-    }
 
-    private fun verificarCuestionarioCompletado() {
-        // Implementa la lógica necesaria para verificar si el cuestionario está completado
-        // Puedes establecer la lógica para cuestionarioCompletado según tu flujo de la aplicación
+        private fun verificarCuestionarioCompletado() {
+        val userRef = db.collection("estudiante").document(codigoAcceso)
+        userRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val datosUsuario = documentSnapshot.data
+                    val eventosCompletados = datosUsuario?.get("eventos_completados") as? List<String>
+                    cuestionarioCompletado = eventosCompletados?.contains(intent.getStringExtra("eventId")) ?: false
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error al obtener datos del usuario en Firestore", e)
+            }
     }
 
     companion object {

@@ -4,7 +4,7 @@
     android:id="@+id/header"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="#6A30D1"
+    android:background="#8649F3"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/nav_header_imagenView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/icons192"
             android:layout_gravity="start" />
         <TextView
@@ -32,9 +32,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="hola "
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textColor="#DCC6C6"
+            android:textSize="15sp"
             android:layout_gravity="start" />
 
     </LinearLayout>
