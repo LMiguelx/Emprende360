@@ -47,86 +47,136 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="#7935E4"
+
             android:orientation="vertical"
             android:padding="10dp">
-            <TextView
-                android:id="@+id/lblLugarDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imgFotoDetalle"
-                android:text="Lugar"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblLugarDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgFotoDetalle"
+                    android:text="Lugar"
+                    android:drawableStart="@drawable/location"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="15dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblAforoDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblLugarDetalle"
-                android:layout_marginTop="8dp"
-                android:layout_margin="10dp"
-                android:textColor="#FFFFFF"
-                android:text="Aforo"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblAforoDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblLugarDetalle"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/icon"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:text="Aforo"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblDescripcionDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblAforoDetalle"
-                android:layout_marginTop="8dp"
-                android:text="Descripción"
-                android:textSize="18sp"
-                android:layout_margin="10dp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textStyle="bold"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblDescripcionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblAforoDetalle"
+                    android:layout_marginTop="8dp"
+                    android:text="Descripción"
+                    android:textSize="18sp"
+                    android:drawableStart="@drawable/description"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblHorarioDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblDescripcionDetalle"
-                android:layout_marginTop="8dp"
-                android:text="Horario"
-                android:textSize="18sp"
-                android:layout_margin="10dp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textStyle="bold"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblHorarioDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblDescripcionDetalle"
+                    android:layout_marginTop="8dp"
+                    android:text="Horario"
+                    android:textSize="18sp"
+                    android:drawableStart="@drawable/schedule"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblIntroduccionDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblHorarioDetalle"
-                android:layout_marginTop="8dp"
-                android:text="Introducción"
-                android:textSize="18sp"
-                android:layout_margin="10dp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textStyle="bold"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblIntroduccionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblHorarioDetalle"
+                    android:layout_marginTop="8dp"
+                    android:text="Introducción"
+                    android:textSize="18sp"
+                    android:drawableStart="@drawable/introduction"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblTemasDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblIntroduccionDetalle"
-                android:layout_marginTop="8dp"
-                android:text="Temas"
-                android:textSize="18sp"
-                android:layout_margin="10dp"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textStyle="bold"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+
+                <TextView
+                    android:id="@+id/lblTemasDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblIntroduccionDetalle"
+                    android:layout_marginTop="8dp"
+                    android:text="Temas"
+                    android:textSize="18sp"
+                    android:drawableStart="@drawable/theme"
+                    android:layout_margin="20dp"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
             <!-- Añadir más vistas según sea necesario -->
         </LinearLayout>
     </LinearLayout>

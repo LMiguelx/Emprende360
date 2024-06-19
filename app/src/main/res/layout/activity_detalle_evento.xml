@@ -37,7 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_margin="5dp"
-            android:background="@drawable/solo_borde"
             android:orientation="vertical">
 
             <ImageView
@@ -52,76 +51,124 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="#7935E4"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:id="@+id/lblLugarDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Lugar:"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblLugarDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:drawableStart="@drawable/location"
+                    android:drawablePadding="15dp"
+                    android:text="Lugar:"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblAforoDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="Aforo:"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblAforoDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Aforo:"
+                    android:drawableStart="@drawable/icon"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblDescripcionDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Descripción:"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblDescripcionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Descripción:"
+                    android:drawableStart="@drawable/description"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblHorarioDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Horario:"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblHorarioDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Horario:"
+                    android:drawableStart="@drawable/schedule"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblIntroduccionDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Introducción:"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblIntroduccionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Introducción:"
+                    android:textColor="#FFFFFF"
+                    android:drawableStart="@drawable/introduction"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblTemasDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Temas:"
-                android:textColor="#FFFFFF"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
+                <TextView
+                    android:id="@+id/lblTemasDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Temas:"
+                    android:drawableStart="@drawable/theme"
+                    android:drawablePadding="15dp"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

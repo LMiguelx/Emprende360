@@ -1,0 +1,16 @@
+<!-- circular_progress_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:thicknessRatio="12"
+    android:useLevel="false">
+
+    <solid android:color="#E0E0E0" />
+    <stroke
+        android:width="4dp"
+        android:color="#CCCCCC" />
+
+    <size
+        android:width="64dp"
+    android:height="64dp" />
+
+</shape>

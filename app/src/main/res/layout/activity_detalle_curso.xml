@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/borde_circle"
+            android:background="#7935E4"
             android:layout_margin="10dp">
 
             <TextView
@@ -37,7 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/solo_borde"
             android:layout_margin="10dp">
 
             <ImageView
@@ -52,83 +51,140 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/btn6"
-            android:backgroundTint="#8D53F3"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="50dp">
 
-            <TextView
-                android:id="@+id/lblDescripcionDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="DESCRIPCIÓN:"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview">
 
-            <TextView
-                android:id="@+id/lblDuracionDetalle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="DURACIÓN:"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/lblDescripcionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:drawableStart="@drawable/description"
+                    android:drawablePadding="15dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="DESCRIPCIÓN:"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblHorarioDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="HORARIO:"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview"
+                >
+                <TextView
+                    android:id="@+id/lblDuracionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="DURACIÓN:"
+                    android:drawableStart="@drawable/duration"
+                    android:drawablePadding="15dp"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblInscripcionDetalle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="INSCRIPCIÓN:"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/lblPrecioDetalle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="PRECIO:"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview"
+                >
 
-            <TextView
-                android:id="@+id/lblIntroduccionDetalle"
+                <TextView
+                    android:id="@+id/lblHorarioDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="HORARIO:"
+                    android:drawableStart="@drawable/schedule"
+                    android:drawablePadding="15dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:layout_margin="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:text="INTRODUCCIÓN:"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview"
+                >
+                <TextView
+                    android:id="@+id/lblInscripcionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="INSCRIPCIÓN:"
+                    android:drawableStart="@drawable/inscription"
+                    android:drawablePadding="15dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:layout_margin="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview"
+                >
+                <TextView
+                    android:id="@+id/lblPrecioDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="PRECIO:"
+                    android:drawableStart="@drawable/price"
+                    android:drawablePadding="19dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:layout_margin="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_textview"
+                >
+                <TextView
+                    android:id="@+id/lblIntroduccionDetalle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="INTRODUCCIÓN:"
+                    android:drawableStart="@drawable/introduction"
+                    android:drawablePadding="15dp"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

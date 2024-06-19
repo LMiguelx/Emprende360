@@ -36,6 +36,8 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.util.TypedValue
+import android.widget.Button
+import org.checkerframework.common.subtyping.qual.Bottom
 
 
 class DatosPasaporteActivity : AppCompatActivity() {
@@ -556,6 +558,12 @@ class DatosPasaporteActivity : AppCompatActivity() {
                 Log.e("zzz", "Error al obtener el documento del estudiante", e)
                 callback(0)
             }
+        val ingreso_history = findViewById<Button>(R.id.btnverhistory) // Assuming it's a Button, not Bottom
+
+        ingreso_history.setOnClickListener {
+            val intent = Intent(this, DatosPuntosActivity::class.java) // Replace with your actual activity name
+            startActivity(intent)
+        }
     }
     private fun actualizarPuntosEstudiante(codigoAcceso: String, nuevosPuntos: Int) {
         val estudianteRef = db.collection("estudiantes").document(codigoAcceso)

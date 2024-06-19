@@ -1,0 +1,24 @@
+<!-- circular_progress_fill.xml -->
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="270"
+    android:toDegrees="270">
+
+    <shape
+        android:innerRadiusRatio="3"
+        android:shape="ring"
+        android:thicknessRatio="12"
+        android:useLevel="true">
+
+        <gradient
+            android:centerColor="#673AB7"
+        android:endColor="#512DA8"
+        android:startColor="#9575CD"
+        android:type="sweep" />
+
+        <size
+            android:width="64dp"
+        android:height="64dp" />
+
+    </shape>
+
+</rotate>
