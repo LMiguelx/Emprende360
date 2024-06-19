@@ -17,14 +17,8 @@
             android:icon="@drawable/baseline_assignment_24"
             android:title="Cursos"/>
     </group>
-    <item android:title="Configuración">
+    <item android:title="Opciones">
         <menu>
-            <item android:id="@+id/nav_item_six"
-                android:icon="@drawable/baseline_perm_identity_24"
-                android:title="Cuenta"/>
-            <item android:id="@+id/nav_item_seven"
-                android:icon="@drawable/baseline_seguridad_24"
-                android:title="Configuracion"/>
             <item android:id="@+id/nav_item_eight"
                 android:icon="@drawable/baseline_reply_24"
                 android:title="Cerrar Sesion"/>

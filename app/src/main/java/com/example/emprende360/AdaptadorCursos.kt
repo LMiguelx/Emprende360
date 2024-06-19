@@ -32,7 +32,6 @@ class AdaptadorCursos(private val context: Context, private val listaCursos: Lis
         private val nombreTextView: TextView = itemView.findViewById(R.id.NombreCurso)
         private val introduccionTextView: TextView = itemView.findViewById(R.id.IntroduccionCurso)
         private val inscripcionTextView: TextView = itemView.findViewById(R.id.InscripcionCurso)
-        private val horarioTextView: TextView = itemView.findViewById(R.id.HorarioCurso)
         private val precioTextView: TextView = itemView.findViewById(R.id.PrecioCurso)
         private val imagenImageView: ImageView = itemView.findViewById(R.id.imgFotoCursos)
 
@@ -40,7 +39,6 @@ class AdaptadorCursos(private val context: Context, private val listaCursos: Lis
             nombreTextView.text = "${curso["nombre"] as? String ?: ""}"
             introduccionTextView.text = "${curso["introduccion"] as? String ?: ""}"
             inscripcionTextView.text = parseInscripcion(curso["inscripciones"] as? Map<String, Any>)
-            horarioTextView.text = "Horario: ${parseHorario(curso["horario"])}"
             precioTextView.text = "Precio: ${curso["precio"]?.toString() ?: ""}"
 
             val imagenUrl = curso["imagen"] as? String ?: ""

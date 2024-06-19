@@ -18,23 +18,18 @@ import java.util.*
 
 class DetalleEventoActivity : AppCompatActivity() {
 
-    // Preferencias compartidas para obtener el código de acceso
     private lateinit var sharedPreferences: SharedPreferences
 
-    // Referencia a Firestore
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalle_evento)
 
-        // Activar Edge-to-Edge
         enableEdgeToEdge()
 
-        // Inicializar SharedPreferences
         sharedPreferences = getSharedPreferences("profile_prefs", Context.MODE_PRIVATE)
 
-        // Obtener datos del intent
         val eventId = intent.getStringExtra("eventId")
         val nombre = intent.getStringExtra("nombre")
         val lugar = intent.getStringExtra("lugar")

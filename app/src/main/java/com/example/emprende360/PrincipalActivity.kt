@@ -9,6 +9,7 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import java.text.SimpleDateFormat
@@ -49,14 +51,10 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var viewPager2: ViewPager2
     private val sliderHandler = Handler()
 
-    // Hora y fecha
-    private lateinit var tvDate: TextView
-    private lateinit var tvTime: TextView
 
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
-            updateDateTime()
             handler.postDelayed(this, 1000)
         }
     }
@@ -72,6 +70,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
         val verMasEventosCarview: TextView = findViewById(R.id.btn_ver_mas)
+        val verMasEventosCarview2: TextView = findViewById(R.id.btn_ver_mas2)
 
         val headerView = navigationView.getHeaderView(0)
         val imgUserProfile:ImageView = headerView.findViewById(R.id.nav_header_imagenView)
@@ -94,6 +93,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             val intent23 = Intent(this, EventosActivity::class.java)
             startActivity(intent23)
         }
+        verMasEventosCarview2.setOnClickListener {
+            val intent23 = Intent(this, CursosActivity::class.java)
+            startActivity(intent23)
+        }
+
 
         // Configuración de la barra de herramientas
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
@@ -111,6 +115,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         establecerNombreUsuario()
+        cargarImagenCursoMasBarato()
 
         // Función del botón de navegación inferior
         val bottomNavigation = findViewById<CurvedBottomNavigation>(R.id.bottomNavigation)
@@ -160,6 +165,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         // Slider de imágenes
         viewPager2 = findViewById(R.id.viewPagerImageSlider)
 
+
         // Obtener imágenes desde Firestore
         db.collection("eventos")
             .get()
@@ -189,11 +195,36 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         })
 
-        tvDate = findViewById(R.id.textViewDate)
-        tvTime = findViewById(R.id.textViewTime)
 
-        updateDateTime()
-        handler.post(runnable) // Iniciar la actualización
+    }
+    private fun cargarImagenCursoMasBarato() {
+        db.collection("cursos")
+            .orderBy("precio", Query.Direction.ASCENDING)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    val curso = documents.first()
+                    val urlImagen = curso.getString("imagen")
+
+                    // Cargar la imagen en el ImageView correspondiente
+                    val imageView: ImageView = findViewById(R.id.image_cursos_cercanos)
+                    Glide.with(this)
+                        .load(urlImagen)
+                        .placeholder(R.drawable.ciberseguridad)
+                        .error(R.drawable.ciberseguridad)
+                        .into(imageView)
+                } else {
+                    Log.d("PrincipalActivity", "No se encontraron cursos")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e(
+                    "PrincipalActivity",
+                    "Error al cargar el curso con precio más bajo",
+                    exception
+                )
+            }
     }
 
     override fun onDestroy() {
@@ -206,15 +237,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         findViewById<TextView>(R.id.nombre)?.text = "Hola $nombreUsuario"
     }
 
-    private fun updateDateTime() {
-        val currentDateTime = Calendar.getInstance().time
 
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val timeFormat = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
-
-        tvDate.text = dateFormat.format(currentDateTime)
-        tvTime.text = timeFormat.format(currentDateTime)
-    }
 
     private val sliderRunnable = Runnable {
         viewPager2.currentItem = viewPager2.currentItem + 1

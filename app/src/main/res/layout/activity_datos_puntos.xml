@@ -29,27 +29,48 @@
                 android:id="@+id/historiquizz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
                 android:drawableStart="@drawable/history"
                 android:drawablePadding="12dp"
                 android:layout_margin="2dp"
-                android:text="Historia de cuestionarios"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:text="Historial de cuestionarios"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:paddingBottom="8dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp">
             <TextView
-                android:id="@+id/puntos_cuestionarios"
+                android:id="@+id/infopuntoscuestionarios"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_height="wrap_content"
+                android:text="Aca se mostrara puntos obtenidos por cuestionarios."
+                android:textColor="@color/color1"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Additional TextView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/puntoscuestioanrios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mas a detalle de puntos de los puntos de los cuestionarios."
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:fontFamily="@font/roboto_medium"
+                android:text="Texto adicional 1"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </LinearLayout>
+
     </LinearLayout>
 
     <!-- Second Section -->
@@ -64,35 +85,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/firstSection">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-        <TextView
-            android:id="@+id/historiaaistencias"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/attendance"
-            android:drawablePadding="12dp"
-            android:text="Historia de asistencias"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
-    </LinearLayout>
+            android:layout_margin="5dp">
+            <TextView
+                android:id="@+id/historiaaistencias"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/attendance"
+                android:drawablePadding="12dp"
+                android:text="Historial de asistencias"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp" />
+        </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_margin="5dp">
-        <ListView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción detallada del segundo elemento."
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_margin="5dp">
+            <TextView
+                android:id="@+id/infopuntosasistencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Aca se mostrara puntos obtenidos por Asistencias."
+                android:textColor="@color/color1"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Additional TextView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/puntosasistencias"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_height="wrap_content"
+                android:text="Texto adicional 2"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
